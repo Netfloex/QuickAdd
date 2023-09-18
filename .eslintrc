@@ -4,9 +4,10 @@
 		"next/core-web-vitals",
 		"plugin:@typescript-eslint/recommended",
 		"plugin:prettier/recommended",
-		"plugin:css-modules/recommended"
+		"plugin:css-modules/recommended",
+		"plugin:@tanstack/eslint-plugin-query/recommended"
 	],
-	"plugins": ["@typescript-eslint", "css-modules"],
+	"plugins": ["@typescript-eslint", "css-modules", "@tanstack/query"],
 	"rules": {
 		"@typescript-eslint/no-non-null-assertion": 0,
 		"@typescript-eslint/no-unused-vars": ["error"],

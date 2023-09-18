@@ -1,6 +1,6 @@
 import "@styles/global.scss"
 
-import { Providers } from "./providers"
+import { Providers } from "./Providers"
 
 import { FCC } from "@typings/FCC"
 

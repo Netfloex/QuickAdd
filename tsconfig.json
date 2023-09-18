@@ -3,7 +3,11 @@
 		"baseUrl": ".",
 		"paths": {
 			"@typings/*": ["src/typings/*"],
-			"@styles/*": ["src/styles/*"]
+			"@styles/*": ["src/styles/*"],
+			"@hooks/*": ["src/hooks/*"],
+			"@server/*": ["src/server/*"],
+			"@schemas/*": ["src/schemas/*"],
+			"got": ["./node_modules/got/dist/source"]
 		},
 		"target": "es5",
 		"lib": ["dom", "dom.iterable", "esnext"],
