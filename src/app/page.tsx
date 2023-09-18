@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 const Page: FC = () => (
 	<>
-		<span>Hello World</span>
+		<span className="bg-red-600">Hello World</span>
 	</>
 )
 
