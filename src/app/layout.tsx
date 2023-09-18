@@ -1,5 +1,7 @@
 import "@styles/global.scss"
 
+import { Providers } from "./providers"
+
 import { FCC } from "@typings/FCC"
 
 const RootLayout: FCC = ({ children }) => (
@@ -8,7 +10,9 @@ const RootLayout: FCC = ({ children }) => (
 			<meta charSet="utf-8" />
 			<meta name="viewport" content="width=device-width" />
 		</head>
-		<body>{children}</body>
+		<body>
+			<Providers>{children}</Providers>
+		</body>
 	</html>
 )
 
