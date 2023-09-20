@@ -1,0 +1,32 @@
+.movieItem {
+	width: 100%;
+	// padding-right: 0;
+	// padding-left: 0;
+
+	// .overflow {
+	// 	margin-left: unset;
+	// }
+
+	.body {
+		flex-direction: row;
+	}
+
+	.posterWrapper {
+		min-width: 10rem;
+		height: 15rem;
+
+		@media screen and (width >= 600px) {
+			min-width: 15rem;
+			height: 22.5rem;
+		}
+
+		.poster {
+			width: 100%;
+			height: 100%;
+		}
+	}
+
+	.title {
+		font-size: xx-large;
+	}
+}

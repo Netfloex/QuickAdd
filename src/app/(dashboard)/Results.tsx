@@ -1,8 +1,6 @@
-// import styles from "./Results.module.scss"
-
-import { Card, CardBody, CardHeader } from "@nextui-org/card"
-import { Image } from "@nextui-org/image"
+import { Card, CardBody } from "@nextui-org/card"
 import { CircularProgress } from "@nextui-org/progress"
+import { MovieItem } from "src/app/(dashboard)/MovieItem"
 import { trpc } from "src/utils/trpc"
 
 import type { FC } from "react"
@@ -33,29 +31,5 @@ export const Results: FC<{ query: string }> = ({ query }) => {
 	// No data
 	if (!data.length) return <>No Items</>
 
-	return (
-		<>
-			{data?.map((m) => (
-				<Card key={m.id}>
-					<CardBody>
-						{m.poster_path && (
-							<Image
-								alt=""
-								src={
-									"https://www.themoviedb.org/t/p/w300_and_h450_bestv2/" +
-									m.poster_path
-								}
-							/>
-						)}
-						<div>
-							<CardHeader>
-								<h1>{m.title}</h1>
-							</CardHeader>
-							<p>{m.overview}</p>
-						</div>
-					</CardBody>
-				</Card>
-			))}
-		</>
-	)
+	return <>{data?.map((m) => <MovieItem key={m.id} movie={m} />)}</>
 }
