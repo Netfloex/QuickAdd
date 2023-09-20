@@ -32,7 +32,9 @@ export const MovieItem: FC<{ movie: MovieSearchResult }> = ({ movie }) => {
 					)}
 					<div>
 						<CardHeader>
-							<h1 className={styles.title}>{movie.title}</h1>
+							<h1 className={styles.title}>
+								{movie.title} ({movie.year})
+							</h1>
 						</CardHeader>
 						<p>{movie.overview}</p>
 					</div>
