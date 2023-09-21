@@ -16,6 +16,7 @@ export const Providers: FCC = ({ children }) => {
 				defaultOptions: {
 					queries: {
 						refetchOnWindowFocus: false,
+						staleTime: Infinity,
 						retry(failureCount, error): boolean {
 							if (failureCount > 2) return false
 							return !(

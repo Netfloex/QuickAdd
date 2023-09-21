@@ -1,7 +1,7 @@
 import { z } from "zod"
 
 export const MovieData = z.object({
-	imdb_id: z.string(),
+	imdb_id: z.string().nullable(),
 	original_title: z.string(),
 })
 

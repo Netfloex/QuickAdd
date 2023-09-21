@@ -13,7 +13,7 @@ export const getImdbId = async (id: number): Promise<MovieData> => {
 		return result.data
 	}
 
-	console.log(inspect(result.error, true, 10, true))
+	console.log(data, inspect(result.error, true, 10, true))
 
 	throw result.error
 }
