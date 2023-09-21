@@ -9,12 +9,10 @@ import {
 	TableHeader,
 	TableRow,
 } from "@nextui-org/table"
-import { useAsyncList } from "@react-stately/data"
 import { useCallback, useMemo, useState } from "react"
 import { trpc } from "src/utils/trpc"
 
 import { MovieSearchResult } from "@schemas/MovieSearchResult"
-import { Torrent } from "@schemas/Torrent"
 
 import type { FC } from "react"
 
@@ -24,21 +22,16 @@ export const TorrentTable: FC<{ movie: MovieSearchResult }> = ({ movie }) => {
 		direction: "descending",
 	})
 
-	const { data, refetch, isFetching } = trpc.searchTorrents.useQuery(
-		{
-			id: movie.id,
-			sortOptions: {
-				order:
-					sortDescriptor.direction == "ascending"
-						? "ASCENDING"
-						: "DESCENDING",
-				sort: sortDescriptor.column
-					?.toString()
-					.toUpperCase() as "SEEDERS",
-			},
+	const { data, isFetching } = trpc.searchTorrents.useQuery({
+		id: movie.id,
+		sortOptions: {
+			order:
+				sortDescriptor.direction == "ascending"
+					? "ASCENDING"
+					: "DESCENDING",
+			sort: sortDescriptor.column?.toString().toUpperCase() as "SEEDERS",
 		},
-		{},
-	)
+	})
 
 	const columns = useMemo(
 		() => [
@@ -66,32 +59,9 @@ export const TorrentTable: FC<{ movie: MovieSearchResult }> = ({ movie }) => {
 		[],
 	)
 
-	const torrents = useAsyncList<Torrent, string>({
-		initialSortDescriptor: sortDescriptor,
-		async load() {
-			const torrents = await refetch()
-			console.log(torrents)
-
-			return {
-				items:
-					torrents.data?.map(
-						(torrent) =>
-							({
-								...torrent,
-								added: new Date(torrent.added),
-							}) satisfies Torrent,
-					) ?? [],
-			}
-		},
-	})
-
-	const sort = useCallback(
-		(desc: SortDescriptor) => {
-			setSortDescriptor(desc)
-			torrents.sort(desc)
-		},
-		[torrents],
-	)
+	const sort = useCallback((desc: SortDescriptor) => {
+		setSortDescriptor(desc)
+	}, [])
 
 	return (
 		<>
@@ -116,8 +86,9 @@ export const TorrentTable: FC<{ movie: MovieSearchResult }> = ({ movie }) => {
 					)}
 				</TableHeader>
 				<TableBody
-					items={isFetching ? [] : torrents.items}
+					items={data ?? []}
 					isLoading={isFetching}
+					loadingState={isFetching ? "loading" : "idle"}
 					loadingContent={<Spinner label="Loading..." />}
 					emptyContent={
 						data && data.length == 0 ? "No torrents found" : " "
