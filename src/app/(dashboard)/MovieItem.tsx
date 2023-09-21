@@ -3,24 +3,25 @@ import styles from "./MovieItem.module.scss"
 import { Button } from "@nextui-org/button"
 import { Card, CardBody } from "@nextui-org/card"
 import { Image } from "@nextui-org/image"
+import { useDisclosure } from "@nextui-org/react"
 import NextImage from "next/image"
 import { useCallback } from "react"
-import { trpc } from "src/utils/trpc"
+import { TorrentModal } from "src/app/(dashboard)/TorrentModal"
 
 import { MovieSearchResult } from "@schemas/MovieSearchResult"
 
 import type { FC } from "react"
 
 export const MovieItem: FC<{ movie: MovieSearchResult }> = ({ movie }) => {
-	const { data, isInitialLoading, refetch } = trpc.searchTorrents.useQuery(
-		{ id: movie.id },
-		{ enabled: false },
-	)
+	const { isOpen, onOpen, onClose } = useDisclosure()
 
-	const fetch = useCallback(() => refetch(), [refetch])
+	const openModal = useCallback(() => {
+		onOpen()
+	}, [onOpen])
 
 	return (
 		<>
+			<TorrentModal isOpen={isOpen} onClose={onClose} movie={movie} />
 			<Card key={movie.id} className={styles.movieItem}>
 				<CardBody className={styles.body}>
 					{movie.poster_path && (
@@ -45,10 +46,7 @@ export const MovieItem: FC<{ movie: MovieSearchResult }> = ({ movie }) => {
 							{movie.title} ({movie.year})
 						</h1>
 						<p>{movie.overview}</p>
-						<Button isLoading={isInitialLoading} onClick={fetch}>
-							Search
-						</Button>
-						{data && <pre>{JSON.stringify(data, null, "\t")}</pre>}
+						<Button onClick={openModal}>Search</Button>
 					</div>
 				</CardBody>
 			</Card>
