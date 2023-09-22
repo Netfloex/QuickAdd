@@ -43,6 +43,18 @@ export const TorrentTable: FC<{ movie: MovieSearchResult }> = ({ movie }) => {
 				label: "Title",
 			},
 			{
+				key: "quality",
+				label: "Quality",
+			},
+			{
+				key: "codec",
+				label: "Codec",
+			},
+			{
+				key: "source",
+				label: "Source",
+			},
+			{
 				key: "seeders",
 				label: "Peers",
 			},
@@ -97,6 +109,10 @@ export const TorrentTable: FC<{ movie: MovieSearchResult }> = ({ movie }) => {
 					)
 				case "added":
 					return <>{torrent.added.toLocaleDateString()}</>
+				case "quality":
+				case "codec":
+				case "source":
+					return <>{torrent.movieProperties[key]}</>
 				default:
 					return <>{getKeyValue(torrent, key)}</>
 			}

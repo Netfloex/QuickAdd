@@ -20,7 +20,7 @@ export const TorrentModal: FC<{
 	return (
 		<>
 			<Modal
-				size="5xl"
+				size="full"
 				isOpen={isOpen}
 				onClose={onClose}
 				scrollBehavior="inside"

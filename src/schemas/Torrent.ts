@@ -7,7 +7,13 @@ export const MovieProperties = z.object({
 		z.literal("UNKNOWN"),
 	]),
 	imdb: z.string().nullable(),
-	quality: z.string(),
+	quality: z.string().transform((quality) => {
+		if (quality.match(/^P/)) {
+			return quality.replace(/^P/, "") + "p"
+		}
+
+		return quality
+	}),
 	source: z.string(),
 })
 
