@@ -11,6 +11,7 @@ import {
 	TableRow,
 } from "@nextui-org/table"
 import { useCallback, useMemo, useState } from "react"
+import { PropertyFilter } from "src/app/(dashboard)/PropertyFilter"
 import { formatBytes } from "src/utils/formatBytes"
 import { trpc } from "src/utils/trpc"
 
@@ -23,17 +24,6 @@ export const TorrentTable: FC<{ movie: MovieSearchResult }> = ({ movie }) => {
 	const [sortDescriptor, setSortDescriptor] = useState<SortDescriptor>({
 		column: "seeders",
 		direction: "descending",
-	})
-
-	const { data, isFetching } = trpc.searchTorrents.useQuery({
-		id: movie.id,
-		sortOptions: {
-			order:
-				sortDescriptor.direction == "ascending"
-					? "ASCENDING"
-					: "DESCENDING",
-			sort: sortDescriptor.column?.toString().toUpperCase() as "SEEDERS",
-		},
 	})
 
 	const columns = useMemo(
@@ -70,6 +60,38 @@ export const TorrentTable: FC<{ movie: MovieSearchResult }> = ({ movie }) => {
 				key: "added",
 				label: "Added",
 			},
+		],
+		[],
+	)
+
+	const qualityItems = useMemo(
+		() => [
+			{ key: "P480", label: "480p" },
+			{ key: "P540", label: "540p" },
+			{ key: "P576", label: "576p" },
+			{ key: "P720", label: "720p" },
+			{ key: "P1080", label: "1080p" },
+			{ key: "P2160", label: "2160p" },
+		],
+		[],
+	)
+	const codecItems = useMemo(
+		() => [
+			{ key: "X264", label: "X264" },
+			{ key: "X265", label: "X265" },
+		],
+		[],
+	)
+	const sourceItems = useMemo(
+		() => [
+			{ label: "Cam", key: "Cam" },
+			{ label: "Telesync", key: "Telesync" },
+			{ label: "Telecine", key: "Telecine" },
+			{ label: "Dvd", key: "Dvd" },
+			{ label: "Hdtv", key: "Hdtv" },
+			{ label: "Hdrip", key: "Hdrip" },
+			{ label: "WebRip", key: "WebRip" },
+			{ label: "BluRay", key: "BluRay" },
 		],
 		[],
 	)
@@ -120,8 +142,49 @@ export const TorrentTable: FC<{ movie: MovieSearchResult }> = ({ movie }) => {
 		[],
 	)
 
+	const [qualityFilters, setQualityFilters] = useState<Set<Key>>(
+		new Set(qualityItems.map((q) => q.key)),
+	)
+	const [codecFilters, setCodecFilters] = useState<Set<Key>>(
+		new Set(codecItems.map((q) => q.key)),
+	)
+	const [sourceFilters, setSourceFilters] = useState<Set<Key>>(
+		new Set(sourceItems.map((q) => q.key)),
+	)
+
+	const { data, isFetching } = trpc.searchTorrents.useQuery({
+		id: movie.id,
+		sortOptions: {
+			order:
+				sortDescriptor.direction == "ascending"
+					? "ASCENDING"
+					: "DESCENDING",
+			sort: sortDescriptor.column?.toString().toUpperCase() as "SEEDERS",
+		},
+	})
+
 	return (
 		<>
+			<div className="flex gap-3 items-end">
+				<PropertyFilter
+					type="Quality"
+					items={qualityItems}
+					selectedKeys={qualityFilters}
+					setSelectedKeys={setQualityFilters}
+				/>
+				<PropertyFilter
+					type="Codec"
+					items={codecItems}
+					selectedKeys={codecFilters}
+					setSelectedKeys={setCodecFilters}
+				/>
+				<PropertyFilter
+					type="Source"
+					items={sourceItems}
+					selectedKeys={sourceFilters}
+					setSelectedKeys={setSourceFilters}
+				/>
+			</div>
 			<Table
 				removeWrapper
 				sortDescriptor={sortDescriptor}
