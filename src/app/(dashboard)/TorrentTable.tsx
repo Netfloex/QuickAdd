@@ -1,3 +1,4 @@
+import { Chip } from "@nextui-org/chip"
 import { SortDescriptor } from "@nextui-org/react"
 import { Spinner } from "@nextui-org/spinner"
 import {
@@ -10,11 +11,13 @@ import {
 	TableRow,
 } from "@nextui-org/table"
 import { useCallback, useMemo, useState } from "react"
+import { formatBytes } from "src/utils/formatBytes"
 import { trpc } from "src/utils/trpc"
 
 import { MovieSearchResult } from "@schemas/MovieSearchResult"
+import { Torrent } from "@schemas/Torrent"
 
-import type { FC } from "react"
+import type { FC, Key } from "react"
 
 export const TorrentTable: FC<{ movie: MovieSearchResult }> = ({ movie }) => {
 	const [sortDescriptor, setSortDescriptor] = useState<SortDescriptor>({
@@ -37,15 +40,11 @@ export const TorrentTable: FC<{ movie: MovieSearchResult }> = ({ movie }) => {
 		() => [
 			{
 				key: "name",
-				label: "NAME",
+				label: "Title",
 			},
 			{
 				key: "seeders",
-				label: "Seeders",
-			},
-			{
-				key: "leechers",
-				label: "Leechers",
+				label: "Peers",
 			},
 			{
 				key: "size",
@@ -55,6 +54,10 @@ export const TorrentTable: FC<{ movie: MovieSearchResult }> = ({ movie }) => {
 				key: "provider",
 				label: "Provider",
 			},
+			{
+				key: "added",
+				label: "Added",
+			},
 		],
 		[],
 	)
@@ -62,6 +65,44 @@ export const TorrentTable: FC<{ movie: MovieSearchResult }> = ({ movie }) => {
 	const sort = useCallback((desc: SortDescriptor) => {
 		setSortDescriptor(desc)
 	}, [])
+
+	const renderCell = useCallback(
+		(torrent: Torrent, key: Key): JSX.Element => {
+			switch (key) {
+				case "size":
+					return <Chip>{formatBytes(parseInt(torrent.size))}</Chip>
+				case "seeders":
+					let color:
+						| "default"
+						| "danger"
+						| "primary"
+						| "warning"
+						| "secondary"
+						| "success" = "danger"
+
+					if (torrent.seeders > 200) {
+						color = "success"
+					} else if (torrent.seeders > 50) {
+						color = "primary"
+					} else if (torrent.seeders > 10) {
+						color = "secondary"
+					} else if (torrent.seeders > 0) {
+						color = "warning"
+					}
+
+					return (
+						<Chip color={color} variant="flat">
+							{torrent.seeders}/{torrent.leechers}
+						</Chip>
+					)
+				case "added":
+					return <>{torrent.added.toLocaleDateString()}</>
+				default:
+					return <>{getKeyValue(torrent, key)}</>
+			}
+		},
+		[],
+	)
 
 	return (
 		<>
@@ -98,7 +139,7 @@ export const TorrentTable: FC<{ movie: MovieSearchResult }> = ({ movie }) => {
 						<TableRow key={item.name + item.infoHash}>
 							{(columnKey): JSX.Element => (
 								<TableCell>
-									{getKeyValue(item, columnKey)}
+									{renderCell(item, columnKey)}
 								</TableCell>
 							)}
 						</TableRow>

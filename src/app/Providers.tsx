@@ -4,6 +4,7 @@ import { NextUIProvider } from "@nextui-org/react"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { httpBatchLink, loggerLink, TRPCClientError } from "@trpc/client"
 import { trpc } from "src/utils/trpc"
+import superjson from "superjson"
 
 import { useConstant } from "@hooks/useConstant"
 
@@ -38,6 +39,7 @@ export const Providers: FCC = ({ children }) => {
 					url: "/api/trpc",
 				}),
 			],
+			transformer: superjson,
 		}),
 	)
 
