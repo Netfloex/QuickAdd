@@ -3,6 +3,7 @@ import { inspect } from "util"
 import got, { RequestError } from "got"
 import { z } from "zod"
 
+import { MovieFilterProperties } from "@schemas/MovieFilterProperties"
 import { SortOptions } from "@schemas/SortOptions"
 import { Torrent } from "@schemas/Torrent"
 
@@ -28,9 +29,20 @@ const query = gql`
 		$title: String
 		$sort: SortColumn
 		$order: Order
+		$quality: [Quality!]
+		$codec: [VideoCodec!]
+		$source: [Source!]
 	) {
 		search(
-			params: { imdb: $imdb, title: $title, sort: $sort, order: $order }
+			params: {
+				imdb: $imdb
+				title: $title
+				sort: $sort
+				order: $order
+				quality: $quality
+				codec: $codec
+				source: $source
+			}
 		) {
 			added
 			infoHash
@@ -54,6 +66,7 @@ export const getTorrents = async (
 	imdb: string,
 	title: string,
 	sortOptions: SortOptions,
+	movieProperties: MovieFilterProperties,
 ): Promise<Torrent[]> => {
 	const data = await torrentHttp
 		.post({
@@ -64,6 +77,8 @@ export const getTorrents = async (
 					title,
 					sort: sortOptions.sort,
 					order: sortOptions.order,
+					source: movieProperties.sources,
+					quality: movieProperties.qualities,
 				},
 			},
 		})

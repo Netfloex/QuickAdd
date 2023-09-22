@@ -12,9 +12,11 @@ import {
 } from "@nextui-org/table"
 import { useCallback, useMemo, useState } from "react"
 import { PropertyFilter } from "src/app/(dashboard)/PropertyFilter"
+import { CODECS, QUALITIES, SOURCES } from "src/data/static_torrent_data"
 import { formatBytes } from "src/utils/formatBytes"
 import { trpc } from "src/utils/trpc"
 
+import { Codecs, Qualities, Sources } from "@schemas/MovieFilterProperties"
 import { MovieSearchResult } from "@schemas/MovieSearchResult"
 import { Torrent } from "@schemas/Torrent"
 
@@ -65,34 +67,27 @@ export const TorrentTable: FC<{ movie: MovieSearchResult }> = ({ movie }) => {
 	)
 
 	const qualityItems = useMemo(
-		() => [
-			{ key: "P480", label: "480p" },
-			{ key: "P540", label: "540p" },
-			{ key: "P576", label: "576p" },
-			{ key: "P720", label: "720p" },
-			{ key: "P1080", label: "1080p" },
-			{ key: "P2160", label: "2160p" },
-		],
+		() =>
+			QUALITIES.map((s) => ({
+				label: s.substring(1) + "p",
+				key: s.toUpperCase() as Uppercase<typeof s>,
+			})),
 		[],
 	)
 	const codecItems = useMemo(
-		() => [
-			{ key: "X264", label: "X264" },
-			{ key: "X265", label: "X265" },
-		],
+		() =>
+			CODECS.map((s) => ({
+				label: s,
+				key: s.toUpperCase() as Uppercase<typeof s>,
+			})),
 		[],
 	)
 	const sourceItems = useMemo(
-		() => [
-			{ label: "Cam", key: "Cam" },
-			{ label: "Telesync", key: "Telesync" },
-			{ label: "Telecine", key: "Telecine" },
-			{ label: "Dvd", key: "Dvd" },
-			{ label: "Hdtv", key: "Hdtv" },
-			{ label: "Hdrip", key: "Hdrip" },
-			{ label: "WebRip", key: "WebRip" },
-			{ label: "BluRay", key: "BluRay" },
-		],
+		() =>
+			SOURCES.map((s) => ({
+				label: s,
+				key: s.toUpperCase() as Uppercase<typeof s>,
+			})),
 		[],
 	)
 
@@ -142,13 +137,13 @@ export const TorrentTable: FC<{ movie: MovieSearchResult }> = ({ movie }) => {
 		[],
 	)
 
-	const [qualityFilters, setQualityFilters] = useState<Set<Key>>(
+	const [qualityFilters, setQualityFilters] = useState<Set<Qualities>>(
 		new Set(qualityItems.map((q) => q.key)),
 	)
-	const [codecFilters, setCodecFilters] = useState<Set<Key>>(
+	const [codecFilters, setCodecFilters] = useState<Set<Codecs>>(
 		new Set(codecItems.map((q) => q.key)),
 	)
-	const [sourceFilters, setSourceFilters] = useState<Set<Key>>(
+	const [sourceFilters, setSourceFilters] = useState<Set<Sources>>(
 		new Set(sourceItems.map((q) => q.key)),
 	)
 
@@ -160,6 +155,11 @@ export const TorrentTable: FC<{ movie: MovieSearchResult }> = ({ movie }) => {
 					? "ASCENDING"
 					: "DESCENDING",
 			sort: sortDescriptor.column?.toString().toUpperCase() as "SEEDERS",
+		},
+		movieFilterProps: {
+			codecs: Array.from(codecFilters),
+			qualities: Array.from(qualityFilters),
+			sources: Array.from(sourceFilters),
 		},
 	})
 

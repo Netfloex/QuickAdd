@@ -7,19 +7,24 @@ import {
 } from "@nextui-org/dropdown"
 import { useMemo } from "react"
 
-import type { Dispatch, FC, Key, SetStateAction } from "react"
+import type { Dispatch, SetStateAction } from "react"
 
 interface Item {
 	label: string
 	key: string
 }
 
-export const PropertyFilter: FC<{
+export const PropertyFilter = <T extends string>({
+	items,
+	type,
+	selectedKeys,
+	setSelectedKeys,
+}: {
 	items: Item[]
 	type: string
-	selectedKeys: Set<Key>
-	setSelectedKeys: Dispatch<SetStateAction<Set<Key>>>
-}> = ({ items, type, selectedKeys, setSelectedKeys }) => {
+	selectedKeys: Set<T>
+	setSelectedKeys: Dispatch<SetStateAction<Set<T>>>
+}): JSX.Element => {
 	const selectedValue = useMemo(() => {
 		const arr = Array.from(selectedKeys)
 		if (arr.length == items.length) return "All"
@@ -45,7 +50,9 @@ export const PropertyFilter: FC<{
 					selectedKeys={selectedKeys}
 					onSelectionChange={(keys): void =>
 						setSelectedKeys(
-							typeof keys == "string" ? new Set() : keys,
+							(typeof keys == "string"
+								? new Set()
+								: keys) as Set<T>,
 						)
 					}
 					items={items}
