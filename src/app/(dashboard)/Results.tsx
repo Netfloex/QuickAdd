@@ -1,5 +1,6 @@
 import { Card, CardBody } from "@nextui-org/card"
-import { CircularProgress } from "@nextui-org/progress"
+import { Spacer } from "@nextui-org/react"
+import { LoadingSkeleton } from "src/app/(dashboard)/LoadingSkeleton"
 import { MovieItem } from "src/app/(dashboard)/MovieItem"
 import { trpc } from "src/utils/trpc"
 
@@ -20,9 +21,11 @@ export const Results: FC<{ query: string }> = ({ query }) => {
 	// Loading
 	if (isInitialLoading)
 		return (
-			<div>
-				<CircularProgress />
-			</div>
+			<>
+				<LoadingSkeleton />
+				<Spacer y={3} />
+				<LoadingSkeleton />
+			</>
 		)
 
 	// Not started
@@ -31,5 +34,14 @@ export const Results: FC<{ query: string }> = ({ query }) => {
 	// No data
 	if (!data.length) return <>No Items</>
 
-	return <>{data?.map((m) => <MovieItem key={m.id} movie={m} />)}</>
+	return (
+		<>
+			{data?.map((m, i) => (
+				<>
+					<MovieItem key={m.id} movie={m} />
+					{i != data.length && <Spacer y={3} />}
+				</>
+			))}
+		</>
+	)
 }

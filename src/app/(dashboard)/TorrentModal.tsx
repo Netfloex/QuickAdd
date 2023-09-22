@@ -24,6 +24,7 @@ export const TorrentModal: FC<{
 				isOpen={isOpen}
 				onClose={onClose}
 				scrollBehavior="inside"
+				placement="center"
 			>
 				<ModalContent>
 					{(onClose): JSX.Element => (

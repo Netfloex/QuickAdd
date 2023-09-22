@@ -1,6 +1,5 @@
 import styles from "./MovieItem.module.scss"
 
-import { Button } from "@nextui-org/button"
 import { Card, CardBody } from "@nextui-org/card"
 import { Image } from "@nextui-org/image"
 import { useDisclosure } from "@nextui-org/react"
@@ -22,9 +21,9 @@ export const MovieItem: FC<{ movie: MovieSearchResult }> = ({ movie }) => {
 	return (
 		<>
 			<TorrentModal isOpen={isOpen} onClose={onClose} movie={movie} />
-			<Card key={movie.id} className={styles.movieItem}>
+			<Card className={styles.movieItem} isPressable onPress={openModal}>
 				<CardBody className={styles.body}>
-					{movie.poster_path && (
+					{movie.poster_path ? (
 						<Image
 							alt=""
 							as={NextImage}
@@ -32,7 +31,7 @@ export const MovieItem: FC<{ movie: MovieSearchResult }> = ({ movie }) => {
 							height="360"
 							unoptimized
 							src={
-								"https://www.themoviedb.org/t/p/w300_and_h450_bestv2/" +
+								"https://image.tmdb.org/t/p/w500" +
 								movie.poster_path
 							}
 							classNames={{
@@ -40,13 +39,19 @@ export const MovieItem: FC<{ movie: MovieSearchResult }> = ({ movie }) => {
 								img: styles.poster,
 							}}
 						/>
+					) : (
+						<div
+							className={
+								styles.posterWrapper +
+								" bg-neutral-950 rounded-large"
+							}
+						/>
 					)}
 					<div className={styles.information + " mx-3"}>
 						<h1 className={styles.title}>
 							{movie.title} ({movie.year})
 						</h1>
 						<p>{movie.overview}</p>
-						<Button onClick={openModal}>Search</Button>
 					</div>
 				</CardBody>
 			</Card>
