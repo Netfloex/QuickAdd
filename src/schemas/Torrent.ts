@@ -1,15 +1,13 @@
+import { CODECS, QUALITIES, SOURCES } from "src/data/static_torrent_data"
 import { fixQualityName } from "src/utils/fixQualityName"
+import { uppercaseArray } from "src/utils/uppercaseArray"
 import { z } from "zod"
 
 export const MovieProperties = z.object({
-	codec: z.union([
-		z.literal("X264"),
-		z.literal("X265"),
-		z.literal("UNKNOWN"),
-	]),
+	codec: z.enum(uppercaseArray(CODECS)),
 	imdb: z.string().nullable(),
-	quality: z.string().transform(fixQualityName),
-	source: z.string(),
+	quality: z.enum(uppercaseArray(QUALITIES)).transform(fixQualityName),
+	source: z.enum(uppercaseArray(SOURCES)),
 })
 
 export const Torrent = z.object({

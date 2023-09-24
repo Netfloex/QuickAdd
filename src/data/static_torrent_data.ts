@@ -7,6 +7,7 @@ export const SOURCES = [
 	"Hdtv",
 	"Hdrip",
 	"WebRip",
+	"WebDl",
 	"BluRay",
 ] as const
 
@@ -20,4 +21,4 @@ export const QUALITIES = [
 	"P2160",
 ] as const
 
-export const CODECS = ["Unknown", "X264", "X265"] as const
+export const CODECS = ["Unknown", "AVC", "HEVC", "XVid"] as const
