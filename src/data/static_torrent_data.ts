@@ -1,4 +1,5 @@
 export const SOURCES = [
+	"Unknown",
 	"Cam",
 	"Telesync",
 	"Telecine",
@@ -10,6 +11,7 @@ export const SOURCES = [
 ] as const
 
 export const QUALITIES = [
+	"Unknown",
 	"P480",
 	"P540",
 	"P576",
@@ -18,4 +20,4 @@ export const QUALITIES = [
 	"P2160",
 ] as const
 
-export const CODECS = ["X264", "X265"] as const
+export const CODECS = ["Unknown", "X264", "X265"] as const

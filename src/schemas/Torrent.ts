@@ -1,3 +1,4 @@
+import { fixQualityName } from "src/utils/fixQualityName"
 import { z } from "zod"
 
 export const MovieProperties = z.object({
@@ -7,13 +8,7 @@ export const MovieProperties = z.object({
 		z.literal("UNKNOWN"),
 	]),
 	imdb: z.string().nullable(),
-	quality: z.string().transform((quality) => {
-		if (quality.match(/^P/)) {
-			return quality.replace(/^P/, "") + "p"
-		}
-
-		return quality
-	}),
+	quality: z.string().transform(fixQualityName),
 	source: z.string(),
 })
 

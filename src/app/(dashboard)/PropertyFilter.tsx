@@ -7,8 +7,6 @@ import {
 } from "@nextui-org/dropdown"
 import { useMemo } from "react"
 
-import type { Dispatch, SetStateAction } from "react"
-
 interface Item {
 	label: string
 	key: string
@@ -23,7 +21,7 @@ export const PropertyFilter = <T extends string>({
 	items: Item[]
 	type: string
 	selectedKeys: Set<T>
-	setSelectedKeys: Dispatch<SetStateAction<Set<T>>>
+	setSelectedKeys: (set: Set<T>) => void
 }): JSX.Element => {
 	const selectedValue = useMemo(() => {
 		const arr = Array.from(selectedKeys)

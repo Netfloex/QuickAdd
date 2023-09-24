@@ -11,12 +11,15 @@ import {
 	TableRow,
 } from "@nextui-org/table"
 import { useCallback, useMemo, useState } from "react"
-import { PropertyFilter } from "src/app/(dashboard)/PropertyFilter"
 import { CODECS, QUALITIES, SOURCES } from "src/data/static_torrent_data"
+import { fixQualityName } from "src/utils/fixQualityName"
 import { formatBytes } from "src/utils/formatBytes"
 import { trpc } from "src/utils/trpc"
 
-import { Codecs, Qualities, Sources } from "@schemas/MovieFilterProperties"
+import { usePropertyFilter } from "@hooks/usePropertyFilter"
+
+import { PropertyFilter } from "./PropertyFilter"
+
 import { MovieSearchResult } from "@schemas/MovieSearchResult"
 import { Torrent } from "@schemas/Torrent"
 
@@ -69,7 +72,7 @@ export const TorrentTable: FC<{ movie: MovieSearchResult }> = ({ movie }) => {
 	const qualityItems = useMemo(
 		() =>
 			QUALITIES.map((s) => ({
-				label: s.substring(1) + "p",
+				label: fixQualityName(s),
 				key: s.toUpperCase() as Uppercase<typeof s>,
 			})),
 		[],
@@ -137,14 +140,18 @@ export const TorrentTable: FC<{ movie: MovieSearchResult }> = ({ movie }) => {
 		[],
 	)
 
-	const [qualityFilters, setQualityFilters] = useState<Set<Qualities>>(
-		new Set(qualityItems.map((q) => q.key)),
+	const [qualityFilters, setQualityFilters] = usePropertyFilter(
+		"qualities",
+		qualityItems.map((q) => q.key),
 	)
-	const [codecFilters, setCodecFilters] = useState<Set<Codecs>>(
-		new Set(codecItems.map((q) => q.key)),
+	const [codecFilters, setCodecFilters] = usePropertyFilter(
+		"codecs",
+		codecItems.map((q) => q.key),
 	)
-	const [sourceFilters, setSourceFilters] = useState<Set<Sources>>(
-		new Set(sourceItems.map((q) => q.key)),
+
+	const [sourceFilters, setSourceFilters] = usePropertyFilter(
+		"sources",
+		sourceItems.map((q) => q.key),
 	)
 
 	const { data, isFetching } = trpc.searchTorrents.useQuery({
