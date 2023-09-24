@@ -80,6 +80,7 @@ export const getTorrents = async (
 					order: sortOptions.order,
 					source: movieProperties.sources,
 					quality: movieProperties.qualities,
+					codec: movieProperties.codecs,
 				},
 			},
 		})
