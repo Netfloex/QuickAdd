@@ -1,5 +1,5 @@
 import { Chip } from "@nextui-org/chip"
-import { SortDescriptor } from "@nextui-org/react"
+import { Button, SortDescriptor } from "@nextui-org/react"
 import { Spinner } from "@nextui-org/spinner"
 import {
 	getKeyValue,
@@ -11,6 +11,7 @@ import {
 	TableRow,
 } from "@nextui-org/table"
 import { useCallback, useMemo, useState } from "react"
+import { FaDownload } from "react-icons/fa"
 import { CODECS, QUALITIES, SOURCES } from "src/data/static_torrent_data"
 import { fixQualityName } from "src/utils/fixQualityName"
 import { formatBytes } from "src/utils/formatBytes"
@@ -36,6 +37,11 @@ export const TorrentTable: FC<{ movie: MovieSearchResult }> = ({ movie }) => {
 			{
 				key: "name",
 				label: "Title",
+			},
+
+			{
+				key: "magnet",
+				label: "Download",
 			},
 			{
 				key: "quality",
@@ -133,6 +139,22 @@ export const TorrentTable: FC<{ movie: MovieSearchResult }> = ({ movie }) => {
 				case "codec":
 				case "source":
 					return <>{torrent.movieProperties[key]}</>
+				case "magnet":
+					return (
+						<a
+							href={torrent.magnet}
+							target="_blank"
+							rel="noreferrer"
+						>
+							<Button
+								isIconOnly
+								color="success"
+								variant="bordered"
+							>
+								<FaDownload />
+							</Button>
+						</a>
+					)
 				default:
 					return <>{getKeyValue(torrent, key)}</>
 			}
