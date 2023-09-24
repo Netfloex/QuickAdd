@@ -24,7 +24,7 @@ export const searchTorrentsRoute = procedure
 
 		return await getTorrents(
 			info.imdb_id,
-			info.original_title,
+			info.title,
 			sortOptions,
 			movieFilterProps,
 		)
