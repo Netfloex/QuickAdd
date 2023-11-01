@@ -5,7 +5,7 @@ import type { FC } from "react"
 
 export const SearchField: FC<{
 	defaultQuery: string
-	onValueChange: (val: string) => void
+	onValueChange?: (val: string) => void
 }> = ({ onValueChange, defaultQuery }) => {
 	return (
 		<>
