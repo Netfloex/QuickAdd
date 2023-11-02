@@ -11,7 +11,8 @@ import {
 	TableRow,
 } from "@nextui-org/table"
 import { useCallback, useMemo, useState } from "react"
-import { FaDownload } from "react-icons/fa"
+import { FaMagnet } from "react-icons/fa"
+import { DownloadButton } from "src/app/(dashboard)/DownloadButton"
 import { CODECS, QUALITIES, SOURCES } from "src/data/static_torrent_data"
 import { fixQualityName } from "src/utils/fixQualityName"
 import { formatBytes } from "src/utils/formatBytes"
@@ -41,6 +42,10 @@ export const TorrentTable: FC<{ movie: MovieSearchResult }> = ({ movie }) => {
 
 			{
 				key: "magnet",
+				label: "Magnet",
+			},
+			{
+				key: "download",
 				label: "Download",
 			},
 			{
@@ -148,13 +153,15 @@ export const TorrentTable: FC<{ movie: MovieSearchResult }> = ({ movie }) => {
 						>
 							<Button
 								isIconOnly
-								color="success"
+								color="primary"
 								variant="bordered"
 							>
-								<FaDownload />
+								<FaMagnet />
 							</Button>
 						</a>
 					)
+				case "download":
+					return <DownloadButton torrent={torrent} />
 				default:
 					return <>{getKeyValue(torrent, key)}</>
 			}

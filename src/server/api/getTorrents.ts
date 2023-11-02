@@ -1,28 +1,13 @@
 import { inspect } from "util"
 
-import got, { RequestError } from "got"
+import { gql } from "src/utils/gql"
 import { z } from "zod"
+
+import { torrentHttp } from "@server/http"
 
 import { MovieFilterProperties } from "@schemas/MovieFilterProperties"
 import { SortOptions } from "@schemas/SortOptions"
 import { Torrent } from "@schemas/Torrent"
-
-const torrentHttp = got.extend({
-	prefixUrl: process.env.TORRENT_API,
-	hooks: {
-		beforeError: [
-			(err): RequestError => {
-				console.log("error in request to " + err.options.url)
-				console.log(err.response?.statusCode, err.response?.body)
-				console.log(err.cause, err.code, err.message)
-
-				return err
-			},
-		],
-	},
-})
-
-const gql = (arg: TemplateStringsArray): string => arg.join("")
 
 const query = gql`
 	query GetTorrents(
