@@ -1,6 +1,5 @@
 // @ts-check
 const { join } = require("path")
-const nextPwa = require("@ducanh2912/next-pwa")
 
 /**
  * @type {import('next').NextConfig}
@@ -17,9 +16,4 @@ const config = {
 	output: "standalone",
 }
 
-const withPwa = nextPwa.default({
-	dest: "public",
-	disable: process.env.NODE_ENV === "development",
-})
-
-module.exports = withPwa(config)
+module.exports = config
