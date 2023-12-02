@@ -22,8 +22,8 @@ export const DownloadButton: FC<{ torrent: Torrent }> = ({ torrent }) => {
 					isLoading
 						? "default"
 						: data !== false
-						? "success"
-						: "danger"
+						  ? "success"
+						  : "danger"
 				}
 				variant="bordered"
 				onPress={(): void => {
