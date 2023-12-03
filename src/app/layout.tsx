@@ -2,6 +2,8 @@ import "@styles/global.scss"
 
 import { Providers } from "./Providers"
 
+import type { Metadata } from "next"
+
 import { FCC } from "@typings/FCC"
 
 const RootLayout: FCC = ({ children }) => (
@@ -17,3 +19,10 @@ const RootLayout: FCC = ({ children }) => (
 )
 
 export default RootLayout
+
+export const metadata: Metadata = {
+	title: "Quickadd",
+	description: "Quickly download movies",
+	applicationName: "Quickadd",
+	manifest: "/manifest.json",
+}
