@@ -30,7 +30,7 @@ export const TorrentModal: FC<{
 					{(onClose): JSX.Element => (
 						<>
 							<ModalHeader className="flex flex-col gap-1">
-								{movie.title}
+								{movie.title} ({movie.year})
 							</ModalHeader>
 							<ModalBody>
 								{isOpen && <TorrentTable movie={movie} />}

@@ -2,7 +2,8 @@ import styles from "./MovieItem.module.scss"
 
 import { Card, CardBody } from "@nextui-org/card"
 import { Image } from "@nextui-org/image"
-import { useDisclosure } from "@nextui-org/react"
+import { CircularProgress } from "@nextui-org/react"
+import { useDisclosure } from "@nextui-org/use-disclosure"
 import NextImage from "next/image"
 import { useCallback } from "react"
 import { TorrentModal } from "src/app/(dashboard)/TorrentModal"
@@ -51,6 +52,15 @@ export const MovieItem: FC<{ movie: MovieSearchResult }> = ({ movie }) => {
 						<h1 className={styles.title}>
 							{movie.title} ({movie.year})
 						</h1>
+						<div>
+							<CircularProgress
+								color="success"
+								value={movie.vote_average * 10}
+								showValueLabel
+								size="lg"
+								classNames={{ value: "text-sm" }}
+							/>
+						</div>
 						<p>{movie.overview}</p>
 					</div>
 				</CardBody>
