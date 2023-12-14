@@ -2,10 +2,10 @@ import styles from "./MovieItem.module.scss"
 
 import { Card, CardBody } from "@nextui-org/card"
 import { Image } from "@nextui-org/image"
-import { CircularProgress } from "@nextui-org/react"
 import { useDisclosure } from "@nextui-org/use-disclosure"
 import NextImage from "next/image"
 import { useCallback } from "react"
+import { MovieRatings } from "src/app/(dashboard)/MovieRatings"
 import { TorrentModal } from "src/app/(dashboard)/TorrentModal"
 import { formatMovieDuration } from "src/utils/formatMovieDuration"
 
@@ -55,17 +55,7 @@ export const MovieItem: FC<{ movie: MovieSearchResult }> = ({ movie }) => {
 						<p className="text-sm text-default-500">
 							{formatMovieDuration(movie.runtime)}
 						</p>
-						{movie.movieRatings.imdb !== null && (
-							<div>
-								<CircularProgress
-									color="success"
-									value={movie.movieRatings.imdb.value * 10}
-									showValueLabel
-									size="lg"
-									classNames={{ value: "text-sm" }}
-								/>
-							</div>
-						)}
+						<MovieRatings movie={movie} />
 						<p>{movie.overview}</p>
 					</div>
 				</CardBody>
