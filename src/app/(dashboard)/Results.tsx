@@ -38,7 +38,7 @@ export const Results: FC<{ query: string }> = ({ query }) => {
 	return (
 		<>
 			{data?.map((m, i) => (
-				<Fragment key={m.id}>
+				<Fragment key={m.tmdbId}>
 					<MovieItem movie={m} />
 					{i != data.length && <Spacer y={3} />}
 				</Fragment>

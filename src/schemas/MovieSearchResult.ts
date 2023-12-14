@@ -1,25 +1,37 @@
+import camelcaseKeys from "camelcase-keys"
 import { z } from "zod"
+
+const movieRating = z
+	.object({
+		Count: z.number(),
+		Value: z.number(),
+		Type: z.string(),
+	})
+	.nullable()
 
 export const MovieSearchResult = z
 	.object({
-		adult: z.boolean(),
-		backdrop_path: z.string().nullable(),
-		genre_ids: z.number().array(),
-		id: z.number(),
-		original_language: z.string(),
-		original_title: z.string(),
-		overview: z.string(),
-		popularity: z.number(),
-		poster_path: z.string().nullable(),
-		release_date: z.string(),
-		title: z.string(),
-		video: z.boolean(),
-		vote_average: z.number(),
-		vote_count: z.number(),
+		Title: z.string(),
+		ImdbId: z.string().nullable(),
+		Runtime: z.number(),
+		Year: z.number(),
+		Overview: z.string(),
+		MovieRatings: z.object({
+			Tmdb: movieRating,
+			Imdb: movieRating,
+			RottenTomatoes: movieRating,
+			Metacritic: movieRating,
+		}),
+		Images: z.array(
+			z.object({
+				CoverType: z.string(),
+				Url: z.string(),
+			}),
+		),
+		TmdbId: z.number(),
 	})
-	.transform((data) => ({
-		...data,
-		year: data.release_date.split("-")[0],
-	}))
+	.transform((data) => {
+		return camelcaseKeys(data, { deep: true })
+	})
 
 export type MovieSearchResult = z.output<typeof MovieSearchResult>

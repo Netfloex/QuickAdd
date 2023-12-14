@@ -184,7 +184,7 @@ export const TorrentTable: FC<{ movie: MovieSearchResult }> = ({ movie }) => {
 	)
 
 	const { data, isFetching } = trpc.searchTorrents.useQuery({
-		id: movie.id,
+		id: movie.tmdbId,
 		sortOptions: {
 			order:
 				sortDescriptor.direction == "ascending"

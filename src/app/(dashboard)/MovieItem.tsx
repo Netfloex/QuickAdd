@@ -19,22 +19,21 @@ export const MovieItem: FC<{ movie: MovieSearchResult }> = ({ movie }) => {
 		onOpen()
 	}, [onOpen])
 
+	const posterUrl = movie.images.find((i) => i.coverType === "Poster")?.url
+
 	return (
 		<>
 			<TorrentModal isOpen={isOpen} onClose={onClose} movie={movie} />
 			<Card className={styles.movieItem} isPressable onPress={openModal}>
 				<CardBody className={styles.body}>
-					{movie.poster_path ? (
+					{posterUrl !== undefined ? (
 						<Image
 							alt=""
 							as={NextImage}
 							width="240"
 							height="360"
 							unoptimized
-							src={
-								"https://image.tmdb.org/t/p/w500" +
-								movie.poster_path
-							}
+							src={posterUrl}
 							classNames={{
 								wrapper: styles.posterWrapper,
 								img: styles.poster,
@@ -52,15 +51,17 @@ export const MovieItem: FC<{ movie: MovieSearchResult }> = ({ movie }) => {
 						<h1 className={styles.title}>
 							{movie.title} ({movie.year})
 						</h1>
-						<div>
-							<CircularProgress
-								color="success"
-								value={movie.vote_average * 10}
-								showValueLabel
-								size="lg"
-								classNames={{ value: "text-sm" }}
-							/>
-						</div>
+						{movie.movieRatings.imdb !== null && (
+							<div>
+								<CircularProgress
+									color="success"
+									value={movie.movieRatings.imdb.value * 10}
+									showValueLabel
+									size="lg"
+									classNames={{ value: "text-sm" }}
+								/>
+							</div>
+						)}
 						<p>{movie.overview}</p>
 					</div>
 				</CardBody>

@@ -1,21 +1,20 @@
 import { inspect } from "util"
 
-import { http } from "@server/http"
+import { radarrHttp } from "@server/http"
 
 import { MovieSearchResult } from "@schemas/MovieSearchResult"
-import { wrappedResults } from "@schemas/wrappedResults"
 
 export const searchMovies = async (
 	query: string,
 ): Promise<MovieSearchResult[]> => {
-	const data = await http
-		.get("search/movie", { searchParams: { query } })
+	const data = await radarrHttp
+		.get("search", { searchParams: { q: query } })
 		.json()
 
-	const result = wrappedResults(MovieSearchResult).safeParse(data)
+	const result = MovieSearchResult.array().safeParse(data)
 
 	if (result.success) {
-		return result.data.results
+		return result.data
 	}
 
 	console.log(inspect(result.error, true, 10, true))

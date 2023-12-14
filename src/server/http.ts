@@ -15,6 +15,7 @@ const baseHttp = got.extend({
 		],
 	},
 })
+
 export const http = baseHttp.extend({
 	prefixUrl: `https://api.themoviedb.org/3`,
 	headers: {
@@ -24,4 +25,8 @@ export const http = baseHttp.extend({
 
 export const torrentHttp = baseHttp.extend({
 	prefixUrl: process.env.TORRENT_API,
+})
+
+export const radarrHttp = baseHttp.extend({
+	prefixUrl: "https://api.radarr.video/v1",
 })
