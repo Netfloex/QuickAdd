@@ -7,6 +7,7 @@ import { useDisclosure } from "@nextui-org/use-disclosure"
 import NextImage from "next/image"
 import { useCallback } from "react"
 import { TorrentModal } from "src/app/(dashboard)/TorrentModal"
+import { formatMovieDuration } from "src/utils/formatMovieDuration"
 
 import { MovieSearchResult } from "@schemas/MovieSearchResult"
 
@@ -51,6 +52,9 @@ export const MovieItem: FC<{ movie: MovieSearchResult }> = ({ movie }) => {
 						<h1 className={styles.title}>
 							{movie.title} ({movie.year})
 						</h1>
+						<p className="text-sm text-default-500">
+							{formatMovieDuration(movie.runtime)}
+						</p>
 						{movie.movieRatings.imdb !== null && (
 							<div>
 								<CircularProgress
