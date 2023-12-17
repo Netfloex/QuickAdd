@@ -12,6 +12,7 @@ const movieRating = z
 export const MovieSearchResult = z
 	.object({
 		Title: z.string(),
+		OriginalTitle: z.string(),
 		ImdbId: z.string().nullable(),
 		Runtime: z.number(),
 		Year: z.number(),

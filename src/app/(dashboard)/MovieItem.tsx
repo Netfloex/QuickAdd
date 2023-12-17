@@ -52,6 +52,11 @@ export const MovieItem: FC<{ movie: MovieSearchResult }> = ({ movie }) => {
 						<h1 className={styles.title}>
 							{movie.title} ({movie.year})
 						</h1>
+						{movie.title !== movie.originalTitle && (
+							<p className="text-default-500 -mt-1 mb-2">
+								{movie.originalTitle}
+							</p>
+						)}
 						<p className="text-sm text-default-500">
 							{formatMovieDuration(movie.runtime)}
 						</p>
