@@ -6,6 +6,7 @@ import { useDisclosure } from "@nextui-org/use-disclosure"
 import NextImage from "next/image"
 import { useCallback } from "react"
 import { MovieRatings } from "src/app/(dashboard)/MovieRatings"
+import { ReleaseDate } from "src/app/(dashboard)/ReleaseDate"
 import { TorrentModal } from "src/app/(dashboard)/TorrentModal"
 import { formatMovieDuration } from "src/utils/formatMovieDuration"
 
@@ -57,6 +58,7 @@ export const MovieItem: FC<{ movie: MovieSearchResult }> = ({ movie }) => {
 								{movie.originalTitle}
 							</p>
 						)}
+						<ReleaseDate movie={movie} />
 						<p className="text-sm text-default-500">
 							{formatMovieDuration(movie.runtime)}
 						</p>

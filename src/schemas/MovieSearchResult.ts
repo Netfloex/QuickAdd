@@ -9,14 +9,21 @@ const movieRating = z
 	})
 	.nullable()
 
+const dateString = z
+	.string()
+	.datetime()
+	.transform((a) => new Date(a).getTime())
+	.nullable()
+
 export const MovieSearchResult = z
 	.object({
+		ImdbId: z.string().nullable(),
+		Overview: z.string(),
 		Title: z.string(),
 		OriginalTitle: z.string(),
-		ImdbId: z.string().nullable(),
 		Runtime: z.number(),
 		Year: z.number(),
-		Overview: z.string(),
+		TmdbId: z.number(),
 		MovieRatings: z.object({
 			Tmdb: movieRating,
 			Imdb: movieRating,
@@ -29,7 +36,9 @@ export const MovieSearchResult = z
 				Url: z.string(),
 			}),
 		),
-		TmdbId: z.number(),
+		PhysicalRelease: dateString,
+		DigitalRelease: dateString,
+		InCinema: dateString,
 	})
 	.transform((data) => {
 		return camelcaseKeys(data, { deep: true })
