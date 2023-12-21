@@ -113,7 +113,7 @@ export const TorrentTable: FC<{ movie: MovieSearchResult }> = ({ movie }) => {
 		(torrent: Torrent, key: Key): JSX.Element => {
 			switch (key) {
 				case "size":
-					return <Chip>{formatBytes(parseInt(torrent.size))}</Chip>
+					return <Chip>{formatBytes(torrent.size)}</Chip>
 				case "seeders":
 					let color:
 						| "default"

@@ -1,9 +1,11 @@
-// import styles from "./DownloadButton.module.scss"
-
 import { Button } from "@nextui-org/button"
+import { CircularProgress } from "@nextui-org/react"
 import { FaCheck, FaDownload } from "react-icons/fa"
 import { MdErrorOutline } from "react-icons/md"
+import { formatBytes } from "src/utils/formatBytes"
 import { trpc } from "src/utils/trpc"
+
+import { useActiveTorrent } from "@hooks/useActiveTorrent"
 
 import { Torrent } from "@schemas/Torrent"
 
@@ -12,33 +14,56 @@ import type { FC } from "react"
 export const DownloadButton: FC<{ torrent: Torrent }> = ({ torrent }) => {
 	const { mutate, isLoading, data } = trpc.downloadTorrent.useMutation({})
 
-	console.log(data)
-	const success = data === true
+	const activeTorrent = useActiveTorrent(torrent.infoHash)
+
+	if (activeTorrent !== undefined) {
+		if (activeTorrent.progress === 1) {
+			return (
+				<Button isIconOnly color="success" variant="bordered" disabled>
+					<FaCheck />
+				</Button>
+			)
+		}
+
+		return (
+			<CircularProgress
+				value={activeTorrent.progress * 100}
+				showValueLabel
+				title={`Downloading ${formatBytes(
+					activeTorrent.downloaded,
+				)} / ${formatBytes(activeTorrent.size)}`}
+			/>
+		)
+	}
+
+	if (data === true) {
+		return (
+			<CircularProgress
+				value={0}
+				showValueLabel
+				title={`Downloading ${formatBytes(0)} / ${formatBytes(
+					torrent.size,
+				)}`}
+			/>
+		)
+	}
+
 	return (
 		<>
 			<Button
 				isIconOnly
-				color={
-					isLoading
-						? "default"
-						: data !== false
-						  ? "success"
-						  : "danger"
-				}
+				color={data === false ? "danger" : "default"}
 				variant="bordered"
 				onPress={(): void => {
 					mutate(torrent.magnet)
 				}}
-				disabled={data}
 				isLoading={isLoading}
 			>
 				{!isLoading &&
-					(success ? (
-						<FaCheck />
-					) : data === undefined ? (
-						<FaDownload />
-					) : (
+					(data === false ? (
 						<MdErrorOutline size={25} />
+					) : (
+						<FaDownload />
 					))}
 			</Button>
 		</>
