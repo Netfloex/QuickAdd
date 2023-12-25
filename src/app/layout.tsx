@@ -21,7 +21,10 @@ const RootLayout: FCC = ({ children }) => (
 export default RootLayout
 
 export const metadata: Metadata = {
-	title: "Quickadd",
+	title: {
+		default: "Quickadd",
+		template: "%s | Quickadd",
+	},
 	description: "Quickly download movies",
 	applicationName: "Quickadd",
 	manifest: "/manifest.json",

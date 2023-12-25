@@ -1,9 +1,9 @@
 export const formatBytes = (bytes: number, decimals: number = 2): string => {
-	if (bytes === 0) return "0 Bytes"
+	if (bytes === 0) return "0 B"
 
 	const k: number = 1024
 	const sizes: string[] = [
-		"Bytes",
+		"B",
 		"KiB",
 		"MiB",
 		"GiB",

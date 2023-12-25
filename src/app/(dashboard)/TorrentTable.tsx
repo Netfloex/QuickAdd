@@ -13,6 +13,7 @@ import {
 import { useCallback, useMemo, useState } from "react"
 import { FaMagnet } from "react-icons/fa"
 import { DownloadButton } from "src/app/(dashboard)/DownloadButton"
+import { PeersChip } from "src/components/PeersChip"
 import { CODECS, QUALITIES, SOURCES } from "src/data/static_torrent_data"
 import { fixQualityName } from "src/utils/fixQualityName"
 import { formatBytes } from "src/utils/formatBytes"
@@ -115,28 +116,11 @@ export const TorrentTable: FC<{ movie: MovieSearchResult }> = ({ movie }) => {
 				case "size":
 					return <Chip>{formatBytes(torrent.size)}</Chip>
 				case "seeders":
-					let color:
-						| "default"
-						| "danger"
-						| "primary"
-						| "warning"
-						| "secondary"
-						| "success" = "danger"
-
-					if (torrent.seeders > 200) {
-						color = "success"
-					} else if (torrent.seeders > 50) {
-						color = "primary"
-					} else if (torrent.seeders > 10) {
-						color = "secondary"
-					} else if (torrent.seeders > 0) {
-						color = "warning"
-					}
-
 					return (
-						<Chip color={color} variant="flat">
-							{torrent.seeders}/{torrent.leechers}
-						</Chip>
+						<PeersChip
+							seeders={torrent.seeders}
+							leechers={torrent.leechers}
+						/>
 					)
 				case "added":
 					return <>{torrent.added.toLocaleDateString()}</>

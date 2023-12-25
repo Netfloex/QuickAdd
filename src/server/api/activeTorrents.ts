@@ -10,10 +10,14 @@ import { QbitTorrent } from "@schemas/QbitTorrent"
 const query = gql`
 	query ActiveTorrents {
 		torrents(params: {}) {
+			dlspeed
+			downloaded
+			numLeechs
+			numSeeds
+			eta
 			hash
 			name
 			progress
-			downloaded
 			size
 		}
 	}
