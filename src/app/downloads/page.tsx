@@ -1,6 +1,7 @@
 import { Card } from "@nextui-org/card"
 import { Metadata } from "next"
-import { DownloadingTable } from "src/app/downloads/DownloadingTable"
+
+import { DownloadingTable } from "./DownloadingTable"
 
 import type { FC } from "react"
 

@@ -1,6 +1,7 @@
 import { CODECS, QUALITIES, SOURCES } from "src/data/static_torrent_data"
-import { uppercaseArray } from "src/utils/uppercaseArray"
 import { z } from "zod"
+
+import { uppercaseArray } from "@utils/uppercaseArray"
 
 export const Sources = z.enum(uppercaseArray(SOURCES))
 export const Qualities = z.enum(uppercaseArray(QUALITIES))

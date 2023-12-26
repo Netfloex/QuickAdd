@@ -1,7 +1,8 @@
 import { CODECS, QUALITIES, SOURCES } from "src/data/static_torrent_data"
-import { fixQualityName } from "src/utils/fixQualityName"
-import { uppercaseArray } from "src/utils/uppercaseArray"
 import { z } from "zod"
+
+import { fixQualityName } from "@utils/fixQualityName"
+import { uppercaseArray } from "@utils/uppercaseArray"
 
 export const MovieProperties = z.object({
 	codec: z.enum(uppercaseArray(CODECS)),

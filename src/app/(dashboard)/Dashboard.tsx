@@ -1,7 +1,8 @@
 import { Card } from "@nextui-org/card"
 import { Suspense } from "react"
-import { QueryWrapper } from "src/app/(dashboard)/QueryWrapper"
-import { SearchField } from "src/app/(dashboard)/SearchField"
+
+import { QueryWrapper } from "./QueryWrapper"
+import { SearchField } from "./SearchField"
 
 import type { FC } from "react"
 

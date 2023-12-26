@@ -6,7 +6,8 @@ import {
 	ModalFooter,
 	ModalHeader,
 } from "@nextui-org/modal"
-import { TorrentTable } from "src/app/(dashboard)/TorrentTable"
+
+import { TorrentTable } from "./TorrentTable"
 
 import { MovieSearchResult } from "@schemas/MovieSearchResult"
 

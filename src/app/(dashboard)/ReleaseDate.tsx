@@ -1,4 +1,4 @@
-import { calculateMovieStatus } from "src/utils/calculateMovieStatus"
+import { calculateMovieStatus } from "@utils/calculateMovieStatus"
 
 import { MovieSearchResult } from "@schemas/MovieSearchResult"
 

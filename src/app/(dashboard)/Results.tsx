@@ -1,9 +1,11 @@
 import { Card, CardBody } from "@nextui-org/card"
 import { Spacer } from "@nextui-org/react"
 import { Fragment } from "react"
-import { LoadingSkeleton } from "src/app/(dashboard)/LoadingSkeleton"
-import { MovieItem } from "src/app/(dashboard)/MovieItem"
-import { trpc } from "src/utils/trpc"
+
+import { trpc } from "@utils/trpc"
+
+import { LoadingSkeleton } from "./LoadingSkeleton"
+import { MovieItem } from "./MovieItem"
 
 import type { FC } from "react"
 

@@ -12,10 +12,12 @@ import {
 	TableRow,
 } from "@nextui-org/table"
 import { useCallback, useMemo } from "react"
-import { PeersChip } from "src/components/PeersChip"
-import { formatBytes } from "src/utils/formatBytes"
-import { humanizeDuration } from "src/utils/humanizeDuration"
-import { trpc } from "src/utils/trpc"
+
+import { formatBytes } from "@utils/formatBytes"
+import { humanizeDuration } from "@utils/humanizeDuration"
+import { trpc } from "@utils/trpc"
+
+import { PeersChip } from "@components/PeersChip"
 
 import { QbitTorrent } from "@schemas/QbitTorrent"
 

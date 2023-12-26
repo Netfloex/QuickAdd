@@ -1,4 +1,4 @@
-import { trpc } from "src/utils/trpc"
+import { trpc } from "@utils/trpc"
 
 import { QbitTorrent } from "@schemas/QbitTorrent"
 

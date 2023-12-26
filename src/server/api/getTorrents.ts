@@ -1,9 +1,9 @@
 import { inspect } from "util"
 
-import { gql } from "src/utils/gql"
 import { z } from "zod"
 
 import { torrentHttp } from "@server/http"
+import { gql } from "@utils/gql"
 
 import { MovieFilterProperties } from "@schemas/MovieFilterProperties"
 import { SortOptions } from "@schemas/SortOptions"

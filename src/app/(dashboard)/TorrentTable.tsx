@@ -12,15 +12,17 @@ import {
 } from "@nextui-org/table"
 import { useCallback, useMemo, useState } from "react"
 import { FaMagnet } from "react-icons/fa"
-import { DownloadButton } from "src/app/(dashboard)/DownloadButton"
-import { PeersChip } from "src/components/PeersChip"
 import { CODECS, QUALITIES, SOURCES } from "src/data/static_torrent_data"
-import { fixQualityName } from "src/utils/fixQualityName"
-import { formatBytes } from "src/utils/formatBytes"
-import { trpc } from "src/utils/trpc"
 
 import { usePropertyFilter } from "@hooks/usePropertyFilter"
 
+import { fixQualityName } from "@utils/fixQualityName"
+import { formatBytes } from "@utils/formatBytes"
+import { trpc } from "@utils/trpc"
+
+import { PeersChip } from "@components/PeersChip"
+
+import { DownloadButton } from "./DownloadButton"
 import { PropertyFilter } from "./PropertyFilter"
 
 import { MovieSearchResult } from "@schemas/MovieSearchResult"

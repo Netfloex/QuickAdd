@@ -2,10 +2,11 @@ import { Button } from "@nextui-org/button"
 import { CircularProgress } from "@nextui-org/react"
 import { FaCheck, FaDownload } from "react-icons/fa"
 import { MdErrorOutline } from "react-icons/md"
-import { formatBytes } from "src/utils/formatBytes"
-import { trpc } from "src/utils/trpc"
 
 import { useActiveTorrent } from "@hooks/useActiveTorrent"
+
+import { formatBytes } from "@utils/formatBytes"
+import { trpc } from "@utils/trpc"
 
 import { Torrent } from "@schemas/Torrent"
 

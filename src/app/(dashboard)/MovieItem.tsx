@@ -5,10 +5,12 @@ import { Image } from "@nextui-org/image"
 import { useDisclosure } from "@nextui-org/use-disclosure"
 import NextImage from "next/image"
 import { useCallback } from "react"
-import { MovieRatings } from "src/app/(dashboard)/MovieRatings"
-import { ReleaseDate } from "src/app/(dashboard)/ReleaseDate"
-import { TorrentModal } from "src/app/(dashboard)/TorrentModal"
-import { humanizeDuration } from "src/utils/humanizeDuration"
+
+import { humanizeDuration } from "@utils/humanizeDuration"
+
+import { MovieRatings } from "./MovieRatings"
+import { ReleaseDate } from "./ReleaseDate"
+import { TorrentModal } from "./TorrentModal"
 
 import { MovieSearchResult } from "@schemas/MovieSearchResult"
 

@@ -1,6 +1,5 @@
-import { gql } from "src/utils/gql"
-
 import { torrentHttp } from "@server/http"
+import { gql } from "@utils/gql"
 
 const query = gql`
 	mutation AddTorrent($url: String!) {
