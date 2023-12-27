@@ -8,6 +8,7 @@ import { useCallback } from "react"
 
 import { humanizeDuration } from "@utils/humanizeDuration"
 
+import { Genres } from "./Genres"
 import { MovieRatings } from "./MovieRatings"
 import { ReleaseDate } from "./ReleaseDate"
 import { TorrentModal } from "./TorrentModal"
@@ -61,6 +62,7 @@ export const MovieItem: FC<{ movie: MovieSearchResult }> = ({ movie }) => {
 							</p>
 						)}
 						<ReleaseDate movie={movie} />
+						<Genres movie={movie} />
 						<p className="text-sm text-default-500">
 							{humanizeDuration(movie.runtime * 60)}
 						</p>

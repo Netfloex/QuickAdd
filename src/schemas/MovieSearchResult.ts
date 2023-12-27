@@ -36,6 +36,7 @@ export const MovieSearchResult = z
 				Url: z.string(),
 			}),
 		),
+		Genres: z.array(z.string()),
 		PhysicalRelease: dateString,
 		DigitalRelease: dateString,
 		InCinema: dateString,
