@@ -1,8 +1,7 @@
-import { Button } from "@nextui-org/button"
 import { Input } from "@nextui-org/input"
-import Link from "next/link"
 import { FaSearch } from "react-icons/fa"
-import { MdDownload } from "react-icons/md"
+
+import { DownloadsLink } from "./DownloadsLink"
 
 import type { FC } from "react"
 
@@ -21,13 +20,7 @@ export const SearchField: FC<{
 					<FaSearch className="text-black/50 dark:text-white/90 text-slate-400 pointer-events-none flex-shrink-0" />
 				}
 			/>
-			<div className="aspect-square">
-				<Link href="/downloads">
-					<Button isIconOnly className="w-full h-full">
-						<MdDownload size="25" />
-					</Button>
-				</Link>
-			</div>
+			<DownloadsLink />
 		</div>
 	)
 }

@@ -13,6 +13,7 @@ import {
 } from "@nextui-org/table"
 import { useCallback, useMemo } from "react"
 
+import { activeQueryOptions } from "@utils/activeQueryOptions"
 import { formatBytes } from "@utils/formatBytes"
 import { humanizeDuration } from "@utils/humanizeDuration"
 import { trpc } from "@utils/trpc"
@@ -24,11 +25,10 @@ import { QbitTorrent } from "@schemas/QbitTorrent"
 import type { FC, Key } from "react"
 
 export const DownloadingTable: FC = () => {
-	const { data, error, isLoading } = trpc.activeTorrents.useQuery(undefined, {
-		staleTime: 10,
-		refetchOnWindowFocus: true,
-		refetchInterval: 10 * 1000,
-	})
+	const { data, error, isLoading } = trpc.activeTorrents.useQuery(
+		undefined,
+		activeQueryOptions(),
+	)
 
 	const columns = useMemo(
 		() => [

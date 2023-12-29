@@ -1,3 +1,4 @@
+import { activeTorrentCountRoute } from "@server/routers/activeTorrentCount"
 import { activeTorrentsRoute } from "@server/routers/activeTorrents"
 import { downloadTorrentsRoute } from "@server/routers/downloadTorrent"
 import { searchMoviesRoute } from "@server/routers/searchMovies"
@@ -9,6 +10,7 @@ export const appRouter = router({
 	searchTorrents: searchTorrentsRoute,
 	downloadTorrent: downloadTorrentsRoute,
 	activeTorrents: activeTorrentsRoute,
+	activeTorrentsCount: activeTorrentCountRoute,
 })
 
 export type AppRouter = typeof appRouter
