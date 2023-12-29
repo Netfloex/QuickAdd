@@ -13,9 +13,10 @@ import { Torrent } from "@schemas/Torrent"
 import type { FC } from "react"
 
 export const DownloadButton: FC<{ torrent: Torrent }> = ({ torrent }) => {
-	const { mutate, isLoading, data } = trpc.downloadTorrent.useMutation({})
+	const { mutateAsync, isLoading, data } = trpc.downloadTorrent.useMutation()
 
 	const activeTorrent = useActiveTorrent(torrent.infoHash)
+	const trpcUtils = trpc.useUtils()
 
 	if (activeTorrent !== undefined) {
 		if (activeTorrent.progress === 1) {
@@ -56,7 +57,10 @@ export const DownloadButton: FC<{ torrent: Torrent }> = ({ torrent }) => {
 				color={data === false ? "danger" : "default"}
 				variant="bordered"
 				onPress={(): void => {
-					mutate(torrent.magnet)
+					mutateAsync(torrent.magnet).then(() => {
+						trpcUtils.activeTorrentsCount.invalidate()
+						trpcUtils.activeTorrents.invalidate()
+					})
 				}}
 				isLoading={isLoading}
 			>

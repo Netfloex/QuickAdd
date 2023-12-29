@@ -13,7 +13,7 @@ import type { FC } from "react"
 
 export const DownloadsLink: FC = () => {
 	const { data, isLoading, isError, error } =
-		trpc.activeTorrentsCount.useQuery(undefined, activeQueryOptions())
+		trpc.activeTorrentsCount.useQuery(undefined, activeQueryOptions(60))
 
 	const color: "primary" | "default" | "danger" = isError
 		? "danger"
@@ -33,7 +33,7 @@ export const DownloadsLink: FC = () => {
 				)
 			}
 			showOutline={false}
-			placement="bottom-right"
+			placement="top-right"
 			color={color}
 			classNames={{ badge: "aspect-square", base: "aspect-square" }}
 		>

@@ -6,7 +6,7 @@ import { QbitTorrent } from "@schemas/QbitTorrent"
 export const useActiveTorrent = (hash: string): undefined | QbitTorrent => {
 	const { data } = trpc.activeTorrents.useQuery(
 		undefined,
-		activeQueryOptions(),
+		activeQueryOptions(10),
 	)
 
 	const torrent = data?.find(

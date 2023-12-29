@@ -27,7 +27,7 @@ import type { FC, Key } from "react"
 export const DownloadingTable: FC = () => {
 	const { data, error, isLoading } = trpc.activeTorrents.useQuery(
 		undefined,
-		activeQueryOptions(),
+		activeQueryOptions(10),
 	)
 
 	const columns = useMemo(

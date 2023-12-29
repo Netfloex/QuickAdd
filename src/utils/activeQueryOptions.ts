@@ -1,8 +1,8 @@
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-export const activeQueryOptions = () => {
+export const activeQueryOptions = (seconds: number) => {
 	return {
-		staleTime: 10,
+		staleTime: seconds,
 		refetchOnWindowFocus: true,
-		refetchInterval: 10_000,
+		refetchInterval: seconds * 1000,
 	} as const
 }
