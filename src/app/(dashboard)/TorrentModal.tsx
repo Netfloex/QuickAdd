@@ -1,11 +1,4 @@
-import { Button } from "@nextui-org/button"
-import {
-	Modal,
-	ModalBody,
-	ModalContent,
-	ModalFooter,
-	ModalHeader,
-} from "@nextui-org/modal"
+import { Modal, ModalBody, ModalContent, ModalHeader } from "@nextui-org/modal"
 
 import { TorrentTable } from "./TorrentTable"
 
@@ -28,7 +21,7 @@ export const TorrentModal: FC<{
 				placement="center"
 			>
 				<ModalContent>
-					{(onClose): JSX.Element => (
+					{(): JSX.Element => (
 						<>
 							<ModalHeader className="flex flex-col gap-1">
 								{movie.title} ({movie.year})
@@ -36,18 +29,6 @@ export const TorrentModal: FC<{
 							<ModalBody>
 								{isOpen && <TorrentTable movie={movie} />}
 							</ModalBody>
-							<ModalFooter>
-								<Button
-									color="danger"
-									variant="light"
-									onPress={onClose}
-								>
-									Close
-								</Button>
-								<Button color="primary" onPress={onClose}>
-									Action
-								</Button>
-							</ModalFooter>
 						</>
 					)}
 				</ModalContent>

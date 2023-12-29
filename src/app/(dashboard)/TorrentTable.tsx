@@ -37,53 +37,6 @@ export const TorrentTable: FC<{ movie: MovieSearchResult }> = ({ movie }) => {
 		direction: "descending",
 	})
 
-	const columns = useMemo(
-		() => [
-			{
-				key: "name",
-				label: "Title",
-			},
-
-			{
-				key: "magnet",
-				label: "Magnet",
-			},
-			{
-				key: "download",
-				label: "Download",
-			},
-			{
-				key: "quality",
-				label: "Quality",
-			},
-			{
-				key: "codec",
-				label: "Codec",
-			},
-			{
-				key: "source",
-				label: "Source",
-			},
-			{
-				key: "seeders",
-				label: "Peers",
-			},
-			{
-				key: "size",
-				label: "Size",
-			},
-			{
-				key: "provider",
-				label: "Provider",
-			},
-			{
-				key: "added",
-				label: "Added",
-			},
-		],
-		[],
-	)
-
 	const qualityItems = useMemo(
 		() =>
 			QUALITIES.map((s) => ({
@@ -213,20 +166,23 @@ export const TorrentTable: FC<{ movie: MovieSearchResult }> = ({ movie }) => {
 				sortDescriptor={sortDescriptor}
 				onSortChange={sort}
 			>
-				<TableHeader columns={columns}>
-					{(column): JSX.Element => (
-						<TableColumn
-							allowsSorting={[
-								"seeders",
-								"leechers",
-								"size",
-								"added",
-							].includes(column.key)}
-							key={column.key}
-						>
-							{column.label}
-						</TableColumn>
-					)}
+				<TableHeader>
+					<TableColumn key="name">Title</TableColumn>
+					<TableColumn key="magnet">Magnet</TableColumn>
+					<TableColumn key="download">Download</TableColumn>
+					<TableColumn key="quality">Quality</TableColumn>
+					<TableColumn key="codec">Codec</TableColumn>
+					<TableColumn key="source">Source</TableColumn>
+					<TableColumn allowsSorting key="seeders">
+						Peers
+					</TableColumn>
+					<TableColumn allowsSorting key="size">
+						Size
+					</TableColumn>
+					<TableColumn key="provider">Provider</TableColumn>
+					<TableColumn allowsSorting key="added">
+						Added
+					</TableColumn>
 				</TableHeader>
 				<TableBody
 					items={data ?? []}

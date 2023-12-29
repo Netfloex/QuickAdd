@@ -11,7 +11,7 @@ import {
 	TableHeader,
 	TableRow,
 } from "@nextui-org/table"
-import { useCallback, useMemo } from "react"
+import { useCallback } from "react"
 
 import { activeQueryOptions } from "@utils/activeQueryOptions"
 import { formatBytes } from "@utils/formatBytes"
@@ -29,36 +29,6 @@ export const DownloadingTable: FC = () => {
 	const { data, error, isLoading } = trpc.activeTorrents.useQuery(
 		undefined,
 		activeQueryOptions(10),
-	)
-
-	const columns = useMemo(
-		() => [
-			{
-				key: "name",
-				label: "Name",
-			},
-			{
-				key: "progress",
-				label: "Progress",
-			},
-			{
-				key: "dlspeed",
-				label: "DL Speed",
-			},
-			{
-				key: "size",
-				label: "Size",
-			},
-			{
-				key: "peers",
-				label: "Peers",
-			},
-			{
-				key: "eta",
-				label: "ETA",
-			},
-		],
-		[],
 	)
 
 	const renderCell = useCallback(
@@ -107,20 +77,13 @@ export const DownloadingTable: FC = () => {
 	return (
 		<>
 			<Table removeWrapper>
-				<TableHeader columns={columns}>
-					{(column): JSX.Element => (
-						<TableColumn
-							allowsSorting={[
-								"seeders",
-								"leechers",
-								"size",
-								"added",
-							].includes(column.key)}
-							key={column.key}
-						>
-							{column.label}
-						</TableColumn>
-					)}
+				<TableHeader>
+					<TableColumn key="name">Name</TableColumn>
+					<TableColumn key="progress">Progress</TableColumn>
+					<TableColumn key="dlspeed">DL Speed</TableColumn>
+					<TableColumn key="size">Size</TableColumn>
+					<TableColumn key="peers">Peers</TableColumn>
+					<TableColumn key="eta">ETA</TableColumn>
 				</TableHeader>
 				<TableBody
 					items={data ?? []}
