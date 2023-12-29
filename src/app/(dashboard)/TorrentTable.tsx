@@ -20,6 +20,7 @@ import { fixQualityName } from "@utils/fixQualityName"
 import { formatBytes } from "@utils/formatBytes"
 import { trpc } from "@utils/trpc"
 
+import { ErrorCard } from "@components/ErrorCard"
 import { PeersChip } from "@components/PeersChip"
 
 import { DownloadButton } from "./DownloadButton"
@@ -169,7 +170,7 @@ export const TorrentTable: FC<{ movie: MovieSearchResult }> = ({ movie }) => {
 		sourceItems.map((q) => q.key),
 	)
 
-	const { data, isFetching } = trpc.searchTorrents.useQuery({
+	const { data, isFetching, error, isError } = trpc.searchTorrents.useQuery({
 		id: movie.tmdbId,
 		sortOptions: {
 			order:
@@ -233,7 +234,13 @@ export const TorrentTable: FC<{ movie: MovieSearchResult }> = ({ movie }) => {
 					loadingState={isFetching ? "loading" : "idle"}
 					loadingContent={<Spinner label="Loading..." />}
 					emptyContent={
-						data && data.length == 0 ? "No torrents found" : " "
+						data && data.length == 0 ? (
+							"No torrents found"
+						) : isError ? (
+							<ErrorCard error={error} />
+						) : (
+							" "
+						)
 					}
 				>
 					{(item): JSX.Element => (

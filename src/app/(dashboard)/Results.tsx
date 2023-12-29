@@ -1,8 +1,9 @@
-import { Card, CardBody } from "@nextui-org/card"
 import { Spacer } from "@nextui-org/react"
 import { Fragment } from "react"
 
 import { trpc } from "@utils/trpc"
+
+import { ErrorCard } from "@components/ErrorCard"
 
 import { LoadingSkeleton } from "./LoadingSkeleton"
 import { MovieItem } from "./MovieItem"
@@ -14,12 +15,7 @@ export const Results: FC<{ query: string }> = ({ query }) => {
 		trpc.searchMovies.useQuery({ query }, { enabled: query.length !== 0 })
 
 	// Error
-	if (error)
-		return (
-			<Card className="bg-red-600">
-				<CardBody>{error.message}</CardBody>
-			</Card>
-		)
+	if (error) return <ErrorCard error={error} />
 
 	// Loading
 	if (isInitialLoading)

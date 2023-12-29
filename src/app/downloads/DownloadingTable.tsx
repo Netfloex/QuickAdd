@@ -18,6 +18,7 @@ import { formatBytes } from "@utils/formatBytes"
 import { humanizeDuration } from "@utils/humanizeDuration"
 import { trpc } from "@utils/trpc"
 
+import { ErrorCard } from "@components/ErrorCard"
 import { PeersChip } from "@components/PeersChip"
 
 import { QbitTorrent } from "@schemas/QbitTorrent"
@@ -100,7 +101,7 @@ export const DownloadingTable: FC = () => {
 	)
 
 	if (error) {
-		return <p>{error.message}</p>
+		return <ErrorCard error={error} />
 	}
 
 	return (
