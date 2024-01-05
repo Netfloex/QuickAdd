@@ -34,7 +34,7 @@ export const Providers: FCC = ({ children }) => {
 		trpc.createClient({
 			links: [
 				loggerLink({
-					enabled: () => true,
+					enabled: () => process.env.NODE_ENV === "development",
 				}),
 				httpBatchLink({
 					url: "/api/trpc",
