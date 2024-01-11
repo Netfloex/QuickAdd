@@ -1,8 +1,6 @@
-import { inspect } from "util"
-
 import { z } from "zod"
 
-import { torrentHttp } from "@server/http"
+import { handleApi } from "@server/api/handleApi"
 import { gql } from "@utils/gql"
 
 import { MovieFilterProperties } from "@schemas/MovieFilterProperties"
@@ -54,36 +52,21 @@ export const getTorrents = async (
 	sortOptions: SortOptions,
 	movieProperties: MovieFilterProperties,
 ): Promise<Torrent[]> => {
-	const data = await torrentHttp
-		.post({
-			json: {
-				query,
-				variables: {
-					imdb,
-					title,
-					sort: sortOptions.sort,
-					order: sortOptions.order,
-					source: movieProperties.sources,
-					quality: movieProperties.qualities,
-					codec: movieProperties.codecs,
-				},
-			},
-		})
-		.json()
+	const data = await handleApi(
+		query,
+		{
+			imdb,
+			title,
+			sort: sortOptions.sort,
+			order: sortOptions.order,
+			source: movieProperties.sources,
+			quality: movieProperties.qualities,
+			codec: movieProperties.codecs,
+		},
+		z.object({
+			search: Torrent.array(),
+		}),
+	)
 
-	const result = z
-		.object({
-			data: z.object({
-				search: Torrent.array(),
-			}),
-		})
-		.safeParse(data)
-
-	if (result.success) {
-		return result.data.data.search
-	}
-
-	console.log(data, inspect(result.error, true, 10, true))
-
-	throw result.error
+	return data.search
 }
