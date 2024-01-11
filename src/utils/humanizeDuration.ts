@@ -4,8 +4,7 @@ export const humanizeDuration = (seconds: number): string => {
 	const remainingHours = Math.floor((minutes / 60) % 24)
 	const remainingMinutes = Math.floor(minutes % 60)
 
-	return `${days}d ${remainingHours}h ${remainingMinutes}m`.replace(
-		/0[dhm]/g,
-		"",
-	)
+	return ` ${days}d ${remainingHours}h ${remainingMinutes}m`
+		.replace(/\s0[dhm]/g, "")
+		.trim()
 }
