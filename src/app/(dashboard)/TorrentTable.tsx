@@ -1,8 +1,9 @@
+import { Button } from "@nextui-org/button"
 import { Chip } from "@nextui-org/chip"
-import { Button, SortDescriptor } from "@nextui-org/react"
 import { Spinner } from "@nextui-org/spinner"
 import {
 	getKeyValue,
+	SortDescriptor,
 	Table,
 	TableBody,
 	TableCell,

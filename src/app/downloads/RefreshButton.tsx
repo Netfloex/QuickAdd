@@ -1,6 +1,6 @@
 "use client"
 
-import { Button } from "@nextui-org/react"
+import { Button } from "@nextui-org/button"
 import { useCallback } from "react"
 import { MdRefresh } from "react-icons/md"
 

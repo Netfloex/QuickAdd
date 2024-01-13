@@ -1,4 +1,4 @@
-import { Spacer } from "@nextui-org/react"
+import { Spacer } from "@nextui-org/spacer"
 import { Fragment } from "react"
 
 import { trpc } from "@utils/trpc"

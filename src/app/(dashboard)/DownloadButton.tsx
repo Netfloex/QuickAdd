@@ -1,5 +1,5 @@
 import { Button } from "@nextui-org/button"
-import { CircularProgress } from "@nextui-org/react"
+import { CircularProgress } from "@nextui-org/progress"
 import { FaCheck, FaDownload } from "react-icons/fa"
 import { MdErrorOutline } from "react-icons/md"
 
