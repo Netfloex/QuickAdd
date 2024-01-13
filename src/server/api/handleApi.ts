@@ -25,7 +25,7 @@ export const handleApi = async <T extends ZodType>(
 		.safeParse(data)
 
 	if (result.success) {
-		return result.data
+		return result.data.data
 	}
 
 	console.error("Zod parse error")
