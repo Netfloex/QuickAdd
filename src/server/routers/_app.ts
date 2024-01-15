@@ -1,14 +1,14 @@
 import { activeTorrentCountRoute } from "@server/routers/activeTorrentCount"
 import { activeTorrentsRoute } from "@server/routers/activeTorrents"
-import { downloadTorrentsRoute } from "@server/routers/downloadTorrent"
 import { searchMoviesRoute } from "@server/routers/searchMovies"
 import { searchTorrentsRoute } from "@server/routers/searchTorrents"
+import { trackMovieRoute } from "@server/routers/trackMovie"
 import { router } from "@server/trpc"
 
 export const appRouter = router({
 	searchMovies: searchMoviesRoute,
 	searchTorrents: searchTorrentsRoute,
-	downloadTorrent: downloadTorrentsRoute,
+	trackMovie: trackMovieRoute,
 	activeTorrents: activeTorrentsRoute,
 	activeTorrentsCount: activeTorrentCountRoute,
 })

@@ -102,7 +102,7 @@ export const TorrentTable: FC<{ movie: MovieSearchResult }> = ({ movie }) => {
 						</a>
 					)
 				case "download":
-					return <DownloadButton torrent={torrent} />
+					return <DownloadButton torrent={torrent} movie={movie} />
 				default:
 					return <>{getKeyValue(torrent, key)}</>
 			}

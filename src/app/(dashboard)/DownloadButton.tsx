@@ -1,5 +1,6 @@
 import { Button } from "@nextui-org/button"
 import { CircularProgress } from "@nextui-org/progress"
+import { useCallback } from "react"
 import { FaCheck, FaDownload } from "react-icons/fa"
 import { MdErrorOutline } from "react-icons/md"
 
@@ -8,15 +9,36 @@ import { useActiveTorrent } from "@hooks/useActiveTorrent"
 import { formatBytes } from "@utils/formatBytes"
 import { trpc } from "@utils/trpc"
 
+import { MovieSearchResult } from "@schemas/MovieSearchResult"
 import { Torrent } from "@schemas/Torrent"
 
 import type { FC } from "react"
 
-export const DownloadButton: FC<{ torrent: Torrent }> = ({ torrent }) => {
-	const { mutateAsync, isLoading, data } = trpc.downloadTorrent.useMutation()
+export const DownloadButton: FC<{
+	torrent: Torrent
+	movie: MovieSearchResult
+}> = ({ torrent, movie }) => {
+	const { mutateAsync, isLoading, isError, data } =
+		trpc.trackMovie.useMutation()
 
 	const activeTorrent = useActiveTorrent(torrent.infoHash)
 	const trpcUtils = trpc.useUtils()
+
+	const downloadMovie = useCallback(() => {
+		mutateAsync({
+			url: torrent.magnet,
+			tmdb: movie.tmdbId,
+		}).then(() => {
+			trpcUtils.activeTorrentsCount.invalidate()
+			trpcUtils.activeTorrents.invalidate()
+		})
+	}, [
+		movie.tmdbId,
+		mutateAsync,
+		torrent.magnet,
+		trpcUtils.activeTorrents,
+		trpcUtils.activeTorrentsCount,
+	])
 
 	if (activeTorrent !== undefined) {
 		if (activeTorrent.progress === 1) {
@@ -54,22 +76,13 @@ export const DownloadButton: FC<{ torrent: Torrent }> = ({ torrent }) => {
 		<>
 			<Button
 				isIconOnly
-				color={data === false ? "danger" : "default"}
+				color={isError ? "danger" : "default"}
 				variant="bordered"
-				onPress={(): void => {
-					mutateAsync(torrent.magnet).then(() => {
-						trpcUtils.activeTorrentsCount.invalidate()
-						trpcUtils.activeTorrents.invalidate()
-					})
-				}}
+				onPress={downloadMovie}
 				isLoading={isLoading}
 			>
 				{!isLoading &&
-					(data === false ? (
-						<MdErrorOutline size={25} />
-					) : (
-						<FaDownload />
-					))}
+					(isError ? <MdErrorOutline size={25} /> : <FaDownload />)}
 			</Button>
 		</>
 	)
