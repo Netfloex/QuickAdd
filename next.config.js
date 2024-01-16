@@ -15,6 +15,10 @@ const config = {
 	},
 
 	output: "standalone",
+
+	experimental: {
+		instrumentationHook: true,
+	},
 }
 
 const withPwa = nextPwa.default({

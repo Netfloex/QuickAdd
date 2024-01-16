@@ -1,6 +1,6 @@
 import got, { RequestError } from "got"
 
-const API_KEY = process.env.API_KEY
+import { config } from "@server/config"
 
 const baseHttp = got.extend({
 	hooks: {
@@ -19,12 +19,12 @@ const baseHttp = got.extend({
 export const http = baseHttp.extend({
 	prefixUrl: `https://api.themoviedb.org/3`,
 	headers: {
-		Authorization: `Bearer ${API_KEY}`,
+		Authorization: `Bearer ${config.theMovieDbApiKey}`,
 	},
 })
 
 export const torrentHttp = baseHttp.extend({
-	prefixUrl: process.env.TORRENT_API,
+	prefixUrl: config.torrentApiUrl,
 })
 
 export const radarrHttp = baseHttp.extend({
