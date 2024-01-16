@@ -1,6 +1,6 @@
 import { z } from "zod"
 
-import { getImdbId } from "@server/api/getImdbId"
+import { getImdbAndTitle } from "@server/api/getImdbAndTitle"
 import { getTorrents } from "@server/api/getTorrents"
 import { procedure } from "@server/trpc"
 
@@ -16,15 +16,15 @@ export const searchTorrentsRoute = procedure
 		}),
 	)
 	.query(async ({ input: { id, sortOptions, movieFilterProps } }) => {
-		const info = await getImdbId(id)
+		const info = await getImdbAndTitle(id)
 
-		if (!info.imdb_id) {
+		if (!info.imdbId) {
 			return []
 		}
 
 		return await getTorrents(
-			info.imdb_id,
-			info.title,
+			info.imdbId,
+			`${info.title} (${info.year})`,
 			sortOptions,
 			movieFilterProps,
 		)

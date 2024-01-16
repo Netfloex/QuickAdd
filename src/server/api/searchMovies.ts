@@ -1,23 +1,57 @@
-import { inspect } from "util"
+import { z } from "zod"
 
-import { radarrHttp } from "@server/http"
+import { handleApi } from "@server/api/handleApi"
+import { gql } from "@utils/gql"
 
 import { MovieSearchResult } from "@schemas/MovieSearchResult"
 
-export const searchMovies = async (
-	query: string,
-): Promise<MovieSearchResult[]> => {
-	const data = await radarrHttp
-		.get("search", { searchParams: { q: query } })
-		.json()
-
-	const result = MovieSearchResult.array().safeParse(data)
-
-	if (result.success) {
-		return result.data
+const query = gql`
+	query SearchMovies($query: String!) {
+		searchMovies(query: $query) {
+			imdbId
+			overview
+			title
+			originalTitle
+			runtime
+			year
+			tmdbId
+			movieRatings {
+				tmdb {
+					value
+					count
+				}
+				imdb {
+					value
+					count
+				}
+				metacritic {
+					value
+					count
+				}
+				rottenTomatoes {
+					value
+					count
+				}
+			}
+			genres
+			posterUrl
+			physicalRelease
+			digitalRelease
+			inCinema
+		}
 	}
+`
 
-	console.log(inspect(result.error, true, 10, true))
+export const searchMovies = async (q: string): Promise<MovieSearchResult[]> => {
+	const data = await handleApi(
+		query,
+		{
+			query: q,
+		},
+		z.object({
+			searchMovies: z.array(MovieSearchResult),
+		}),
+	)
 
-	throw result.error
+	return data.searchMovies
 }

@@ -2,7 +2,8 @@ import got, { RequestError } from "got"
 
 import { config } from "@server/config"
 
-const baseHttp = got.extend({
+export const torrentHttp = got.extend({
+	prefixUrl: config.torrentApiUrl,
 	hooks: {
 		beforeError: [
 			(err): RequestError => {
@@ -14,19 +15,4 @@ const baseHttp = got.extend({
 			},
 		],
 	},
-})
-
-export const http = baseHttp.extend({
-	prefixUrl: `https://api.themoviedb.org/3`,
-	headers: {
-		Authorization: `Bearer ${config.theMovieDbApiKey}`,
-	},
-})
-
-export const torrentHttp = baseHttp.extend({
-	prefixUrl: config.torrentApiUrl,
-})
-
-export const radarrHttp = baseHttp.extend({
-	prefixUrl: "https://api.radarr.video/v1",
 })

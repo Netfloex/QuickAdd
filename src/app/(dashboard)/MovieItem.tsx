@@ -24,21 +24,19 @@ export const MovieItem: FC<{ movie: MovieSearchResult }> = ({ movie }) => {
 		onOpen()
 	}, [onOpen])
 
-	const posterUrl = movie.images.find((i) => i.coverType === "Poster")?.url
-
 	return (
 		<>
 			<TorrentModal isOpen={isOpen} onClose={onClose} movie={movie} />
 			<Card className={styles.movieItem} isPressable onPress={openModal}>
 				<CardBody className={styles.body}>
-					{posterUrl !== undefined ? (
+					{movie.posterUrl !== undefined ? (
 						<Image
 							alt=""
 							as={NextImage}
 							width="240"
 							height="360"
 							unoptimized
-							src={posterUrl}
+							src={movie.posterUrl}
 							classNames={{
 								wrapper: styles.posterWrapper,
 								img: styles.poster,
