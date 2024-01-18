@@ -13,7 +13,7 @@ const dateString = z
 	.nullable()
 
 export const MovieSearchResult = z.object({
-	imdbId: z.string().optional(),
+	imdbId: z.string().nullable(),
 	overview: z.string(),
 	title: z.string(),
 	originalTitle: z.string(),
@@ -27,7 +27,7 @@ export const MovieSearchResult = z.object({
 		metacritic: movieRating,
 	}),
 	genres: z.array(z.string()),
-	posterUrl: z.string().optional(),
+	posterUrl: z.string().nullable(),
 	physicalRelease: dateString,
 	digitalRelease: dateString,
 	inCinema: dateString,

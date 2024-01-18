@@ -29,7 +29,7 @@ export const MovieItem: FC<{ movie: MovieSearchResult }> = ({ movie }) => {
 			<TorrentModal isOpen={isOpen} onClose={onClose} movie={movie} />
 			<Card className={styles.movieItem} isPressable onPress={openModal}>
 				<CardBody className={styles.body}>
-					{movie.posterUrl !== undefined ? (
+					{movie.posterUrl !== null ? (
 						<Image
 							alt=""
 							as={NextImage}
