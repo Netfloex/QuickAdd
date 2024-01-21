@@ -11,14 +11,16 @@ import { MovieItem } from "./MovieItem"
 import type { FC } from "react"
 
 export const Results: FC<{ query: string }> = ({ query }) => {
-	const { data, error, isInitialLoading, isLoading } =
-		trpc.searchMovies.useQuery({ query }, { enabled: query.length !== 0 })
+	const { data, error, isLoading, isPending } = trpc.searchMovies.useQuery(
+		{ query },
+		{ enabled: query.length !== 0 },
+	)
 
 	// Error
 	if (error) return <ErrorCard error={error} />
 
 	// Loading
-	if (isInitialLoading)
+	if (isLoading)
 		return (
 			<>
 				<LoadingSkeleton />
@@ -28,7 +30,7 @@ export const Results: FC<{ query: string }> = ({ query }) => {
 		)
 
 	// Not started
-	if (isLoading) return null
+	if (isPending) return null
 
 	// No data
 	if (!data.length) return <>No Items</>

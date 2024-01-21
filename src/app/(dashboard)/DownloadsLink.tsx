@@ -18,8 +18,8 @@ export const DownloadsLink: FC = () => {
 	const color: "primary" | "default" | "danger" = isError
 		? "danger"
 		: isLoading
-		  ? "default"
-		  : "primary"
+			? "default"
+			: "primary"
 
 	return (
 		<Badge

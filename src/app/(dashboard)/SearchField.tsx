@@ -19,8 +19,6 @@ export const SearchField: FC<{
 			if (e.target instanceof HTMLInputElement) return
 
 			if (e.key.match(/^(\w|Backspace)$/) && !e.ctrlKey && !e.metaKey) {
-				console.log("YES")
-
 				e.preventDefault()
 				inputRef.current?.focus()
 				inputRef.current?.scrollTo({ top: 0, behavior: "smooth" })

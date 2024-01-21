@@ -18,7 +18,7 @@ export const DownloadButton: FC<{
 	torrent: Torrent
 	movie: MovieSearchResult
 }> = ({ torrent, movie }) => {
-	const { mutateAsync, isLoading, isError, data } =
+	const { mutateAsync, isPending, isError, data } =
 		trpc.trackMovie.useMutation()
 
 	const activeTorrent = useActiveTorrent(torrent.infoHash)
@@ -79,9 +79,9 @@ export const DownloadButton: FC<{
 				color={isError ? "danger" : "default"}
 				variant="bordered"
 				onPress={downloadMovie}
-				isLoading={isLoading}
+				isLoading={isPending}
 			>
-				{!isLoading &&
+				{!isPending &&
 					(isError ? <MdErrorOutline size={25} /> : <FaDownload />)}
 			</Button>
 		</>
