@@ -107,7 +107,7 @@ export const TorrentTable: FC<{ movie: MovieSearchResult }> = ({ movie }) => {
 					return <>{getKeyValue(torrent, key)}</>
 			}
 		},
-		[],
+		[movie],
 	)
 
 	const [qualityFilters, setQualityFilters] = usePropertyFilter(
@@ -124,21 +124,30 @@ export const TorrentTable: FC<{ movie: MovieSearchResult }> = ({ movie }) => {
 		sourceItems.map((q) => q.key),
 	)
 
-	const { data, isFetching, error, isError } = trpc.searchTorrents.useQuery({
-		id: movie.tmdbId,
-		sortOptions: {
-			order:
-				sortDescriptor.direction == "ascending"
-					? "ASCENDING"
-					: "DESCENDING",
-			sort: sortDescriptor.column?.toString().toUpperCase() as "SEEDERS",
+	const { data, isFetching, error, isError } = trpc.searchTorrents.useQuery(
+		{
+			imdb: movie.imdbId!,
+			sortOptions: {
+				order:
+					sortDescriptor.direction == "ascending"
+						? "ASCENDING"
+						: "DESCENDING",
+				sort: sortDescriptor.column
+					?.toString()
+					.toUpperCase() as "SEEDERS",
+			},
+			movieFilterProps: {
+				codecs: Array.from(codecFilters),
+				qualities: Array.from(qualityFilters),
+				sources: Array.from(sourceFilters),
+			},
 		},
-		movieFilterProps: {
-			codecs: Array.from(codecFilters),
-			qualities: Array.from(qualityFilters),
-			sources: Array.from(sourceFilters),
-		},
-	})
+		{ enabled: movie.imdbId != null },
+	)
+
+	if (movie.imdbId == null) {
+		return <ErrorCard error={new Error("No IMDB ID found")} />
+	}
 
 	return (
 		<>

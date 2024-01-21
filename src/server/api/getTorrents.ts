@@ -10,7 +10,6 @@ import { Torrent } from "@schemas/Torrent"
 const query = gql`
 	query GetTorrents(
 		$imdb: String
-		$title: String
 		$sort: SortColumn
 		$order: Order
 		$quality: [Quality!]
@@ -48,7 +47,6 @@ const query = gql`
 
 export const getTorrents = async (
 	imdb: string,
-	title: string,
 	sortOptions: SortOptions,
 	movieProperties: MovieFilterProperties,
 ): Promise<Torrent[]> => {
@@ -56,7 +54,6 @@ export const getTorrents = async (
 		query,
 		{
 			imdb,
-			title,
 			sort: sortOptions.sort,
 			order: sortOptions.order,
 			source: movieProperties.sources,
