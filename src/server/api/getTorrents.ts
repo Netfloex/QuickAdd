@@ -4,8 +4,8 @@ import { handleApi } from "@server/api/handleApi"
 import { gql } from "@utils/gql"
 
 import { MovieFilterProperties } from "@schemas/MovieFilterProperties"
+import { SearchResponse } from "@schemas/SearchResponse"
 import { SortOptions } from "@schemas/SortOptions"
-import { Torrent } from "@schemas/Torrent"
 
 const query = gql`
 	query GetTorrents(
@@ -26,19 +26,25 @@ const query = gql`
 				source: $source
 			}
 		) {
-			added
-			infoHash
-			leechers
-			name
-			provider
-			seeders
-			magnet
-			size
-			movieProperties {
-				codec
-				imdb
-				quality
-				source
+			errors {
+				provider
+				error
+			}
+			torrents {
+				added
+				infoHash
+				leechers
+				name
+				provider
+				seeders
+				magnet
+				size
+				movieProperties {
+					codec
+					imdb
+					quality
+					source
+				}
 			}
 		}
 	}
@@ -48,7 +54,7 @@ export const getTorrents = async (
 	imdb: string,
 	sortOptions: SortOptions,
 	movieProperties: MovieFilterProperties,
-): Promise<Torrent[]> => {
+): Promise<SearchResponse> => {
 	const data = await handleApi(
 		query,
 		{
@@ -60,7 +66,7 @@ export const getTorrents = async (
 			codec: movieProperties.codecs,
 		},
 		z.object({
-			search: Torrent.array(),
+			search: SearchResponse,
 		}),
 	)
 

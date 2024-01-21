@@ -26,6 +26,7 @@ import { PeersChip } from "@components/PeersChip"
 
 import { DownloadButton } from "./DownloadButton"
 import { PropertyFilter } from "./PropertyFilter"
+import { ProviderErrors } from "./ProviderErrors"
 
 import { MovieSearchResult } from "@schemas/MovieSearchResult"
 import { Torrent } from "@schemas/Torrent"
@@ -151,6 +152,9 @@ export const TorrentTable: FC<{ movie: MovieSearchResult }> = ({ movie }) => {
 
 	return (
 		<>
+			{data && data.errors.length !== 0 && (
+				<ProviderErrors errors={data.errors} />
+			)}
 			<div className="flex gap-3 items-end">
 				<PropertyFilter
 					type="Quality"
@@ -195,12 +199,12 @@ export const TorrentTable: FC<{ movie: MovieSearchResult }> = ({ movie }) => {
 					</TableColumn>
 				</TableHeader>
 				<TableBody
-					items={data ?? []}
+					items={data?.torrents ?? []}
 					isLoading={isFetching}
 					loadingState={isFetching ? "loading" : "idle"}
 					loadingContent={<Spinner label="Loading..." />}
 					emptyContent={
-						data && data.length == 0 ? (
+						data && data.torrents.length == 0 ? (
 							"No torrents found"
 						) : isError ? (
 							<ErrorCard error={error} />
