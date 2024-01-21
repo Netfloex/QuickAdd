@@ -1,9 +1,8 @@
-"use client"
-
 import { Progress } from "@nextui-org/progress"
 import { Spinner } from "@nextui-org/spinner"
 import {
 	getKeyValue,
+	Selection,
 	Table,
 	TableBody,
 	TableCell,
@@ -25,7 +24,10 @@ import { QbitTorrent } from "@schemas/QbitTorrent"
 
 import type { FC, Key } from "react"
 
-export const DownloadingTable: FC = () => {
+export const DownloadingTable: FC<{
+	selectedKeys: Selection
+	setSelectedKeys: (selectedKeys: Selection) => void
+}> = ({ selectedKeys, setSelectedKeys }) => {
 	const { data, error, isLoading } = trpc.activeTorrents.useQuery(
 		undefined,
 		activeQueryOptions(10),
@@ -76,7 +78,12 @@ export const DownloadingTable: FC = () => {
 
 	return (
 		<>
-			<Table removeWrapper>
+			<Table
+				removeWrapper
+				selectionMode="multiple"
+				selectedKeys={selectedKeys}
+				onSelectionChange={setSelectedKeys}
+			>
 				<TableHeader>
 					<TableColumn key="name">Name</TableColumn>
 					<TableColumn key="progress">Progress</TableColumn>
