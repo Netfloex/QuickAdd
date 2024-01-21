@@ -19,7 +19,6 @@ const query = gql`
 		search(
 			params: {
 				imdb: $imdb
-				title: $title
 				sort: $sort
 				order: $order
 				quality: $quality
