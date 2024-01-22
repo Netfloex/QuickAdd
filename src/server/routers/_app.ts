@@ -1,5 +1,6 @@
 import { activeTorrentCountRoute } from "@server/routers/activeTorrentCount"
 import { activeTorrentsRoute } from "@server/routers/activeTorrents"
+import { deleteTorrentsRoute } from "@server/routers/deleteTorrents"
 import { searchMoviesRoute } from "@server/routers/searchMovies"
 import { searchTorrentsRoute } from "@server/routers/searchTorrents"
 import { trackMovieRoute } from "@server/routers/trackMovie"
@@ -11,6 +12,7 @@ export const appRouter = router({
 	trackMovie: trackMovieRoute,
 	activeTorrents: activeTorrentsRoute,
 	activeTorrentsCount: activeTorrentCountRoute,
+	deleteTorrents: deleteTorrentsRoute,
 })
 
 export type AppRouter = typeof appRouter

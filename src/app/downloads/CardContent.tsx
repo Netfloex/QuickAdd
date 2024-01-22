@@ -19,7 +19,10 @@ export const CardContent: FC = () => {
 			<div className="mb-4 h-10 flex items-center space-x-4">
 				<RefreshButton />
 				<Divider orientation="vertical" />
-				<DeleteButton selectedKeys={selectedKeys} />
+				<DeleteButton
+					selectedKeys={selectedKeys}
+					setSelectedKeys={setSelectedKeys}
+				/>
 			</div>
 			<DownloadingTable
 				selectedKeys={selectedKeys}
