@@ -13,7 +13,6 @@ export const deleteTorrents = async (
 	hashes: string[],
 	deleteFiles: boolean,
 ): Promise<true> => {
-	throw new Error("Not implemented")
 	await handleApi(
 		query,
 		{
