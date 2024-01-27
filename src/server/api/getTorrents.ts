@@ -70,5 +70,7 @@ export const getTorrents = async (
 		}),
 	)
 
+	if (data.isError) throw new Error("Graphql error")
+
 	return data.search
 }

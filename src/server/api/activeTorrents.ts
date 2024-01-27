@@ -48,5 +48,9 @@ export const activeTorrents = async (): Promise<{
 		}),
 	)
 
+	if (data.isError) {
+		throw new Error("Error getting active torrents")
+	}
+
 	return data.torrents
 }

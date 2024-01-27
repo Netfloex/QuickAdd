@@ -12,8 +12,8 @@ const query = gql`
 export const deleteTorrents = async (
 	hashes: string[],
 	deleteFiles: boolean,
-): Promise<true> => {
-	await handleApi(
+): Promise<boolean> => {
+	const data = await handleApi(
 		query,
 		{
 			hashes,
@@ -24,5 +24,5 @@ export const deleteTorrents = async (
 		}),
 	)
 
-	return true
+	return !data.isError
 }

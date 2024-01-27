@@ -72,17 +72,22 @@ export const DownloadButton: FC<{
 		)
 	}
 
+	const isRealError = isError || data === false
 	return (
 		<>
 			<Button
 				isIconOnly
-				color={isError ? "danger" : "default"}
+				color={isRealError || data === false ? "danger" : "default"}
 				variant="bordered"
 				onPress={downloadMovie}
 				isLoading={isPending}
 			>
 				{!isPending &&
-					(isError ? <MdErrorOutline size={25} /> : <FaDownload />)}
+					(isRealError ? (
+						<MdErrorOutline size={25} />
+					) : (
+						<FaDownload />
+					))}
 			</Button>
 		</>
 	)

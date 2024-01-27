@@ -53,5 +53,9 @@ export const searchMovies = async (q: string): Promise<MovieSearchResult[]> => {
 		}),
 	)
 
+	if (data.isError) {
+		throw new Error("Error searching movies")
+	}
+
 	return data.searchMovies
 }

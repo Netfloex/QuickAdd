@@ -31,5 +31,9 @@ export const activeTorrentCount = async (): Promise<number> => {
 		}),
 	)
 
+	if (data.isError) {
+		throw new Error("Error getting active torrents")
+	}
+
 	return data.torrents.torrents.length
 }

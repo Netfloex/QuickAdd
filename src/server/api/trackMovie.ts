@@ -9,8 +9,11 @@ const query = gql`
 	}
 `
 
-export const trackMovie = async (url: string, tmdb: number): Promise<true> => {
-	await handleApi(
+export const trackMovie = async (
+	url: string,
+	tmdb: number,
+): Promise<boolean> => {
+	const data = await handleApi(
 		query,
 		{
 			url,
@@ -21,5 +24,5 @@ export const trackMovie = async (url: string, tmdb: number): Promise<true> => {
 		}),
 	)
 
-	return true
+	return !data.isError
 }
