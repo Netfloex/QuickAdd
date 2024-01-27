@@ -7,7 +7,9 @@ import { gql } from "@utils/gql"
 const query = gql`
 	query ActiveTorrents($category: String) {
 		torrents(params: { category: $category }) {
-			hash
+			torrents {
+				hash
+			}
 		}
 	}
 `
@@ -19,9 +21,15 @@ export const activeTorrentCount = async (): Promise<number> => {
 			category: config.qbittorrentCategory,
 		},
 		z.object({
-			torrents: z.array(z.object({ hash: z.string() })),
+			torrents: z.object({
+				torrents: z.array(
+					z.object({
+						hash: z.string(),
+					}),
+				),
+			}),
 		}),
 	)
 
-	return data.torrents.length
+	return data.torrents.torrents.length
 }

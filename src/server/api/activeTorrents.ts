@@ -4,32 +4,47 @@ import { handleApi } from "@server/api/handleApi"
 import { config } from "@server/config"
 import { gql } from "@utils/gql"
 
+import { TorrentMovieInfo } from "./../../schemas/TorrentMovieInfo"
+
 import { QbitTorrent } from "@schemas/QbitTorrent"
 
 const query = gql`
 	query ActiveTorrents($category: String) {
 		torrents(params: { category: $category }) {
-			dlspeed
-			downloaded
-			numLeechs
-			numSeeds
-			eta
-			hash
-			name
-			progress
-			size
+			torrents {
+				dlspeed
+				downloaded
+				numLeechs
+				numSeeds
+				eta
+				hash
+				name
+				progress
+				size
+			}
+			movieInfo {
+				title
+				year
+				forTorrents
+			}
 		}
 	}
 `
 
-export const activeTorrents = async (): Promise<QbitTorrent[]> => {
+export const activeTorrents = async (): Promise<{
+	torrents: QbitTorrent[]
+	movieInfo: TorrentMovieInfo[]
+}> => {
 	const data = await handleApi(
 		query,
 		{
 			category: config.qbittorrentCategory,
 		},
 		z.object({
-			torrents: QbitTorrent.array(),
+			torrents: z.object({
+				torrents: z.array(QbitTorrent),
+				movieInfo: z.array(TorrentMovieInfo),
+			}),
 		}),
 	)
 

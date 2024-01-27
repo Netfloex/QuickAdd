@@ -6,6 +6,7 @@ import { useDisclosure } from "@nextui-org/use-disclosure"
 import NextImage from "next/image"
 import { useCallback } from "react"
 
+import { formatMovie } from "@utils/formatMovie"
 import { humanizeDuration } from "@utils/humanizeDuration"
 
 import { Genres } from "./Genres"
@@ -51,9 +52,7 @@ export const MovieItem: FC<{ movie: MovieSearchResult }> = ({ movie }) => {
 						/>
 					)}
 					<div className={styles.information + " mx-3"}>
-						<h1 className={styles.title}>
-							{movie.title} ({movie.year})
-						</h1>
+						<h1 className={styles.title}>{formatMovie(movie)}</h1>
 						{movie.title !== movie.originalTitle && (
 							<p className="text-default-500 -mt-1 mb-2">
 								{movie.originalTitle}

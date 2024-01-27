@@ -12,7 +12,6 @@ import type { FC } from "react"
 
 export const CardContent: FC = () => {
 	const [selectedKeys, setSelectedKeys] = useState<Selection>(new Set())
-	console.log("selectedKeys", selectedKeys)
 
 	return (
 		<>

@@ -10,10 +10,11 @@ import {
 	TableHeader,
 	TableRow,
 } from "@nextui-org/table"
-import { useCallback } from "react"
+import { useCallback, useMemo } from "react"
 
 import { activeQueryOptions } from "@utils/activeQueryOptions"
 import { formatBytes } from "@utils/formatBytes"
+import { formatMovie } from "@utils/formatMovie"
 import { humanizeDuration } from "@utils/humanizeDuration"
 import { trpc } from "@utils/trpc"
 
@@ -21,8 +22,13 @@ import { ErrorCard } from "@components/ErrorCard"
 import { PeersChip } from "@components/PeersChip"
 
 import { QbitTorrent } from "@schemas/QbitTorrent"
+import { TorrentMovieInfo } from "@schemas/TorrentMovieInfo"
 
 import type { FC, Key } from "react"
+
+type QbitTorrentWithMovieInfo = QbitTorrent & {
+	movieInfo: TorrentMovieInfo | undefined
+}
 
 export const DownloadingTable: FC<{
 	selectedKeys: Selection
@@ -33,9 +39,35 @@ export const DownloadingTable: FC<{
 		activeQueryOptions(10),
 	)
 
+	const torrents: QbitTorrentWithMovieInfo[] | undefined = useMemo(() => {
+		return data?.torrents.map((torrent) => {
+			const movieInfo = data?.movieInfo.find((info) =>
+				info.forTorrents.includes(torrent.hash),
+			)
+
+			return {
+				...torrent,
+				movieInfo,
+			}
+		})
+	}, [data?.movieInfo, data?.torrents])
+
 	const renderCell = useCallback(
-		(torrent: QbitTorrent, key: Key): JSX.Element => {
+		(torrent: QbitTorrentWithMovieInfo, key: Key): JSX.Element => {
 			switch (key) {
+				case "name":
+					return (
+						<>
+							{torrent.movieInfo && (
+								<p className="text-lg font-bold">
+									{formatMovie(torrent.movieInfo)}
+								</p>
+							)}
+							<p className="text-sm text-gray-300">
+								{torrent.name}
+							</p>
+						</>
+					)
 				case "progress":
 					return (
 						<Progress
@@ -93,12 +125,14 @@ export const DownloadingTable: FC<{
 					<TableColumn key="eta">ETA</TableColumn>
 				</TableHeader>
 				<TableBody
-					items={data ?? []}
+					items={torrents ?? []}
 					isLoading={isLoading}
 					loadingState={isLoading ? "loading" : "idle"}
 					loadingContent={<Spinner label="Loading..." />}
 					emptyContent={
-						data && data.length == 0 ? "No active torrents" : " "
+						data && data.torrents.length == 0
+							? "No active torrents"
+							: " "
 					}
 				>
 					{(item): JSX.Element => (

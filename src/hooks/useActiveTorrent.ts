@@ -9,7 +9,7 @@ export const useActiveTorrent = (hash: string): undefined | QbitTorrent => {
 		activeQueryOptions(10),
 	)
 
-	const torrent = data?.find(
+	const torrent = data?.torrents.find(
 		(torrent) => torrent.hash.toLowerCase() === hash.toLowerCase(),
 	)
 

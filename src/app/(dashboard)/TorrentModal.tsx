@@ -1,5 +1,7 @@
 import { Modal, ModalBody, ModalContent, ModalHeader } from "@nextui-org/modal"
 
+import { formatMovie } from "@utils/formatMovie"
+
 import { TorrentTable } from "./TorrentTable"
 
 import { MovieSearchResult } from "@schemas/MovieSearchResult"
@@ -24,7 +26,7 @@ export const TorrentModal: FC<{
 					{(): JSX.Element => (
 						<>
 							<ModalHeader className="flex flex-col gap-1">
-								{movie.title} ({movie.year})
+								{formatMovie(movie)}
 							</ModalHeader>
 							<ModalBody>
 								{isOpen && <TorrentTable movie={movie} />}
