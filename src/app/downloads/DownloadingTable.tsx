@@ -16,6 +16,7 @@ import { activeQueryOptions } from "@utils/activeQueryOptions"
 import { formatBytes } from "@utils/formatBytes"
 import { formatMovie } from "@utils/formatMovie"
 import { humanizeDuration } from "@utils/humanizeDuration"
+import { removeTmdbId } from "@utils/removeTmdbId"
 import { trpc } from "@utils/trpc"
 
 import { ErrorCard } from "@components/ErrorCard"
@@ -64,7 +65,7 @@ export const DownloadingTable: FC<{
 								</p>
 							)}
 							<p className="text-sm text-gray-300">
-								{torrent.name}
+								{removeTmdbId(torrent.name)}
 							</p>
 						</>
 					)
