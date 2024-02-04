@@ -38,6 +38,7 @@ const query = gql`
 			physicalRelease
 			digitalRelease
 			inCinema
+			youtubeTrailerId
 		}
 	}
 `

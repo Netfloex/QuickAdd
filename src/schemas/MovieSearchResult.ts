@@ -31,6 +31,7 @@ export const MovieSearchResult = z.object({
 	physicalRelease: dateString,
 	digitalRelease: dateString,
 	inCinema: dateString,
+	youtubeTrailerId: z.string().nullable(),
 })
 
 export type MovieSearchResult = z.output<typeof MovieSearchResult>

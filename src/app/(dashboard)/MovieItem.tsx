@@ -1,6 +1,6 @@
 import styles from "./MovieItem.module.scss"
 
-import { Card, CardBody } from "@nextui-org/card"
+import { Card, CardBody, CardHeader } from "@nextui-org/card"
 import { Image } from "@nextui-org/image"
 import { useDisclosure } from "@nextui-org/use-disclosure"
 import NextImage from "next/image"
@@ -10,6 +10,7 @@ import { formatMovie } from "@utils/formatMovie"
 import { humanizeDuration } from "@utils/humanizeDuration"
 
 import { Genres } from "./Genres"
+import { MovieLinks } from "./MovieLinks"
 import { MovieRatings } from "./MovieRatings"
 import { ReleaseDate } from "./ReleaseDate"
 import { TorrentModal } from "./TorrentModal"
@@ -51,20 +52,29 @@ export const MovieItem: FC<{ movie: MovieSearchResult }> = ({ movie }) => {
 							}
 						/>
 					)}
-					<div className={styles.information + " mx-3"}>
-						<h1 className={styles.title}>{formatMovie(movie)}</h1>
-						{movie.title !== movie.originalTitle && (
-							<p className="text-default-500 -mt-1 mb-2">
-								{movie.originalTitle}
+					<div className={styles.information}>
+						<CardHeader className="justify-between">
+							<div>
+								<h1 className={styles.title}>
+									{formatMovie(movie)}
+								</h1>
+								{movie.title !== movie.originalTitle && (
+									<p className="text-default-500 -mt-1 mb-2">
+										{movie.originalTitle}
+									</p>
+								)}
+							</div>
+							<MovieLinks movie={movie} />
+						</CardHeader>
+						<CardBody>
+							<ReleaseDate movie={movie} />
+							<Genres movie={movie} />
+							<p className="text-sm text-default-500">
+								{humanizeDuration(movie.runtime * 60)}
 							</p>
-						)}
-						<ReleaseDate movie={movie} />
-						<Genres movie={movie} />
-						<p className="text-sm text-default-500">
-							{humanizeDuration(movie.runtime * 60)}
-						</p>
-						<MovieRatings movie={movie} />
-						<p>{movie.overview}</p>
+							<MovieRatings movie={movie} />
+							<p>{movie.overview}</p>
+						</CardBody>
 					</div>
 				</CardBody>
 			</Card>
