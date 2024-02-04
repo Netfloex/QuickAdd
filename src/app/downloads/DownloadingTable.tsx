@@ -111,42 +111,44 @@ export const DownloadingTable: FC<{
 
 	return (
 		<>
-			<Table
-				removeWrapper
-				selectionMode="multiple"
-				selectedKeys={selectedKeys}
-				onSelectionChange={setSelectedKeys}
-			>
-				<TableHeader>
-					<TableColumn key="name">Name</TableColumn>
-					<TableColumn key="progress">Progress</TableColumn>
-					<TableColumn key="dlspeed">DL Speed</TableColumn>
-					<TableColumn key="size">Size</TableColumn>
-					<TableColumn key="peers">Peers</TableColumn>
-					<TableColumn key="eta">ETA</TableColumn>
-				</TableHeader>
-				<TableBody
-					items={torrents ?? []}
-					isLoading={isLoading}
-					loadingState={isLoading ? "loading" : "idle"}
-					loadingContent={<Spinner label="Loading..." />}
-					emptyContent={
-						data && data.torrents.length == 0
-							? "No active torrents"
-							: " "
-					}
+			<div className="overflow-scroll">
+				<Table
+					removeWrapper
+					selectionMode="multiple"
+					selectedKeys={selectedKeys}
+					onSelectionChange={setSelectedKeys}
 				>
-					{(item): JSX.Element => (
-						<TableRow key={item.hash}>
-							{(columnKey): JSX.Element => (
-								<TableCell>
-									{renderCell(item, columnKey)}
-								</TableCell>
-							)}
-						</TableRow>
-					)}
-				</TableBody>
-			</Table>
+					<TableHeader>
+						<TableColumn key="name">Name</TableColumn>
+						<TableColumn key="progress">Progress</TableColumn>
+						<TableColumn key="dlspeed">DL Speed</TableColumn>
+						<TableColumn key="size">Size</TableColumn>
+						<TableColumn key="peers">Peers</TableColumn>
+						<TableColumn key="eta">ETA</TableColumn>
+					</TableHeader>
+					<TableBody
+						items={torrents ?? []}
+						isLoading={isLoading}
+						loadingState={isLoading ? "loading" : "idle"}
+						loadingContent={<Spinner label="Loading..." />}
+						emptyContent={
+							data && data.torrents.length == 0
+								? "No active torrents"
+								: " "
+						}
+					>
+						{(item): JSX.Element => (
+							<TableRow key={item.hash}>
+								{(columnKey): JSX.Element => (
+									<TableCell>
+										{renderCell(item, columnKey)}
+									</TableCell>
+								)}
+							</TableRow>
+						)}
+					</TableBody>
+				</Table>
+			</div>
 		</>
 	)
 }
