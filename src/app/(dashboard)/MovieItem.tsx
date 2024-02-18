@@ -10,10 +10,10 @@ import { formatMovie } from "@utils/formatMovie"
 import { humanizeDuration } from "@utils/humanizeDuration"
 
 import { Genres } from "./Genres"
+import { MovieInfoModal } from "./MovieInfoModal"
 import { MovieLinks } from "./MovieLinks"
 import { MovieRatings } from "./MovieRatings"
 import { ReleaseDate } from "./ReleaseDate"
-import { TorrentModal } from "./TorrentModal"
 
 import { MovieSearchResult } from "@schemas/MovieSearchResult"
 
@@ -28,7 +28,7 @@ export const MovieItem: FC<{ movie: MovieSearchResult }> = ({ movie }) => {
 
 	return (
 		<>
-			<TorrentModal isOpen={isOpen} onClose={onClose} movie={movie} />
+			<MovieInfoModal isOpen={isOpen} onClose={onClose} movie={movie} />
 			<Card className={styles.movieItem} isPressable onPress={openModal}>
 				<CardBody className={styles.body}>
 					{movie.posterUrl !== null ? (

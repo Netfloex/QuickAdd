@@ -10,7 +10,7 @@ import { MovieSearchResult } from "@schemas/MovieSearchResult"
 
 import type { FC } from "react"
 
-export const TorrentModal: FC<{
+export const MovieInfoModal: FC<{
 	isOpen: boolean
 	onClose: () => void
 	movie: MovieSearchResult
