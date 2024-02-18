@@ -1,4 +1,6 @@
+import { Divider } from "@nextui-org/divider"
 import Image from "next/image"
+import { Fragment } from "react"
 import { FaImdb } from "react-icons/fa"
 import { SiRottentomatoes } from "react-icons/si"
 
@@ -51,8 +53,8 @@ export const MovieRatings: FC<{ movie: MovieSearchResult }> = ({ movie }) => {
 	]
 
 	return (
-		<div className="flex gap-4">
-			{data.map((d) => {
+		<div className="flex space-x-4 h-6">
+			{data.map((d, i) => {
 				if (
 					d.data === null ||
 					(d.name === "TMDB" && d.data.value === 0)
@@ -61,16 +63,17 @@ export const MovieRatings: FC<{ movie: MovieSearchResult }> = ({ movie }) => {
 				}
 
 				return (
-					<div
-						key={d.name}
-						title={d.name}
-						className="flex gap-1 items-center"
-					>
-						{d.icon}{" "}
-						{d.percentage
-							? `${d.data.value}%`
-							: d.data.value.toFixed(1)}
-					</div>
+					<Fragment key={d.name}>
+						<div title={d.name} className="flex gap-1 items-center">
+							{d.icon}{" "}
+							{d.percentage
+								? `${d.data.value}%`
+								: d.data.value.toFixed(1)}
+						</div>
+						{i != data.length - 1 && (
+							<Divider orientation="vertical" />
+						)}
+					</Fragment>
 				)
 			})}
 		</div>

@@ -1,4 +1,6 @@
 import { Modal, ModalBody, ModalContent, ModalHeader } from "@nextui-org/modal"
+import { Tab, Tabs } from "@nextui-org/tabs"
+import { MovieInformation } from "src/app/(dashboard)/MovieInformation"
 
 import { formatMovie } from "@utils/formatMovie"
 
@@ -23,16 +25,21 @@ export const TorrentModal: FC<{
 				placement="center"
 			>
 				<ModalContent>
-					{(): JSX.Element => (
-						<>
-							<ModalHeader className="flex flex-col gap-1">
-								{formatMovie(movie)}
-							</ModalHeader>
-							<ModalBody>
-								{isOpen && <TorrentTable movie={movie} />}
-							</ModalBody>
-						</>
-					)}
+					<ModalHeader className="flex flex-col gap-1">
+						{formatMovie(movie)}
+					</ModalHeader>
+					<ModalBody>
+						{isOpen && (
+							<Tabs>
+								<Tab title="Information">
+									<MovieInformation movie={movie} />
+								</Tab>
+								<Tab title="Torrents">
+									<TorrentTable movie={movie} />
+								</Tab>
+							</Tabs>
+						)}
+					</ModalBody>
 				</ModalContent>
 			</Modal>
 		</>
