@@ -54,8 +54,12 @@ export const MovieInformation: FC<{ movie: MovieSearchResult }> = ({
 						<p>{movie.year}</p>
 						<Divider orientation="vertical" />
 						<p>{humanizeDuration(movie.runtime * 60)}</p>
-						<Divider orientation="vertical" />
-						<p>{movie.studio}</p>
+						{movie.studio && (
+							<>
+								<Divider orientation="vertical" />
+								<p>{movie.studio}</p>
+							</>
+						)}
 					</div>
 
 					{/* Ratings */}
