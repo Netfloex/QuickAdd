@@ -39,6 +39,23 @@ const query = gql`
 			digitalRelease
 			inCinema
 			youtubeTrailerId
+			studio
+			credits {
+				cast {
+					name
+					character
+					creditId
+					tmdbId
+					headshotUrl
+				}
+				crew {
+					name
+					job
+					creditId
+					tmdbId
+					headshotUrl
+				}
+			}
 		}
 	}
 `

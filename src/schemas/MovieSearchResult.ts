@@ -32,6 +32,27 @@ export const MovieSearchResult = z.object({
 	digitalRelease: dateString,
 	inCinema: dateString,
 	youtubeTrailerId: z.string().nullable(),
+	studio: z.string(),
+	credits: z.object({
+		cast: z.array(
+			z.object({
+				name: z.string(),
+				character: z.string(),
+				creditId: z.string(),
+				tmdbId: z.number(),
+				headshotUrl: z.string().nullable(),
+			}),
+		),
+		crew: z.array(
+			z.object({
+				name: z.string(),
+				job: z.string(),
+				creditId: z.string(),
+				tmdbId: z.number(),
+				headshotUrl: z.string().nullable(),
+			}),
+		),
+	}),
 })
 
 export type MovieSearchResult = z.output<typeof MovieSearchResult>
