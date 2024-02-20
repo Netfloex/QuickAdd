@@ -16,8 +16,8 @@ export const MovieInformation: FC<{ movie: MovieSearchResult }> = ({
 }) => {
 	return (
 		<div className="flex gap-4 flex-col">
-			<div className="flex gap-4">
-				<div className="max-w-[240px] max-h-[360px]">
+			<div className="flex gap-4 flex-col sm:flex-row">
+				<div className="sm:max-w-[240px] sm:max-h-[360px]">
 					{movie.posterUrl !== null ? (
 						<Image
 							alt=""
@@ -29,7 +29,7 @@ export const MovieInformation: FC<{ movie: MovieSearchResult }> = ({
 							src={movie.posterUrl}
 						/>
 					) : (
-						<div className="w-full h-full bg-neutral-950 rounded-large" />
+						<div className="w-[240px] h-[360px] bg-neutral-950 rounded-large" />
 					)}
 				</div>
 				<div className="flex flex-col gap-4 overflow-hidden">
