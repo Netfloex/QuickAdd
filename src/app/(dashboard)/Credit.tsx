@@ -31,6 +31,7 @@ export const Credit: FC<{ credit: CastOrCrew; title: string }> = ({
 								}
 								avatarProps={{
 									src: e.headshotUrl ?? undefined,
+									name: "",
 									className: "w-20 h-20 text-large",
 								}}
 							/>
