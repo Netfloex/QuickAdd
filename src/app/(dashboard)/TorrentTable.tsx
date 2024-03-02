@@ -11,7 +11,7 @@ import {
 	TableHeader,
 	TableRow,
 } from "@nextui-org/table"
-import { useCallback, useMemo, useState } from "react"
+import { Fragment, useCallback, useMemo, useState } from "react"
 import { FaMagnet } from "react-icons/fa"
 import { CODECS, QUALITIES, SOURCES } from "src/data/static_torrent_data"
 
@@ -81,11 +81,11 @@ export const TorrentTable: FC<{ movie: MovieSearchResult }> = ({ movie }) => {
 						/>
 					)
 				case "added":
-					return <>{torrent.added.toLocaleDateString()}</>
+					return <span>{torrent.added.toLocaleDateString()}</span>
 				case "quality":
 				case "codec":
 				case "source":
-					return <>{torrent.movieProperties[key]}</>
+					return <span>{torrent.movieProperties[key]}</span>
 				case "magnet":
 					return (
 						<a
@@ -104,8 +104,20 @@ export const TorrentTable: FC<{ movie: MovieSearchResult }> = ({ movie }) => {
 					)
 				case "download":
 					return <DownloadButton torrent={torrent} movie={movie} />
+				case "provider":
+					return (
+						<div className="flex flex-col items-center gap-1">
+							{torrent.provider.map((p) => (
+								<Fragment key={p}>
+									<Chip className="capitalize">
+										{p.toLowerCase()}
+									</Chip>
+								</Fragment>
+							))}
+						</div>
+					)
 				default:
-					return <>{getKeyValue(torrent, key)}</>
+					return <span>{getKeyValue(torrent, key)}</span>
 			}
 		},
 		[movie],
@@ -179,6 +191,7 @@ export const TorrentTable: FC<{ movie: MovieSearchResult }> = ({ movie }) => {
 				removeWrapper
 				sortDescriptor={sortDescriptor}
 				onSortChange={sort}
+				isStriped
 			>
 				<TableHeader>
 					<TableColumn key="name">Title</TableColumn>

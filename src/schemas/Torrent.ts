@@ -19,7 +19,7 @@ export const Torrent = z.object({
 	magnet: z.string(),
 	size: z.string().transform((n) => parseInt(n)),
 	name: z.string(),
-	provider: z.string(),
+	provider: z.array(z.string()),
 	movieProperties: MovieProperties,
 })
 
