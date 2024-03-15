@@ -5,14 +5,15 @@ import {
 	DropdownMenu,
 	DropdownTrigger,
 } from "@nextui-org/dropdown"
-import { useMemo } from "react"
+import { Key, useMemo } from "react"
 
 interface Item {
 	label: string
 	key: string
 }
+type SelectedKeys = Set<Key> | "all"
 
-export const PropertyFilter = <T extends string>({
+export const PropertyFilter = ({
 	items,
 	type,
 	selectedKeys,
@@ -20,10 +21,11 @@ export const PropertyFilter = <T extends string>({
 }: {
 	items: Item[]
 	type: string
-	selectedKeys: Set<T>
-	setSelectedKeys: (set: Set<T>) => void
+	selectedKeys: SelectedKeys
+	setSelectedKeys: (set: SelectedKeys) => void
 }): JSX.Element => {
 	const selectedValue = useMemo(() => {
+		if (selectedKeys == "all") return "All"
 		const arr = Array.from(selectedKeys)
 		if (arr.length == items.length) return "All"
 		return arr
@@ -46,17 +48,11 @@ export const PropertyFilter = <T extends string>({
 					disallowEmptySelection
 					selectionMode="multiple"
 					selectedKeys={selectedKeys}
-					onSelectionChange={(keys): void =>
-						setSelectedKeys(
-							(typeof keys == "string"
-								? new Set()
-								: keys) as Set<T>,
-						)
-					}
+					onSelectionChange={setSelectedKeys}
 					items={items}
 				>
 					{(item): JSX.Element => (
-						<DropdownItem>{(item as Item).label}</DropdownItem>
+						<DropdownItem>{item.label}</DropdownItem>
 					)}
 				</DropdownMenu>
 			</Dropdown>

@@ -13,11 +13,10 @@ import {
 } from "@nextui-org/table"
 import { Fragment, useCallback, useMemo, useState } from "react"
 import { FaMagnet } from "react-icons/fa"
-import { CODECS, QUALITIES, SOURCES } from "src/data/static_torrent_data"
 
-import { usePropertyFilter } from "@hooks/usePropertyFilter"
+import { useFilters } from "@hooks/useFilters"
 
-import { fixQualityName } from "@utils/fixQualityName"
+import { capitalize } from "@utils/capitalize"
 import { formatBytes } from "@utils/formatBytes"
 import { trpc } from "@utils/trpc"
 
@@ -34,35 +33,16 @@ import { Torrent } from "@schemas/Torrent"
 import type { FC, Key } from "react"
 
 export const TorrentTable: FC<{ movie: MovieSearchResult }> = ({ movie }) => {
+	const {
+		data: availableSearchFilters,
+		error: searchFiltersError,
+		isLoading: searchFiltersLoading,
+	} = trpc.searchFilters.useQuery()
+
 	const [sortDescriptor, setSortDescriptor] = useState<SortDescriptor>({
 		column: "seeders",
 		direction: "descending",
 	})
-
-	const qualityItems = useMemo(
-		() =>
-			QUALITIES.map((s) => ({
-				label: fixQualityName(s),
-				key: s.toUpperCase() as Uppercase<typeof s>,
-			})),
-		[],
-	)
-	const codecItems = useMemo(
-		() =>
-			CODECS.map((s) => ({
-				label: s,
-				key: s.toUpperCase() as Uppercase<typeof s>,
-			})),
-		[],
-	)
-	const sourceItems = useMemo(
-		() =>
-			SOURCES.map((s) => ({
-				label: s,
-				key: s.toUpperCase() as Uppercase<typeof s>,
-			})),
-		[],
-	)
 
 	const sort = useCallback((desc: SortDescriptor) => {
 		setSortDescriptor(desc)
@@ -122,20 +102,31 @@ export const TorrentTable: FC<{ movie: MovieSearchResult }> = ({ movie }) => {
 		},
 		[movie],
 	)
+	const [filters, filterMap] = useFilters()
 
-	const [qualityFilters, setQualityFilters] = usePropertyFilter(
-		"qualities",
-		qualityItems.map((q) => q.key),
-	)
-	const [codecFilters, setCodecFilters] = usePropertyFilter(
-		"codecs",
-		codecItems.map((q) => q.key),
-	)
-
-	const [sourceFilters, setSourceFilters] = usePropertyFilter(
-		"sources",
-		sourceItems.map((q) => q.key),
-	)
+	const filterProps: Record<
+		string,
+		{
+			values: string[]
+			display: string
+		}
+	> = useMemo(() => {
+		const obj: Record<
+			string,
+			{
+				values: string[]
+				display: string
+			}
+		> = {}
+		filterMap.forEach((v, k) => {
+			if (v == "all") return
+			obj[k] = {
+				values: Array.from(v).map((e) => e.toString()),
+				display: capitalize(k),
+			}
+		})
+		return obj
+	}, [filterMap])
 
 	const { data, isFetching, error, isError } = trpc.searchTorrents.useQuery(
 		{
@@ -149,11 +140,7 @@ export const TorrentTable: FC<{ movie: MovieSearchResult }> = ({ movie }) => {
 					?.toString()
 					.toUpperCase() as "SEEDERS",
 			},
-			movieFilterProps: {
-				codecs: Array.from(codecFilters),
-				qualities: Array.from(qualityFilters),
-				sources: Array.from(sourceFilters),
-			},
+			movieFilterProps: filterProps,
 		},
 		{ enabled: movie.imdbId != null },
 	)
@@ -167,25 +154,31 @@ export const TorrentTable: FC<{ movie: MovieSearchResult }> = ({ movie }) => {
 			{data && data.errors.length !== 0 && (
 				<ProviderErrors errors={data.errors} />
 			)}
-			<div className="flex gap-3 items-end">
-				<PropertyFilter
-					type="Quality"
-					items={qualityItems}
-					selectedKeys={qualityFilters}
-					setSelectedKeys={setQualityFilters}
-				/>
-				<PropertyFilter
-					type="Codec"
-					items={codecItems}
-					selectedKeys={codecFilters}
-					setSelectedKeys={setCodecFilters}
-				/>
-				<PropertyFilter
-					type="Source"
-					items={sourceItems}
-					selectedKeys={sourceFilters}
-					setSelectedKeys={setSourceFilters}
-				/>
+
+			<div className="mb-6">
+				<span className="font-light text-xs">Filters:</span>
+				<div className="flex gap-3 items-end">
+					{searchFiltersLoading ? (
+						<Button variant="bordered" isLoading>
+							Loading filters
+						</Button>
+					) : searchFiltersError ? (
+						<ErrorCard error={searchFiltersError} />
+					) : (
+						availableSearchFilters?.map((filter) => (
+							<PropertyFilter
+								key={filter.name}
+								type={filter.display}
+								items={filter.values.map((v) => ({
+									label: v.display,
+									key: v.name,
+								}))}
+								selectedKeys={filters(filter.name).get()}
+								setSelectedKeys={filters(filter.name).set}
+							/>
+						))
+					)}
+				</div>
 			</div>
 			<Table
 				removeWrapper

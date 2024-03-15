@@ -7,63 +7,72 @@ import { MovieFilterProperties } from "@schemas/MovieFilterProperties"
 import { SearchResponse } from "@schemas/SearchResponse"
 import { SortOptions } from "@schemas/SortOptions"
 
-const query = gql`
-	query GetTorrents(
-		$imdb: String
-		$sort: SortColumn
-		$order: Order
-		$quality: [Quality!]
-		$codec: [VideoCodec!]
-		$source: [Source!]
-	) {
-		search(
-			params: {
-				imdb: $imdb
-				sort: $sort
-				order: $order
-				quality: $quality
-				codec: $codec
-				source: $source
-			}
-		) {
-			errors {
-				provider
-				error
-			}
-			torrents {
-				added
-				infoHash
-				leechers
-				name
-				provider
-				seeders
-				magnet
-				size
-				movieProperties {
-					codec
-					imdb
-					quality
-					source
-				}
-			}
-		}
-	}
-`
-
 export const getTorrents = async (
 	imdb: string,
 	sortOptions: SortOptions,
-	movieProperties: MovieFilterProperties,
+	filters: MovieFilterProperties,
 ): Promise<SearchResponse> => {
+	const paramsWithType = Object.entries(filters)
+		.map(([key, val]) => `$${key}: [${val.display}!]`)
+		.join("\n")
+	const params = Object.keys(filters)
+		.map((key) => `${key}: $${key}`)
+		.join("\n")
+
+	const query = gql`
+		query GetTorrents(
+			$imdb: String
+			$sort: SortColumn
+			$order: Order	
+			${paramsWithType}
+		) {
+			search(
+				params: {
+					imdb: $imdb
+					sort: $sort
+					order: $order
+					${params}
+				}
+			) {
+				errors {
+					provider
+					error
+				}
+				torrents {
+					added
+					infoHash
+					leechers
+					name
+					provider
+					seeders
+					magnet
+					size
+					movieProperties {
+						codec
+						imdb
+						quality
+						source
+					}
+				}
+			}
+		}
+	`
+
+	const variables = Object.entries(filters).reduce(
+		(prev, [key, val]): Record<string, string[]> => ({
+			...prev,
+			[key]: val.values.map((v) => v.toUpperCase()),
+		}),
+		{},
+	)
+
 	const data = await handleApi(
 		query,
 		{
+			...variables,
 			imdb,
 			sort: sortOptions.sort,
 			order: sortOptions.order,
-			source: movieProperties.sources,
-			quality: movieProperties.qualities,
-			codec: movieProperties.codecs,
 		},
 		z.object({
 			search: SearchResponse,
