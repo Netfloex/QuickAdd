@@ -17,6 +17,7 @@ import { FaMagnet } from "react-icons/fa"
 import { useFilters } from "@hooks/useFilters"
 
 import { capitalize } from "@utils/capitalize"
+import { fixQualityName } from "@utils/fixQualityName"
 import { formatBytes } from "@utils/formatBytes"
 import { trpc } from "@utils/trpc"
 
@@ -63,6 +64,11 @@ export const TorrentTable: FC<{ movie: MovieSearchResult }> = ({ movie }) => {
 				case "added":
 					return <span>{torrent.added.toLocaleDateString()}</span>
 				case "quality":
+					return (
+						<span>
+							{fixQualityName(torrent.movieProperties.quality)}
+						</span>
+					)
 				case "codec":
 				case "source":
 					return <span>{torrent.movieProperties[key]}</span>
