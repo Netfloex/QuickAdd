@@ -2,12 +2,12 @@ import { Card, CardBody, CardHeader } from "@nextui-org/card"
 
 import type { FC } from "react"
 
-interface Error {
+export interface ErrorCardError {
 	name?: string
 	message: string
 }
 
-export const ErrorCard: FC<{ error: Error }> = ({ error }) => {
+export const ErrorCard: FC<{ error: ErrorCardError }> = ({ error }) => {
 	console.log(error.message, Object.fromEntries(Object.entries(error)))
 
 	return (

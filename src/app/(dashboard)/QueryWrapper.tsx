@@ -5,6 +5,8 @@ import { useSearchParams } from "next/navigation"
 import { useCallback, useState } from "react"
 import { useDebouncedCallback } from "use-debounce"
 
+import { trpc } from "@utils/trpc"
+
 import { Results } from "./Results"
 import { SearchField } from "./SearchField"
 
@@ -33,6 +35,17 @@ export const QueryWrapper: FC = () => {
 		[setQueryDebounced],
 	)
 
+	const {
+		data: searchedMovies,
+		isLoading: searchLoading,
+		error: searchError,
+	} = trpc.searchMovies.useQuery({ query }, { enabled: query.length !== 0 })
+	const {
+		data: trendingMovies,
+		isLoading: trendingLoading,
+		error: trendingError,
+	} = trpc.trendingMovies.useQuery()
+
 	return (
 		<>
 			<SearchField
@@ -40,7 +53,25 @@ export const QueryWrapper: FC = () => {
 				defaultQuery={queryParam}
 			/>
 			<Spacer y={3} />
-			<Results query={query} />
+			{query.length === 0 ? (
+				<>
+					<h1 className="text-3xl font-bold">Trending</h1>
+					<Spacer y={3} />
+					<Results
+						movies={trendingMovies || []}
+						isLoading={trendingLoading}
+						error={trendingError}
+						loadingSkeletonCount={15}
+					/>
+				</>
+			) : (
+				<Results
+					movies={searchedMovies || []}
+					isLoading={searchLoading}
+					error={searchError}
+					loadingSkeletonCount={3}
+				/>
+			)}
 		</>
 	)
 }
