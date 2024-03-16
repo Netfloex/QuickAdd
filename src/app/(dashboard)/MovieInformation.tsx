@@ -1,11 +1,15 @@
+import { Chip } from "@nextui-org/chip"
 import { Divider } from "@nextui-org/divider"
 import { Image } from "@nextui-org/image"
 import NextImage from "next/image"
+import { Fragment } from "react"
 import { Credit } from "src/app/(dashboard)/Credit"
 import { MovieLinks } from "src/app/(dashboard)/MovieLinks"
 import { MovieRatings } from "src/app/(dashboard)/MovieRatings"
 
 import { humanizeDuration } from "@utils/humanizeDuration"
+
+import { Genres } from "./Genres"
 
 import { MovieSearchResult } from "@schemas/MovieSearchResult"
 
@@ -51,16 +55,40 @@ export const MovieInformation: FC<{ movie: MovieSearchResult }> = ({
 
 					{/* Year and Duration */}
 					<div className="flex h-5 items-center space-x-4 text-small">
-						<p>{movie.year}</p>
+						<Chip variant="bordered">{movie.year}</Chip>
 						<Divider orientation="vertical" />
-						<p>{humanizeDuration(movie.runtime * 60)}</p>
+						<Chip variant="bordered">
+							{humanizeDuration(movie.runtime * 60)}
+						</Chip>
 						{movie.studio && (
 							<>
 								<Divider orientation="vertical" />
-								<p>{movie.studio}</p>
+								<Chip variant="bordered">{movie.studio}</Chip>
 							</>
 						)}
+						{movie.certifications.map((certification) => (
+							<Fragment key={certification.country}>
+								<Divider orientation="vertical" />
+								<Chip
+									variant="bordered"
+									startContent={
+										<NextImage
+											alt={certification.country}
+											width="16"
+											height="16"
+											className="w-full h-full rounded-full"
+											unoptimized
+											src={`https://flagsapi.com/${certification.country}/flat/16.png`}
+										/>
+									}
+								>
+									{certification.certification}
+								</Chip>
+							</Fragment>
+						))}
 					</div>
+
+					<Genres movie={movie} />
 
 					{/* Ratings */}
 					<MovieRatings movie={movie} />

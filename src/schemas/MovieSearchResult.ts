@@ -31,8 +31,6 @@ export const MovieSearchResult = z.object({
 	physicalRelease: dateString,
 	digitalRelease: dateString,
 	inCinema: dateString,
-	youtubeTrailerId: z.string().nullable(),
-	studio: z.string(),
 	credits: z.object({
 		cast: z.array(
 			z.object({
@@ -53,6 +51,14 @@ export const MovieSearchResult = z.object({
 			}),
 		),
 	}),
+	studio: z.string(),
+	youtubeTrailerId: z.string().nullable(),
+	certifications: z.array(
+		z.object({
+			country: z.string(),
+			certification: z.string(),
+		}),
+	),
 })
 
 export type MovieSearchResult = z.output<typeof MovieSearchResult>
