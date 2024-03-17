@@ -1,7 +1,6 @@
 import { z } from "zod"
 
 import { searchMovies } from "@server/api/searchMovies"
-import { config } from "@server/config"
 import { procedure } from "@server/trpc"
 
 export const searchMoviesRoute = procedure
@@ -11,5 +10,5 @@ export const searchMoviesRoute = procedure
 		}),
 	)
 	.query(async ({ input: { query } }) => {
-		return await searchMovies(query, [config.language, "US"])
+		return await searchMovies(query)
 	})

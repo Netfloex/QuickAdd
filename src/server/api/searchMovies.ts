@@ -6,8 +6,8 @@ import { gql } from "@utils/gql"
 import { MovieSearchResult } from "@schemas/MovieSearchResult"
 
 const query = gql`
-	query SearchMovies($query: String!, $languages: [String!]!) {
-		searchMovies(query: $query, languages: $languages) {
+	query SearchMovies($query: String!) {
+		searchMovies(query: $query) {
 			imdbId
 			overview
 			title
@@ -64,15 +64,11 @@ const query = gql`
 	}
 `
 
-export const searchMovies = async (
-	q: string,
-	languages = ["US"],
-): Promise<MovieSearchResult[]> => {
+export const searchMovies = async (q: string): Promise<MovieSearchResult[]> => {
 	const data = await handleApi(
 		query,
 		{
 			query: q,
-			languages,
 		},
 		z.object({
 			searchMovies: z.array(MovieSearchResult),
