@@ -10,7 +10,7 @@ import { QbitTorrent } from "@schemas/QbitTorrent"
 
 const query = gql`
 	query ActiveTorrents($category: String) {
-		torrents(params: { category: $category }) {
+		activeTorrents(params: { category: $category }) {
 			torrents {
 				dlspeed
 				downloaded
@@ -41,7 +41,7 @@ export const activeTorrents = async (): Promise<{
 			category: config.qbittorrentCategory,
 		},
 		z.object({
-			torrents: z.object({
+			activeTorrents: z.object({
 				torrents: z.array(QbitTorrent),
 				movieInfo: z.array(TorrentMovieInfo),
 			}),
@@ -52,5 +52,5 @@ export const activeTorrents = async (): Promise<{
 		throw new Error("Error getting active torrents")
 	}
 
-	return data.torrents
+	return data.activeTorrents
 }

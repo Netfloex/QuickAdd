@@ -1,6 +1,6 @@
 import { z } from "zod"
 
-import { getTorrents } from "@server/api/getTorrents"
+import { searchTorrents } from "@server/api/searchTorrents"
 import { procedure } from "@server/trpc"
 
 import { MovieFilterProperties } from "@schemas/MovieFilterProperties"
@@ -15,5 +15,5 @@ export const searchTorrentsRoute = procedure
 		}),
 	)
 	.query(async ({ input: { imdb, sortOptions, movieFilterProps } }) => {
-		return await getTorrents(imdb, sortOptions, movieFilterProps)
+		return await searchTorrents(imdb, sortOptions, movieFilterProps)
 	})

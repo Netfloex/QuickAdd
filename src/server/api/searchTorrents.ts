@@ -7,7 +7,7 @@ import { MovieFilterProperties } from "@schemas/MovieFilterProperties"
 import { SearchResponse } from "@schemas/SearchResponse"
 import { SortOptions } from "@schemas/SortOptions"
 
-export const getTorrents = async (
+export const searchTorrents = async (
 	imdb: string,
 	sortOptions: SortOptions,
 	filters: MovieFilterProperties,
@@ -20,13 +20,13 @@ export const getTorrents = async (
 		.join("\n")
 
 	const query = gql`
-		query GetTorrents(
+		query SearchTorrents(
 			$imdb: String
 			$sort: SortColumn
 			$order: Order	
 			${paramsWithType}
 		) {
-			search(
+			searchTorrents(
 				params: {
 					imdb: $imdb
 					sort: $sort
@@ -75,11 +75,11 @@ export const getTorrents = async (
 			order: sortOptions.order,
 		},
 		z.object({
-			search: SearchResponse,
+			searchTorrents: SearchResponse,
 		}),
 	)
 
 	if (data.isError) throw new Error("Graphql error")
 
-	return data.search
+	return data.searchTorrents
 }
