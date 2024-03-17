@@ -38,9 +38,9 @@ export const Providers: FCC = ({ children }) => {
 				}),
 				httpBatchLink({
 					url: "/api/trpc",
+					transformer: superjson,
 				}),
 			],
-			transformer: superjson,
 		}),
 	)
 
