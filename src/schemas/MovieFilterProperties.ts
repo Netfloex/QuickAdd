@@ -4,6 +4,7 @@ export const MovieFilterProperties = z.record(
 	z.object({
 		display: z.string().max(10).regex(/^\w+$/),
 		values: z.array(z.string().regex(/^\w+$/)),
+		typeName: z.string().max(10).regex(/^\w+$/),
 	}),
 )
 

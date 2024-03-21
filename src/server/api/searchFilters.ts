@@ -10,6 +10,7 @@ const query = gql`
 		searchFilters {
 			display
 			name
+			typeName
 			values {
 				display
 				name

@@ -12,8 +12,10 @@ export const searchTorrents = async (
 	sortOptions: SortOptions,
 	filters: MovieFilterProperties,
 ): Promise<SearchResponse> => {
+	console.log(filters)
+
 	const paramsWithType = Object.entries(filters)
-		.map(([key, val]) => `$${key}: [${val.display}!]`)
+		.map(([key, val]) => `$${key}: [${val.typeName}!]`)
 		.join("\n")
 	const params = Object.keys(filters)
 		.map((key) => `${key}: $${key}`)

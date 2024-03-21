@@ -16,7 +16,6 @@ import { FaMagnet } from "react-icons/fa"
 
 import { useFilters } from "@hooks/useFilters"
 
-import { capitalize } from "@utils/capitalize"
 import { fixQualityName } from "@utils/fixQualityName"
 import { formatBytes } from "@utils/formatBytes"
 import { trpc } from "@utils/trpc"
@@ -115,6 +114,7 @@ export const TorrentTable: FC<{ movie: MovieSearchResult }> = ({ movie }) => {
 		{
 			values: string[]
 			display: string
+			typeName: string
 		}
 	> = useMemo(() => {
 		const obj: Record<
@@ -122,17 +122,21 @@ export const TorrentTable: FC<{ movie: MovieSearchResult }> = ({ movie }) => {
 			{
 				values: string[]
 				display: string
+				typeName: string
 			}
 		> = {}
 		filterMap.forEach((v, k) => {
 			if (v == "all") return
+			const filter = availableSearchFilters?.find((f) => f.name == k)
+			if (filter == null) return
 			obj[k] = {
 				values: Array.from(v).map((e) => e.toString()),
-				display: capitalize(k),
+				display: filter.display,
+				typeName: filter.typeName,
 			}
 		})
 		return obj
-	}, [filterMap])
+	}, [availableSearchFilters, filterMap])
 
 	const { data, isFetching, error, isError } = trpc.searchTorrents.useQuery(
 		{

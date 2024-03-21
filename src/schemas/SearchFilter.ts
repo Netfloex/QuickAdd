@@ -3,6 +3,7 @@ import { z } from "zod"
 export const SearchFilter = z.object({
 	display: z.string(),
 	name: z.string(),
+	typeName: z.string(),
 	values: z.array(
 		z.object({
 			display: z.string(),

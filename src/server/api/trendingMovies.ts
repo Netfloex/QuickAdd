@@ -7,7 +7,7 @@ import { MovieSearchResult } from "@schemas/MovieSearchResult"
 
 const query = gql`
 	query TrendingMovies {
-		trendingMovies {
+		popularMovies {
 			imdbId
 			overview
 			title
@@ -69,7 +69,7 @@ export const trendingMovies = async (): Promise<MovieSearchResult[]> => {
 		query,
 		{},
 		z.object({
-			trendingMovies: z.array(MovieSearchResult),
+			popularMovies: z.array(MovieSearchResult),
 		}),
 	)
 
@@ -77,5 +77,5 @@ export const trendingMovies = async (): Promise<MovieSearchResult[]> => {
 		throw new Error("Error searching movies")
 	}
 
-	return data.trendingMovies
+	return data.popularMovies
 }
