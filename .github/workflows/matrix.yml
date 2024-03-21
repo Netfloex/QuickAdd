@@ -14,7 +14,6 @@ jobs:
     tests:
         runs-on: ubuntu-latest
         steps:
-        steps:
             - name: Setup yarn and install dependencies
               uses: netfloex/actions/yarn@master
               with:
