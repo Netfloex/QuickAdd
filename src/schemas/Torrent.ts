@@ -32,7 +32,7 @@ export const Torrent = z.object({
 	leechers: z.number(),
 	seeders: z.number(),
 	magnet: z.string(),
-	size: z.string().transform((n) => parseInt(n)),
+	size: z.number(),
 	name: z.string(),
 	provider: z.array(z.string()),
 	movieProperties: MovieProperties,
