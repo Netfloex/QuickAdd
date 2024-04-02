@@ -61,7 +61,7 @@ export const MovieRatings: FC<{ movie: MovieSearchResult }> = ({ movie }) => {
 	)
 
 	return (
-		<div className="flex space-x-4 h-6">
+		<div className="flex space-x-4 h-6 overflow-x-scroll">
 			{data.map((d, i) => {
 				return (
 					<Fragment key={d.name}>

@@ -2,7 +2,7 @@ import { Chip } from "@nextui-org/chip"
 import { Divider } from "@nextui-org/divider"
 import { Image } from "@nextui-org/image"
 import NextImage from "next/image"
-import { Fragment } from "react"
+import { Fragment, useMemo } from "react"
 import { Credit } from "src/app/(dashboard)/Credit"
 import { MovieLinks } from "src/app/(dashboard)/MovieLinks"
 import { MovieRatings } from "src/app/(dashboard)/MovieRatings"
@@ -18,6 +18,52 @@ import type { FC } from "react"
 export const MovieInformation: FC<{ movie: MovieSearchResult }> = ({
 	movie,
 }) => {
+	const movieInformationChips = useMemo(() => {
+		const chips = [
+			movie.year,
+			humanizeDuration(movie.runtime * 60),
+			movie.studio,
+		]
+
+		const chipsArray = chips.filter(Boolean).map((chip) => (
+			<Chip key={chip} variant="bordered">
+				{chip}
+			</Chip>
+		))
+
+		movie.certifications.forEach((certification) => {
+			chipsArray.push(
+				<Chip
+					variant="bordered"
+					key={certification.country}
+					startContent={
+						<NextImage
+							alt={certification.country}
+							width="16"
+							height="16"
+							className="w-full h-full rounded-full"
+							unoptimized
+							src={`https://flagsapi.com/${certification.country}/flat/16.png`}
+						/>
+					}
+				>
+					{certification.certification}
+				</Chip>,
+			)
+		})
+
+		return chipsArray.map((chip, index) => (
+			<Fragment key={index}>
+				{chip}
+				{index < chipsArray.length - 1 && (
+					<div className="h-5">
+						<Divider orientation="vertical" />
+					</div>
+				)}
+			</Fragment>
+		))
+	}, [movie])
+
 	return (
 		<div className="flex gap-4 flex-col">
 			<div className="flex gap-4 flex-col sm:flex-row">
@@ -53,39 +99,11 @@ export const MovieInformation: FC<{ movie: MovieSearchResult }> = ({
 						</div>
 					</div>
 
-					{/* Year and Duration */}
-					<div className="flex h-5 items-center space-x-4 text-small">
-						<Chip variant="bordered">{movie.year}</Chip>
-						<Divider orientation="vertical" />
-						<Chip variant="bordered">
-							{humanizeDuration(movie.runtime * 60)}
-						</Chip>
-						{movie.studio && (
-							<>
-								<Divider orientation="vertical" />
-								<Chip variant="bordered">{movie.studio}</Chip>
-							</>
-						)}
-						{movie.certifications.map((certification) => (
-							<Fragment key={certification.country}>
-								<Divider orientation="vertical" />
-								<Chip
-									variant="bordered"
-									startContent={
-										<NextImage
-											alt={certification.country}
-											width="16"
-											height="16"
-											className="w-full h-full rounded-full"
-											unoptimized
-											src={`https://flagsapi.com/${certification.country}/flat/16.png`}
-										/>
-									}
-								>
-									{certification.certification}
-								</Chip>
-							</Fragment>
-						))}
+					{/* Year, Duration, Studio and Certifications */}
+					<div className="overflow-x-scroll">
+						<div className="flex items-center space-x-4 text-small">
+							{movieInformationChips}
+						</div>
 					</div>
 
 					<Genres movie={movie} />
@@ -97,6 +115,7 @@ export const MovieInformation: FC<{ movie: MovieSearchResult }> = ({
 					<span>{movie.overview}</span>
 				</div>
 			</div>
+
 			{/* Cast */}
 			<Credit credit={movie.credits.cast} title="Cast" />
 
