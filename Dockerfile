@@ -1,4 +1,4 @@
-ARG NODE_IMAGE=node:18-alpine
+ARG NODE_IMAGE=node:22-alpine
 
 FROM $NODE_IMAGE AS deps
 WORKDIR /app
@@ -13,26 +13,21 @@ WORKDIR /app
 
 COPY . .
 COPY --from=deps /app/node_modules ./node_modules
-ENV NEXT_TELEMETRY_DISABLED 1
-
-
+ENV NEXT_TELEMETRY_DISABLED=1
 
 RUN yarn build
-
 
 FROM $NODE_IMAGE AS runner
 
 WORKDIR /app
 
-ENV NODE_ENV production
-ENV STORE_PATH /data/store.json
-ENV FORCE_COLOR 1
+ENV NODE_ENV=production
+ENV STORE_PATH=/data/store.json
+ENV FORCE_COLOR=1
 
 COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
 COPY --from=builder /app/public ./public
-
-
 
 EXPOSE 3000
 
