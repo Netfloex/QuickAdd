@@ -1,7 +1,7 @@
-import { Key } from "react"
 import SuperJSON from "superjson"
 import useLocalStorageState from "use-local-storage-state"
 
+type Key = string | number
 type SelectedKeys = Set<Key> | "all"
 interface ReturnType {
 	get: () => SelectedKeys

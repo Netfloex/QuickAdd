@@ -1,16 +1,19 @@
-import { Button } from "@nextui-org/button"
+import { JSX, useMemo } from "react"
+
+import { Button } from "@heroui/button"
 import {
 	Dropdown,
 	DropdownItem,
 	DropdownMenu,
 	DropdownTrigger,
-} from "@nextui-org/dropdown"
-import { Key, useMemo } from "react"
+} from "@heroui/dropdown"
 
 interface Item {
 	label: string
 	key: string
 }
+type Key = string | number
+
 type SelectedKeys = Set<Key> | "all"
 
 export const PropertyFilter = ({
@@ -52,7 +55,7 @@ export const PropertyFilter = ({
 					items={items}
 				>
 					{(item): JSX.Element => (
-						<DropdownItem>{item.label}</DropdownItem>
+						<DropdownItem key={item.key}>{item.label}</DropdownItem>
 					)}
 				</DropdownMenu>
 			</Dropdown>

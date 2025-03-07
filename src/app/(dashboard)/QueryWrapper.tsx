@@ -1,9 +1,10 @@
 "use client"
 
-import { Spacer } from "@nextui-org/spacer"
 import { useSearchParams } from "next/navigation"
 import { useCallback, useState } from "react"
 import { useDebouncedCallback } from "use-debounce"
+
+import { Spacer } from "@heroui/spacer"
 
 import { trpc } from "@utils/trpc"
 

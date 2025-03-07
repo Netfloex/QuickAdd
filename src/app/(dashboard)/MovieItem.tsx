@@ -1,10 +1,11 @@
 import styles from "./MovieItem.module.scss"
 
-import { Card, CardBody, CardHeader } from "@nextui-org/card"
-import { Image } from "@nextui-org/image"
-import { useDisclosure } from "@nextui-org/use-disclosure"
 import NextImage from "next/image"
 import { useCallback } from "react"
+
+import { Card, CardBody, CardHeader } from "@heroui/card"
+import { Image } from "@heroui/image"
+import { useDisclosure } from "@heroui/use-disclosure"
 
 import { formatMovie } from "@utils/formatMovie"
 import { humanizeDuration } from "@utils/humanizeDuration"

@@ -1,6 +1,7 @@
-import { Button } from "@nextui-org/button"
 import { useCallback } from "react"
 import { MdRefresh } from "react-icons/md"
+
+import { Button } from "@heroui/button"
 
 import { trpc } from "@utils/trpc"
 

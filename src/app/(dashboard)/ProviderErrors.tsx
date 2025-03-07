@@ -1,5 +1,6 @@
-import { Card, CardBody, CardHeader } from "@nextui-org/card"
 import { MdWarning } from "react-icons/md"
+
+import { Card, CardBody, CardHeader } from "@heroui/card"
 
 import { ProviderError } from "@schemas/ProviderError"
 

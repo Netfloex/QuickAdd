@@ -1,5 +1,6 @@
-import { Card } from "@nextui-org/card"
 import { Suspense } from "react"
+
+import { Card } from "@heroui/card"
 
 import { QueryWrapper } from "./QueryWrapper"
 import { SearchField } from "./SearchField"

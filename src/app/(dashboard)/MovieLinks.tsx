@@ -1,16 +1,17 @@
-import { Button } from "@nextui-org/button"
+import Image from "next/image"
+import { FaImdb, FaYoutube } from "react-icons/fa"
+import { MdMoreVert } from "react-icons/md"
+import { SiRottentomatoes } from "react-icons/si"
+
+import { Button } from "@heroui/button"
 import {
 	Dropdown,
 	DropdownItem,
 	DropdownMenu,
 	DropdownSection,
 	DropdownTrigger,
-} from "@nextui-org/dropdown"
-import { Link } from "@nextui-org/link"
-import Image from "next/image"
-import { FaImdb, FaYoutube } from "react-icons/fa"
-import { MdMoreVert } from "react-icons/md"
-import { SiRottentomatoes } from "react-icons/si"
+} from "@heroui/dropdown"
+import { Link } from "@heroui/link"
 
 import { MovieSearchResult } from "@schemas/MovieSearchResult"
 
@@ -27,6 +28,7 @@ export const MovieLinks: FC<{ movie: MovieSearchResult }> = ({ movie }) => {
 			<DropdownMenu>
 				<DropdownSection title="Links" aria-label="Links">
 					<DropdownItem
+						key="imdb"
 						startContent={<FaImdb color="#f1c117" />}
 						href={`https://imdb.com/title/${movie.imdbId}`}
 						target="_blank"
@@ -36,6 +38,7 @@ export const MovieLinks: FC<{ movie: MovieSearchResult }> = ({ movie }) => {
 						</Link>
 					</DropdownItem>
 					<DropdownItem
+						key="tmdb"
 						startContent={
 							<Image
 								src="https://www.themoviedb.org/favicon.ico"
@@ -53,6 +56,7 @@ export const MovieLinks: FC<{ movie: MovieSearchResult }> = ({ movie }) => {
 						</Link>
 					</DropdownItem>
 					<DropdownItem
+						key="youtube"
 						startContent={<FaYoutube color="#ff0000" />}
 						href={`https://www.youtube.com/watch?v=${movie.youtubeTrailerId}`}
 						target="_blank"
@@ -62,6 +66,7 @@ export const MovieLinks: FC<{ movie: MovieSearchResult }> = ({ movie }) => {
 						</Link>
 					</DropdownItem>
 					<DropdownItem
+						key="rottentomatoes"
 						startContent={<SiRottentomatoes color="#f93109" />}
 						href={`https://duckduckgo.com/?q=\\site:www.rottentomatoes.com+${movie.title}+${movie.year}`}
 						rel="noopener noreferrer"

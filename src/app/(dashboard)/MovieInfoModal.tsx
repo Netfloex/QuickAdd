@@ -1,6 +1,7 @@
-import { Modal, ModalBody, ModalContent, ModalHeader } from "@nextui-org/modal"
-import { Tab, Tabs } from "@nextui-org/tabs"
 import { MovieInformation } from "src/app/(dashboard)/MovieInformation"
+
+import { Modal, ModalBody, ModalContent, ModalHeader } from "@heroui/modal"
+import { Tab, Tabs } from "@heroui/tabs"
 
 import { formatMovie } from "@utils/formatMovie"
 

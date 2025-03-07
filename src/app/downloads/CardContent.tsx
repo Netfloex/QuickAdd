@@ -1,9 +1,10 @@
 "use client"
 
-import { Divider } from "@nextui-org/divider"
-import { Selection } from "@nextui-org/table"
 import { useState } from "react"
 import { DeleteButton } from "src/app/downloads/DeleteButton"
+
+import { Divider } from "@heroui/divider"
+import { Selection } from "@heroui/table"
 
 import { DownloadingTable } from "./DownloadingTable"
 import { RefreshButton } from "./RefreshButton"

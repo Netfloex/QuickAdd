@@ -1,8 +1,9 @@
 "use client"
 
-import { Input } from "@nextui-org/input"
 import { useEffect, useRef } from "react"
 import { FaSearch } from "react-icons/fa"
+
+import { Input } from "@heroui/input"
 
 import { DownloadsLink } from "./DownloadsLink"
 
@@ -27,7 +28,7 @@ export const SearchField: FC<{
 
 		addEventListener("keydown", listener)
 
-		return () => {
+		return (): void => {
 			removeEventListener("keydown", listener)
 		}
 	}, [])

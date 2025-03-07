@@ -1,8 +1,9 @@
-import { Divider } from "@nextui-org/divider"
 import Image from "next/image"
 import { Fragment, useMemo } from "react"
 import { FaImdb } from "react-icons/fa"
 import { SiRottentomatoes } from "react-icons/si"
+
+import { Divider } from "@heroui/divider"
 
 import { MovieSearchResult } from "@schemas/MovieSearchResult"
 

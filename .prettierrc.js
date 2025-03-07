@@ -16,7 +16,7 @@ module.exports = {
 		"",
 		"<THIRD_PARTY_MODULES>",
 		"",
-		"^@(:?mui|nextui)/.*",
+		"^@(:?mui|heroui)/.*",
 		"",
 		"^@hooks/.*",
 		"",

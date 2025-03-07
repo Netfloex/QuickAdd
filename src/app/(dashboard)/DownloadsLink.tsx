@@ -1,10 +1,11 @@
 "use client"
 
-import { Badge } from "@nextui-org/badge"
-import { Button } from "@nextui-org/button"
-import { Spinner } from "@nextui-org/spinner"
 import Link from "next/link"
 import { MdDownload } from "react-icons/md"
+
+import { Badge } from "@heroui/badge"
+import { Button } from "@heroui/button"
+import { Spinner } from "@heroui/spinner"
 
 import { activeQueryOptions } from "@utils/activeQueryOptions"
 import { trpc } from "@utils/trpc"

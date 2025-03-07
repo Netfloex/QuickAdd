@@ -1,8 +1,8 @@
 // eslint-disable-next-line css-modules/no-unused-class
 import styles from "./MovieItem.module.scss"
 
-import { Card, CardBody } from "@nextui-org/card"
-import { Skeleton } from "@nextui-org/skeleton"
+import { Card, CardBody } from "@heroui/card"
+import { Skeleton } from "@heroui/skeleton"
 
 import type { FC } from "react"
 

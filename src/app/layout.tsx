@@ -1,4 +1,5 @@
 import "@styles/global.scss"
+import "@styles/tailwind.css"
 
 import { Providers } from "./Providers"
 

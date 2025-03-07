@@ -1,6 +1,9 @@
-import { Button } from "@nextui-org/button"
-import { Chip } from "@nextui-org/chip"
-import { Spinner } from "@nextui-org/spinner"
+import { Fragment, JSX, useCallback, useMemo, useState } from "react"
+import { FaMagnet } from "react-icons/fa"
+
+import { Button } from "@heroui/button"
+import { Chip } from "@heroui/chip"
+import { Spinner } from "@heroui/spinner"
 import {
 	getKeyValue,
 	SortDescriptor,
@@ -10,9 +13,7 @@ import {
 	TableColumn,
 	TableHeader,
 	TableRow,
-} from "@nextui-org/table"
-import { Fragment, useCallback, useMemo, useState } from "react"
-import { FaMagnet } from "react-icons/fa"
+} from "@heroui/table"
 
 import { useFilters } from "@hooks/useFilters"
 
@@ -30,7 +31,9 @@ import { ProviderErrors } from "./ProviderErrors"
 import { MovieSearchResult } from "@schemas/MovieSearchResult"
 import { Torrent } from "@schemas/Torrent"
 
-import type { FC, Key } from "react"
+import type { FC } from "react"
+
+type Key = string | number
 
 export const TorrentTable: FC<{ movie: MovieSearchResult }> = ({ movie }) => {
 	const {

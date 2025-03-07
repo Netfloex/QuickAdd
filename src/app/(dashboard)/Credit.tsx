@@ -1,5 +1,6 @@
-import { User } from "@nextui-org/user"
 import Link from "next/link"
+
+import { User } from "@heroui/user"
 
 import { MovieSearchResult } from "@schemas/MovieSearchResult"
 

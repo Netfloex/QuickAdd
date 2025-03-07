@@ -1,5 +1,6 @@
-import { Spacer } from "@nextui-org/spacer"
 import { Fragment } from "react"
+
+import { Spacer } from "@heroui/spacer"
 
 import { ErrorCard, ErrorCardError } from "@components/ErrorCard"
 

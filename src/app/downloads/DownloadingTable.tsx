@@ -1,5 +1,7 @@
-import { Progress } from "@nextui-org/progress"
-import { Spinner } from "@nextui-org/spinner"
+import { JSX, useCallback, useMemo } from "react"
+
+import { Progress } from "@heroui/progress"
+import { Spinner } from "@heroui/spinner"
 import {
 	getKeyValue,
 	Selection,
@@ -9,8 +11,7 @@ import {
 	TableColumn,
 	TableHeader,
 	TableRow,
-} from "@nextui-org/table"
-import { useCallback, useMemo } from "react"
+} from "@heroui/table"
 
 import { activeQueryOptions } from "@utils/activeQueryOptions"
 import { formatBytes } from "@utils/formatBytes"
@@ -25,7 +26,9 @@ import { PeersChip } from "@components/PeersChip"
 import { QbitTorrent } from "@schemas/QbitTorrent"
 import { TorrentMovieInfo } from "@schemas/TorrentMovieInfo"
 
-import type { FC, Key } from "react"
+import type { FC } from "react"
+
+type Key = string | number
 
 type QbitTorrentWithMovieInfo = QbitTorrent & {
 	movieInfo: TorrentMovieInfo | undefined

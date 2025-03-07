@@ -1,6 +1,7 @@
-import { Card } from "@nextui-org/card"
 import { Metadata } from "next"
 import { CardContent } from "src/app/downloads/CardContent"
+
+import { Card } from "@heroui/card"
 
 import type { FC } from "react"
 

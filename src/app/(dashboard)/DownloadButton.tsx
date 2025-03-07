@@ -1,8 +1,9 @@
-import { Button } from "@nextui-org/button"
-import { CircularProgress } from "@nextui-org/progress"
 import { useCallback } from "react"
 import { FaCheck, FaDownload } from "react-icons/fa"
 import { MdErrorOutline } from "react-icons/md"
+
+import { Button } from "@heroui/button"
+import { CircularProgress } from "@heroui/progress"
 
 import { useActiveTorrent } from "@hooks/useActiveTorrent"
 

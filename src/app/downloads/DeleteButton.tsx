@@ -1,9 +1,10 @@
-import { Button } from "@nextui-org/button"
-import { Checkbox } from "@nextui-org/checkbox"
-import { Popover, PopoverContent, PopoverTrigger } from "@nextui-org/popover"
-import { Selection } from "@nextui-org/table"
 import { useCallback, useState } from "react"
 import { MdDelete } from "react-icons/md"
+
+import { Button } from "@heroui/button"
+import { Checkbox } from "@heroui/checkbox"
+import { Popover, PopoverContent, PopoverTrigger } from "@heroui/popover"
+import { Selection } from "@heroui/table"
 
 import { trpc } from "@utils/trpc"
 

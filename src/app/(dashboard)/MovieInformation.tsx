@@ -1,11 +1,12 @@
-import { Chip } from "@nextui-org/chip"
-import { Divider } from "@nextui-org/divider"
-import { Image } from "@nextui-org/image"
 import NextImage from "next/image"
 import { Fragment, useMemo } from "react"
 import { Credit } from "src/app/(dashboard)/Credit"
 import { MovieLinks } from "src/app/(dashboard)/MovieLinks"
 import { MovieRatings } from "src/app/(dashboard)/MovieRatings"
+
+import { Chip } from "@heroui/chip"
+import { Divider } from "@heroui/divider"
+import { Image } from "@heroui/image"
 
 import { humanizeDuration } from "@utils/humanizeDuration"
 

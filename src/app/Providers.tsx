@@ -1,9 +1,10 @@
 "use client"
 
-import { NextUIProvider } from "@nextui-org/system"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { httpBatchLink, loggerLink, TRPCClientError } from "@trpc/client"
 import superjson from "superjson"
+
+import { HeroUIProvider } from "@heroui/system"
 
 import { useConstant } from "@hooks/useConstant"
 
@@ -47,7 +48,7 @@ export const Providers: FCC = ({ children }) => {
 	return (
 		<trpc.Provider client={trpcClient} queryClient={queryClient}>
 			<QueryClientProvider client={queryClient}>
-				<NextUIProvider>{children}</NextUIProvider>
+				<HeroUIProvider>{children}</HeroUIProvider>
 			</QueryClientProvider>
 		</trpc.Provider>
 	)
