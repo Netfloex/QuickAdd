@@ -29,8 +29,11 @@ export const PropertyFilter = ({
 }): JSX.Element => {
 	const selectedValue = useMemo(() => {
 		if (selectedKeys == "all") return "All"
+
 		const arr = Array.from(selectedKeys)
+
 		if (arr.length == items.length) return "All"
+
 		return arr
 			.map((key) => items.find((q) => q.key == key)?.label)
 			.join(", ")

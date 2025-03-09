@@ -26,6 +26,7 @@ export const QueryWrapper: FC = () => {
 			const newUrl = !value
 				? location.href.split("?")[0]
 				: `?query=${value}`
+
 			history.pushState(
 				{ ...history.state, as: newUrl, newUrl },
 				"",

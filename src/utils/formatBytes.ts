@@ -17,5 +17,6 @@ export const formatBytes = (bytes: number, decimals: number = 2): string => {
 	const i: number = Math.floor(Math.log(bytes) / Math.log(k))
 
 	const digit = parseFloat((bytes / Math.pow(k, i)).toFixed(decimals))
+
 	return `${digit} ${sizes[i]}`
 }

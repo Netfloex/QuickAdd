@@ -74,6 +74,7 @@ export const DownloadButton: FC<{
 	}
 
 	const isRealError = isError || data === false
+
 	return (
 		<>
 			<Button

@@ -128,16 +128,21 @@ export const TorrentTable: FC<{ movie: MovieSearchResult }> = ({ movie }) => {
 				typeName: string
 			}
 		> = {}
+
 		filterMap.forEach((v, k) => {
 			if (v == "all") return
+
 			const filter = availableSearchFilters?.find((f) => f.name == k)
+
 			if (filter == null) return
+
 			obj[k] = {
 				values: Array.from(v).map((e) => e.toString()),
 				display: filter.display,
 				typeName: filter.typeName,
 			}
 		})
+
 		return obj
 	}, [availableSearchFilters, filterMap])
 
