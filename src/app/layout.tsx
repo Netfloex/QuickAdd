@@ -8,10 +8,10 @@ import type { Metadata } from "next"
 import { FCC } from "@typings/FCC"
 
 const RootLayout: FCC = ({ children }) => (
-	<html lang="en" className="dark">
+	<html className="dark" lang="en">
 		<head>
 			<meta charSet="utf-8" />
-			<meta name="viewport" content="width=device-width" />
+			<meta content="width=device-width" name="viewport" />
 		</head>
 		<body>
 			<Providers>{children}</Providers>

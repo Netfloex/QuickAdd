@@ -1,6 +1,7 @@
 import { z } from "zod"
 
 export const MovieFilterProperties = z.record(
+	z.string(),
 	z.object({
 		display: z.string().max(10).regex(/^\w+$/),
 		values: z.array(z.string().regex(/^\w+$/)),

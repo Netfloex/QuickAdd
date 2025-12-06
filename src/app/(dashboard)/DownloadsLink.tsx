@@ -24,6 +24,8 @@ export const DownloadsLink: FC = () => {
 
 	return (
 		<Badge
+			classNames={{ badge: "aspect-square", base: "aspect-square" }}
+			color={color}
 			content={
 				isLoading ? (
 					<Spinner size="sm" />
@@ -33,13 +35,11 @@ export const DownloadsLink: FC = () => {
 					</div>
 				)
 			}
-			showOutline={false}
 			placement="top-right"
-			color={color}
-			classNames={{ badge: "aspect-square", base: "aspect-square" }}
+			showOutline={false}
 		>
-			<Link href="/downloads" className="w-full">
-				<Button isIconOnly className="w-full h-full">
+			<Link className="w-full" href="/downloads">
+				<Button className="w-full h-full" isIconOnly>
 					<MdDownload size="25" />
 				</Button>
 			</Link>

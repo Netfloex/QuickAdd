@@ -25,6 +25,7 @@ export const Results: FC<{
 		return (
 			<>
 				{Array.from({ length: loadingSkeletonCount }).map((_, i) => (
+					// eslint-disable-next-line react/no-array-index-key
 					<Fragment key={i}>
 						<LoadingSkeleton />
 						{i != loadingSkeletonCount && <Spacer y={3} />}
@@ -36,14 +37,10 @@ export const Results: FC<{
 	// No data
 	if (!movies.length) return <>No Items</>
 
-	return (
-		<>
-			{movies?.map((m, i) => (
-				<Fragment key={m.tmdbId}>
-					<MovieItem movie={m} />
-					{i != movies.length && <Spacer y={3} />}
-				</Fragment>
-			))}
-		</>
-	)
+	return movies?.map((m, i) => (
+		<Fragment key={m.tmdbId}>
+			<MovieItem movie={m} />
+			{i != movies.length && <Spacer y={3} />}
+		</Fragment>
+	))
 }

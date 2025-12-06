@@ -7,15 +7,12 @@ import { SearchField } from "./SearchField"
 
 import type { FC } from "react"
 
-export const Dashboard: FC = () => {
-	return (
+export const Dashboard: FC = () => (
 		<div className="container">
 			<Card className="p-3">
 				<Suspense
 					fallback={
-						<>
-							<SearchField defaultQuery="" />
-						</>
+						<SearchField defaultQuery="" />
 					}
 				>
 					<QueryWrapper />
@@ -23,4 +20,3 @@ export const Dashboard: FC = () => {
 			</Card>
 		</div>
 	)
-}

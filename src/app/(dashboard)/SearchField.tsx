@@ -36,14 +36,14 @@ export const SearchField: FC<{
 	return (
 		<div className="flex gap-2">
 			<Input
-				placeholder="Enter a movie to search..."
-				isClearable
 				autoFocus
 				defaultValue={defaultQuery}
+				isClearable
 				onValueChange={onValueChange}
+				placeholder="Enter a movie to search..."
 				ref={inputRef}
 				startContent={
-					<FaSearch className="text-black/50 dark:text-white/90 text-slate-400 pointer-events-none flex-shrink-0" />
+					<FaSearch className="dark:text-white/90 text-slate-400 pointer-events-none shrink-0" />
 				}
 			/>
 			<DownloadsLink />

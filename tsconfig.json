@@ -25,13 +25,19 @@
 		"resolveJsonModule": true,
 		"isolatedModules": true,
 		"tsBuildInfoFile": ".next/.tsbuildinfo",
-		"jsx": "preserve",
+		"jsx": "react-jsx",
 		"plugins": [
 			{
 				"name": "next"
 			}
 		]
 	},
-	"include": ["next-env.d.ts", ".next/types/**/*.ts", "**/*.ts", "**/*.tsx"],
+	"include": [
+		"next-env.d.ts",
+		".next/types/**/*.ts",
+		"**/*.ts",
+		"**/*.tsx",
+		".next/dev/types/**/*.ts"
+	],
 	"exclude": ["node_modules"]
 }

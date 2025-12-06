@@ -40,8 +40,7 @@ export const PropertyFilter = ({
 	}, [selectedKeys, items])
 
 	return (
-		<>
-			<Dropdown>
+		<Dropdown>
 				<DropdownTrigger>
 					<Button variant="bordered">
 						{type}: {selectedValue}
@@ -49,19 +48,18 @@ export const PropertyFilter = ({
 				</DropdownTrigger>
 				<DropdownMenu
 					aria-label={"Select " + type}
-					variant="flat"
 					closeOnSelect={false}
 					disallowEmptySelection
-					selectionMode="multiple"
-					selectedKeys={selectedKeys}
-					onSelectionChange={setSelectedKeys}
 					items={items}
+					onSelectionChange={setSelectedKeys}
+					selectedKeys={selectedKeys}
+					selectionMode="multiple"
+					variant="flat"
 				>
 					{(item): JSX.Element => (
 						<DropdownItem key={item.key}>{item.label}</DropdownItem>
 					)}
 				</DropdownMenu>
 			</Dropdown>
-		</>
 	)
 }

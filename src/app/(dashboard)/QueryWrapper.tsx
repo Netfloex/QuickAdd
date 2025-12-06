@@ -51,8 +51,8 @@ export const QueryWrapper: FC = () => {
 	return (
 		<>
 			<SearchField
-				onValueChange={onSearchChange}
 				defaultQuery={queryParam}
+				onValueChange={onSearchChange}
 			/>
 			<Spacer y={3} />
 			{query.length === 0 ? (
@@ -60,18 +60,18 @@ export const QueryWrapper: FC = () => {
 					<h1 className="text-3xl font-bold">Trending</h1>
 					<Spacer y={3} />
 					<Results
-						movies={trendingMovies || []}
-						isLoading={trendingLoading}
 						error={trendingError}
+						isLoading={trendingLoading}
 						loadingSkeletonCount={15}
+						movies={trendingMovies || []}
 					/>
 				</>
 			) : (
 				<Results
-					movies={searchedMovies || []}
-					isLoading={searchLoading}
 					error={searchError}
+					isLoading={searchLoading}
 					loadingSkeletonCount={3}
+					movies={searchedMovies || []}
 				/>
 			)}
 		</>

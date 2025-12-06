@@ -9,6 +9,4 @@ export const searchMoviesRoute = procedure
 			query: z.string().min(1),
 		}),
 	)
-	.query(async ({ input: { query } }) => {
-		return await searchMovies(query)
-	})
+	.query(async ({ input: { query } }) => await searchMovies(query))

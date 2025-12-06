@@ -36,9 +36,9 @@ export const handleApi = async <T extends ZodType>(
 		.safeParse(data)
 
 	if (result.success) {
-		if (result.data.data)
+		if ((result.data as { data?: unknown }).data)
 			return {
-				...result.data.data,
+				...(result.data as unknown as { data: T }).data,
 				isError: false,
 			} as HandleApiResponse<T>
 		else {

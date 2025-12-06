@@ -14,6 +14,7 @@ export const searchTorrentsRoute = procedure
 			movieFilterProps: MovieFilterProperties,
 		}),
 	)
-	.query(async ({ input: { imdb, sortOptions, movieFilterProps } }) => {
-		return await searchTorrents(imdb, sortOptions, movieFilterProps)
-	})
+	.query(
+		async ({ input: { imdb, sortOptions, movieFilterProps } }) =>
+			await searchTorrents(imdb, sortOptions, movieFilterProps),
+	)

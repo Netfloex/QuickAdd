@@ -28,11 +28,11 @@ export const MovieRatings: FC<{ movie: MovieSearchResult }> = ({ movie }) => {
 				{
 					icon: (
 						<Image
-							src="https://www.metacritic.com/favicon.ico"
-							width="16"
-							height="16"
-							unoptimized
 							alt="M"
+							height="16"
+							src="https://www.metacritic.com/favicon.ico"
+							unoptimized
+							width="16"
 						/>
 					),
 					data: movie.movieRatings.metacritic,
@@ -42,11 +42,11 @@ export const MovieRatings: FC<{ movie: MovieSearchResult }> = ({ movie }) => {
 				{
 					icon: (
 						<Image
-							src="https://www.themoviedb.org/favicon.ico"
-							width="16"
-							height="16"
-							unoptimized
 							alt="M"
+							height="16"
+							src="https://www.themoviedb.org/favicon.ico"
+							unoptimized
+							width="16"
 						/>
 					),
 					data: movie.movieRatings.tmdb,
@@ -63,10 +63,9 @@ export const MovieRatings: FC<{ movie: MovieSearchResult }> = ({ movie }) => {
 
 	return (
 		<div className="flex space-x-4 h-6 overflow-x-scroll">
-			{data.map((d, i) => {
-				return (
+			{data.map((d, i) => (
 					<Fragment key={d.name}>
-						<div title={d.name} className="flex gap-1 items-center">
+						<div className="flex gap-1 items-center" title={d.name}>
 							{d.icon}{" "}
 							{d.percentage
 								? `${d.data!.value}%`
@@ -76,8 +75,7 @@ export const MovieRatings: FC<{ movie: MovieSearchResult }> = ({ movie }) => {
 							<Divider orientation="vertical" />
 						)}
 					</Fragment>
-				)
-			})}
+				))}
 		</div>
 	)
 }

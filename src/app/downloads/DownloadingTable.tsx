@@ -43,8 +43,7 @@ export const DownloadingTable: FC<{
 		activeQueryOptions(10),
 	)
 
-	const torrents: QbitTorrentWithMovieInfo[] | undefined = useMemo(() => {
-		return data?.torrents.map((torrent) => {
+	const torrents: QbitTorrentWithMovieInfo[] | undefined = useMemo(() => data?.torrents.map((torrent) => {
 			const movieInfo = data?.movieInfo.find((info) =>
 				info.forTorrents.includes(torrent.hash),
 			)
@@ -53,8 +52,7 @@ export const DownloadingTable: FC<{
 				...torrent,
 				movieInfo,
 			}
-		})
-	}, [data?.movieInfo, data?.torrents])
+		}), [data?.movieInfo, data?.torrents])
 
 	const renderCell = useCallback(
 		(torrent: QbitTorrentWithMovieInfo, key: Key): JSX.Element => {
@@ -75,11 +73,11 @@ export const DownloadingTable: FC<{
 				case "progress":
 					return (
 						<Progress
-							value={torrent.progress * 100}
 							showValueLabel
 							title={`Downloading ${formatBytes(
 								torrent.downloaded,
 							)} / ${formatBytes(torrent.size)}`}
+							value={torrent.progress * 100}
 						/>
 					)
 				case "dlspeed":
@@ -91,8 +89,8 @@ export const DownloadingTable: FC<{
 				case "peers":
 					return (
 						<PeersChip
-							seeders={torrent.numSeeds}
 							leechers={torrent.numLeechs}
+							seeders={torrent.numSeeds}
 						/>
 					)
 				case "eta":
@@ -113,13 +111,12 @@ export const DownloadingTable: FC<{
 	}
 
 	return (
-		<>
-			<div className="overflow-scroll">
+		<div className="overflow-scroll">
 				<Table
-					removeWrapper
-					selectionMode="multiple"
-					selectedKeys={selectedKeys}
 					onSelectionChange={setSelectedKeys}
+					removeWrapper
+					selectedKeys={selectedKeys}
+					selectionMode="multiple"
 				>
 					<TableHeader>
 						<TableColumn key="name">Name</TableColumn>
@@ -130,15 +127,15 @@ export const DownloadingTable: FC<{
 						<TableColumn key="eta">ETA</TableColumn>
 					</TableHeader>
 					<TableBody
-						items={torrents ?? []}
-						isLoading={isLoading}
-						loadingState={isLoading ? "loading" : "idle"}
-						loadingContent={<Spinner label="Loading..." />}
 						emptyContent={
 							data && data.torrents.length == 0
 								? "No active torrents"
 								: " "
 						}
+						isLoading={isLoading}
+						items={torrents ?? []}
+						loadingContent={<Spinner label="Loading..." />}
+						loadingState={isLoading ? "loading" : "idle"}
 					>
 						{(item): JSX.Element => (
 							<TableRow key={item.hash}>
@@ -152,6 +149,5 @@ export const DownloadingTable: FC<{
 					</TableBody>
 				</Table>
 			</div>
-		</>
 	)
 }

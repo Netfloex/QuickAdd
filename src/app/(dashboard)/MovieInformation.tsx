@@ -35,18 +35,18 @@ export const MovieInformation: FC<{ movie: MovieSearchResult }> = ({
 		movie.certifications.forEach((certification) => {
 			chipsArray.push(
 				<Chip
-					variant="bordered"
 					key={certification.country}
 					startContent={
 						<NextImage
 							alt={certification.country}
-							width="16"
-							height="16"
 							className="w-full h-full rounded-full"
-							unoptimized
+							height="16"
 							src={`https://flagsapi.com/${certification.country}/flat/16.png`}
+							unoptimized
+							width="16"
 						/>
 					}
+					variant="bordered"
 				>
 					{certification.certification}
 				</Chip>,
@@ -54,7 +54,7 @@ export const MovieInformation: FC<{ movie: MovieSearchResult }> = ({
 		})
 
 		return chipsArray.map((chip, index) => (
-			<Fragment key={index}>
+			<Fragment key={chip.key}>
 				{chip}
 				{index < chipsArray.length - 1 && (
 					<div className="h-5">
@@ -73,11 +73,11 @@ export const MovieInformation: FC<{ movie: MovieSearchResult }> = ({
 						<Image
 							alt=""
 							as={NextImage}
-							width="240"
-							height="360"
-							unoptimized
 							className="w-full h-full"
+							height="360"
 							src={movie.posterUrl}
+							unoptimized
+							width="240"
 						/>
 					) : (
 						<div className="w-[240px] h-[360px] bg-neutral-950 rounded-large" />

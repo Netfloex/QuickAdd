@@ -59,8 +59,8 @@ export const TorrentTable: FC<{ movie: MovieSearchResult }> = ({ movie }) => {
 				case "seeders":
 					return (
 						<PeersChip
-							seeders={torrent.seeders}
 							leechers={torrent.leechers}
+							seeders={torrent.seeders}
 						/>
 					)
 				case "added":
@@ -78,12 +78,12 @@ export const TorrentTable: FC<{ movie: MovieSearchResult }> = ({ movie }) => {
 					return (
 						<a
 							href={torrent.magnet}
-							target="_blank"
 							rel="noreferrer"
+							target="_blank"
 						>
 							<Button
-								isIconOnly
 								color="primary"
+								isIconOnly
 								variant="bordered"
 							>
 								<FaMagnet />
@@ -91,7 +91,7 @@ export const TorrentTable: FC<{ movie: MovieSearchResult }> = ({ movie }) => {
 						</a>
 					)
 				case "download":
-					return <DownloadButton torrent={torrent} movie={movie} />
+					return <DownloadButton movie={movie} torrent={torrent} />
 				case "provider":
 					return (
 						<div className="flex flex-col items-center gap-1">
@@ -177,7 +177,7 @@ export const TorrentTable: FC<{ movie: MovieSearchResult }> = ({ movie }) => {
 				<span className="font-light text-xs">Filters:</span>
 				<div className="flex gap-3 items-end">
 					{searchFiltersLoading ? (
-						<Button variant="bordered" isLoading>
+						<Button isLoading variant="bordered">
 							Loading filters
 						</Button>
 					) : searchFiltersError ? (
@@ -185,24 +185,24 @@ export const TorrentTable: FC<{ movie: MovieSearchResult }> = ({ movie }) => {
 					) : (
 						availableSearchFilters?.map((filter) => (
 							<PropertyFilter
-								key={filter.name}
-								type={filter.display}
 								items={filter.values.map((v) => ({
 									label: v.display,
 									key: v.name,
 								}))}
+								key={filter.name}
 								selectedKeys={filters(filter.name).get()}
 								setSelectedKeys={filters(filter.name).set}
+								type={filter.display}
 							/>
 						))
 					)}
 				</div>
 			</div>
 			<Table
+				isStriped
+				onSortChange={sort}
 				removeWrapper
 				sortDescriptor={sortDescriptor}
-				onSortChange={sort}
-				isStriped
 			>
 				<TableHeader>
 					<TableColumn key="name">Title</TableColumn>
@@ -223,10 +223,6 @@ export const TorrentTable: FC<{ movie: MovieSearchResult }> = ({ movie }) => {
 					</TableColumn>
 				</TableHeader>
 				<TableBody
-					items={data?.torrents ?? []}
-					isLoading={isFetching}
-					loadingState={isFetching ? "loading" : "idle"}
-					loadingContent={<Spinner label="Loading..." />}
 					emptyContent={
 						data && data.torrents.length == 0 ? (
 							"No torrents found"
@@ -236,6 +232,10 @@ export const TorrentTable: FC<{ movie: MovieSearchResult }> = ({ movie }) => {
 							" "
 						)
 					}
+					isLoading={isFetching}
+					items={data?.torrents ?? []}
+					loadingContent={<Spinner label="Loading..." />}
+					loadingState={isFetching ? "loading" : "idle"}
 				>
 					{(item): JSX.Element => (
 						<TableRow key={item.name + item.infoHash}>

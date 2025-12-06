@@ -15,14 +15,12 @@ export const RefreshButton: FC = () => {
 	}, [refetch])
 
 	return (
-		<>
-			<Button
+		<Button
 				isLoading={isFetching}
 				onClick={refresh}
 				startContent={!isFetching && <MdRefresh size={20} />}
 			>
 				Refresh
 			</Button>
-		</>
 	)
 }

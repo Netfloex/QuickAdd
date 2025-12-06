@@ -29,21 +29,21 @@ export const MovieItem: FC<{ movie: MovieSearchResult }> = ({ movie }) => {
 
 	return (
 		<>
-			<MovieInfoModal isOpen={isOpen} onClose={onClose} movie={movie} />
+			<MovieInfoModal isOpen={isOpen} movie={movie} onClose={onClose} />
 			<Card className={styles.movieItem} isPressable onPress={openModal}>
 				<CardBody className={styles.body}>
 					{movie.posterUrl !== null ? (
 						<Image
 							alt=""
 							as={NextImage}
-							width="240"
-							height="360"
-							unoptimized
-							src={movie.posterUrl}
 							classNames={{
 								wrapper: styles.posterWrapper,
 								img: styles.poster,
 							}}
+							height="360"
+							src={movie.posterUrl}
+							unoptimized
+							width="240"
 						/>
 					) : (
 						<div

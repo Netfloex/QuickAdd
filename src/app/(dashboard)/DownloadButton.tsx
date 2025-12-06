@@ -44,7 +44,7 @@ export const DownloadButton: FC<{
 	if (activeTorrent !== undefined) {
 		if (activeTorrent.progress === 1) {
 			return (
-				<Button isIconOnly color="success" variant="bordered" disabled>
+				<Button color="success" disabled isIconOnly variant="bordered">
 					<FaCheck />
 				</Button>
 			)
@@ -52,11 +52,11 @@ export const DownloadButton: FC<{
 
 		return (
 			<CircularProgress
-				value={activeTorrent.progress * 100}
 				showValueLabel
 				title={`Downloading ${formatBytes(
 					activeTorrent.downloaded,
 				)} / ${formatBytes(activeTorrent.size)}`}
+				value={activeTorrent.progress * 100}
 			/>
 		)
 	}
@@ -64,11 +64,11 @@ export const DownloadButton: FC<{
 	if (data === true) {
 		return (
 			<CircularProgress
-				value={0}
 				showValueLabel
 				title={`Downloading ${formatBytes(0)} / ${formatBytes(
 					torrent.size,
 				)}`}
+				value={0}
 			/>
 		)
 	}
@@ -76,13 +76,12 @@ export const DownloadButton: FC<{
 	const isRealError = isError || data === false
 
 	return (
-		<>
-			<Button
-				isIconOnly
+		<Button
 				color={isRealError || data === false ? "danger" : "default"}
-				variant="bordered"
-				onPress={downloadMovie}
+				isIconOnly
 				isLoading={isPending}
+				onPress={downloadMovie}
+				variant="bordered"
 			>
 				{!isPending &&
 					(isRealError ? (
@@ -91,6 +90,5 @@ export const DownloadButton: FC<{
 						<FaDownload />
 					))}
 			</Button>
-		</>
 	)
 }

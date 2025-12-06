@@ -15,15 +15,13 @@ export const MovieInfoModal: FC<{
 	isOpen: boolean
 	onClose: () => void
 	movie: MovieSearchResult
-}> = ({ isOpen, onClose, movie }) => {
-	return (
-		<>
-			<Modal
-				size="full"
+}> = ({ isOpen, onClose, movie }) => (
+		<Modal
 				isOpen={isOpen}
 				onClose={onClose}
-				scrollBehavior="inside"
 				placement="center"
+				scrollBehavior="inside"
+				size="full"
 			>
 				<ModalContent>
 					<ModalHeader className="flex flex-col gap-1">
@@ -43,6 +41,4 @@ export const MovieInfoModal: FC<{
 					</ModalBody>
 				</ModalContent>
 			</Modal>
-		</>
 	)
-}

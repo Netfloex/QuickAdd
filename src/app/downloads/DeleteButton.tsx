@@ -49,17 +49,16 @@ export const DeleteButton: FC<{
 	const keysCount = selectedKeys === "all" ? "all" : selectedKeys.size
 
 	return (
-		<>
-			<Popover
-				placement="bottom"
+		<Popover
 				isOpen={isError || isOpen}
 				onOpenChange={(open) => setIsOpen(open)}
+				placement="bottom"
 			>
 				<PopoverTrigger>
 					<Button
 						color="danger"
-						startContent={<MdDelete size={20} />}
 						isDisabled={keysCount === 0}
+						startContent={<MdDelete size={20} />}
 					>
 						Delete
 					</Button>
@@ -89,9 +88,9 @@ export const DeleteButton: FC<{
 									</Checkbox>
 									<div className="flex justify-end space-x-2 mt-4">
 										<Button
-											onClick={deleteTorrents}
-											isLoading={isPending}
 											color="danger"
+											isLoading={isPending}
+											onClick={deleteTorrents}
 										>
 											Delete
 										</Button>
@@ -102,6 +101,5 @@ export const DeleteButton: FC<{
 					}}
 				</PopoverContent>
 			</Popover>
-		</>
 	)
 }

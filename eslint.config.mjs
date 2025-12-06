@@ -1,30 +1,34 @@
-import { FlatCompat } from "@eslint/eslintrc"
 import stylistic from "@stylistic/eslint-plugin"
-
-const compat = new FlatCompat({
-	baseDirectory: import.meta.dirname,
-})
+import nextCoreWebVitals from "eslint-config-next/core-web-vitals"
+import nextTypescript from "eslint-config-next/typescript"
+import prettier from "eslint-config-prettier/flat"
 
 const eslintConfig = [
-	...compat.config({
-		extends: [
-			"next/core-web-vitals",
-			"next/typescript",
-			"plugin:prettier/recommended",
-			"plugin:css-modules/recommended",
-			"plugin:@tanstack/eslint-plugin-query/recommended",
-		],
-		plugins: ["css-modules"],
-		rules: {
-			"@typescript-eslint/no-non-null-assertion": 0,
-			"@typescript-eslint/no-unused-vars": "error",
-			"@typescript-eslint/explicit-function-return-type": "error",
-		},
-		ignorePatterns: [".next"],
-	}),
+	{
+		ignores: [".next"],
+	},
+	...nextCoreWebVitals,
+	...nextTypescript,
+	prettier,
 	{
 		plugins: { "@stylistic": stylistic },
 		rules: {
+			// Typescript
+			"@typescript-eslint/explicit-function-return-type": "error",
+
+			// React
+			"react/jsx-curly-brace-presence": "error",
+			"react/jsx-no-useless-fragment": "error",
+			"react/jsx-pascal-case": "error",
+			"react/jsx-sort-props": "error",
+			"react/no-array-index-key": "error",
+			"react/prefer-stateless-function": "error",
+			"react/self-closing-comp": "error",
+
+			// ESLint
+
+			"arrow-body-style": ["error", "as-needed"],
+
 			"padding-line-between-statements": [
 				"error",
 
